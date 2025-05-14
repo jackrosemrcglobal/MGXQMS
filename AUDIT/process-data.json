@@ -1,0 +1,1731 @@
+[
+  {
+    "name": "Quality Management",
+    "category": "Management Process",
+    "relatedProcesses": "Internal Audit, Document Control, Management Review",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Quality policy is documented and communicated",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Quality objectives are defined and measurable",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Roles and responsibilities are clearly defined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "External and internal issues relevant to the organization's purpose have been determined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Interested parties and their requirements have been identified",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "The scope of the quality management system is defined and available",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Top management provides evidence of commitment to quality management system development and implementation",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "The organization has established a process for risk-based thinking and risk assessment",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "There is a systematic approach to identifying and addressing organizational risks and opportunities",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Quality management system documentation is comprehensive and up-to-date",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "There is a clear process for reviewing and updating quality objectives periodically",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "The organization has established methods to communicate quality objectives across all levels",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "There are defined processes for internal communication related to quality management",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Competence requirements for personnel are clearly defined and documented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "A process exists for maintaining and retaining documented information",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "The organization has established a systematic approach to knowledge management",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "There is a process for monitoring and measuring the effectiveness of quality management system",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Internal audit processes are comprehensive and cover all key quality management areas",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Management review meetings comprehensively address quality management system performance",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "A robust process exists for identifying and implementing continuous improvement opportunities",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Process Control",
+    "category": "Management Process",
+    "relatedProcesses": "Quality Management, Internal Audit",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Processes are systematically defined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process performance is monitored",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Continuous improvement mechanisms exist",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process interactions and sequence are documented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process resources and responsibilities are clearly defined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Risks and opportunities for each process have been addressed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process inputs and expected outputs are clearly defined and documented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Measurement and monitoring methods for process performance are established",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process control mechanisms ensure consistent and predictable results",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process variability is tracked and analyzed systematically",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Clear criteria and methods are defined to ensure effective process operation",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process documentation includes clear work instructions and procedures",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process control strategies address potential non-conformities and their prevention",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Performance indicators (KPIs) for each process are established and tracked",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Processes are reviewed and updated based on performance data and feedback",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process control includes validation and verification of process capabilities",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Management Responsibility",
+    "category": "Management Process",
+    "relatedProcesses": "Quality Management, Internal Audit, Management Review",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Business planning process is well-documented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Management review meetings are regularly conducted",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Strategic objectives are clearly defined and communicated",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Top management demonstrates leadership and commitment to QMS",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Organizational roles support quality management system effectiveness",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Top management has established a quality policy that is appropriate to the organization's purpose and context",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Quality policy provides a framework for setting quality objectives",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Management ensures that quality responsibilities and authorities are assigned and communicated within the organization",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Top management considers the needs and expectations of interested parties in the quality management system",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "The organization has a defined process for managing organizational knowledge and ensuring its availability",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Top management ensures integration of quality management system requirements into the organization's business processes",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "There is a systematic approach to risk-based thinking and opportunity identification across the organization",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Management review includes evaluation of opportunities for improvement and need for changes to the quality management system",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "The organization has a clear communication strategy for quality objectives and performance",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Top management promotes a process approach and risk-based thinking throughout the organization",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Resource Management",
+    "category": "Management Process",
+    "relatedProcesses": "Quality Management, Internal Audit, Human Resources",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Human resource processes are well-defined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Training programs are comprehensive and tracked",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Facilities and equipment maintenance is systematic",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Document and data control processes are robust",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Resources needed for QMS establishment and maintenance are determined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Competence of persons doing work affecting quality is ensured",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "A systematic approach to determining and providing necessary resources for QMS implementation exists",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Personnel are aware of the relevance and importance of their activities in achieving quality objectives",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "The organization has established a process for identifying and addressing workforce training needs",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Records of education, training, skills, and experience are maintained for personnel",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Infrastructure support for process operations is adequately planned and maintained",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Environment for the operation of processes is monitored and managed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Measurement and monitoring resources are calibrated, verified, and maintained at regular intervals",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "The organization ensures the availability of appropriate resources for monitoring and measuring",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Knowledge management processes are established to retain and share organizational knowledge",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Organizational competence is systematically assessed and improved",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Measurement Analysis and Improvement",
+    "category": "Management Process",
+    "relatedProcesses": "Quality Management, Internal Audit, Continuous Improvement",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Financial processes (Accounting) are well-controlled",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Legal and risk management processes are effective",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Internal auditing processes are comprehensive",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Data analysis processes cover multiple domains",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Monitoring and measurement are established to ensure conformity to product requirements",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Internal audit processes are established to evaluate QMS effectiveness",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Corrective action processes are established to address nonconformity",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Performance indicators are defined, measured, and analyzed systematically",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Customer feedback and satisfaction data are collected and analyzed regularly",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Trend analysis is performed to identify potential improvements and prevent recurring issues",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Nonconformity root cause analysis is conducted systematically",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process performance data is used for strategic decision-making",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Statistical methods are used to analyze and improve process performance",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Management review includes a comprehensive analysis of organizational performance metrics",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "There is a clear process for identifying and prioritizing improvement opportunities",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Effectiveness of corrective and preventive actions is systematically evaluated",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "External audit findings are tracked and addressed systematically",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Marketing",
+    "category": "Basic & Supporting Processes",
+    "relatedProcesses": "Sales, Customer Satisfaction",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Customer satisfaction measurement is systematic",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Vendor relations are professionally managed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Marketing strategies are aligned with business objectives",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Market research is conducted to determine customer requirements",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Customer communication processes are established",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Marketing communication materials are consistent with organizational quality policy",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Customer feedback mechanisms are comprehensive and regularly reviewed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Marketing team has clear processes for evaluating and responding to customer needs",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Competitive analysis and market positioning are systematically performed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Digital marketing and online presence align with organization's brand and quality standards",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Marketing performance metrics are defined, tracked, and analyzed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Product or service positioning reflects accurate and verifiable information",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Marketing strategy includes mechanisms for continuous improvement based on market feedback",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Risk management processes are integrated into marketing strategy development",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Marketing team demonstrates awareness of and compliance with legal and regulatory requirements",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Sales, Projects and Tenders",
+    "category": "Basic & Supporting Processes",
+    "relatedProcesses": "Marketing, Customer Satisfaction",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "RFQ and quotation processes are well-defined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Order review and entry processes are rigorous",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Design and change control processes are documented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Tendering processes are established to ensure accurate and complete information",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Contract review processes are established to ensure requirements are met",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Project management methodology is clearly defined and consistently applied",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Risk assessment and mitigation strategies are integrated into project planning",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Customer requirements are systematically captured and validated throughout the sales process",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Project communication plans are established and maintained",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Performance metrics for sales and project success are defined and tracked",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Proposal development process includes comprehensive review and approval stages",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Customer interaction and feedback mechanisms are integrated into project lifecycle",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Post-project review and lessons learned process is systematically implemented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Resource allocation and project staffing processes are well-documented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Cost estimation and financial tracking processes are robust and transparent",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Purchasing",
+    "category": "Basic & Supporting Processes",
+    "relatedProcesses": "Inventory Management, Supplier Management",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Purchase order process is systematic",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier management process is comprehensive",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Subcontractor activities are well-monitored",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier selection and evaluation processes are established",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Purchasing information is accurate and complete",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Procurement strategy aligns with organizational quality and strategic objectives",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Procurement risk management processes are comprehensive and proactive",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier performance metrics are systematically tracked and analyzed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Procurement documentation and records are maintained and controlled",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier communication and relationship management processes are clearly defined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Cost management and price negotiation strategies are systematic and transparent",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Procurement compliance with legal and regulatory requirements is ensured",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier diversity and sustainability considerations are integrated into procurement processes",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Emergency and alternative sourcing strategies are established",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Technology and digital tools are effectively used to streamline procurement processes",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Warehousing",
+    "category": "Basic & Supporting Processes",
+    "relatedProcesses": "Inventory Management, Shipping and Receiving",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Inventory management is precise and tracked",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Quality control processes are robust",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Product nonconformity and RMA processes are well-defined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Storage and preservation processes are established to prevent damage",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Inventory control processes are established to ensure accurate tracking",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Warehouse layout and organization optimize space utilization and workflow efficiency",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Temperature and environmental controls are established for sensitive inventory",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Cycle counting and periodic inventory reconciliation processes are systematic",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Digital inventory management systems are integrated and provide real-time tracking",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Safety protocols and equipment maintenance for warehouse operations are comprehensive",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Pick, pack, and shipping processes are standardized and traceable",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Returns and reverse logistics processes are clearly defined and efficiently managed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Barcoding or RFID tracking systems are implemented for inventory accuracy",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Stock rotation methods (e.g., FIFO, LIFO) are consistently applied",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Emergency and disaster recovery plans for inventory are established",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Shop Work",
+    "category": "Basic & Supporting Processes",
+    "relatedProcesses": "Production, Quality Control",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Design and change control processes are documented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Specifications and drawings are maintained accurately",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Production processes are established to ensure conformity to product requirements",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process validation is performed to ensure conformity to product requirements",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Manufacturing equipment is regularly calibrated and maintained to ensure accuracy and precision",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Quality control checkpoints are integrated throughout the manufacturing process",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Manufacturing work instructions are clear, accessible, and up-to-date",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Material traceability processes are established and consistently implemented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Production planning considers resource availability, capacity, and potential constraints",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Worker competence and training requirements for each manufacturing process are clearly defined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Non-conforming product identification, segregation, and disposition processes are robust",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Statistical process control techniques are used to monitor and improve manufacturing performance",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Tools, fixtures, and measuring equipment are systematically verified and maintained",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Manufacturing processes include clear procedures for handling customer-specific requirements",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Post-production testing and inspection processes are comprehensive and documented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Transportation",
+    "category": "Outsourced Processes",
+    "relatedProcesses": "Shipping and Receiving, Logistics",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Goods delivery process is reliable and tracked",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Delivery performance metrics are monitored",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Transportation processes are established to ensure safe and secure delivery",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Packaging and labeling processes are established to prevent damage",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Vehicle maintenance and fleet management processes are systematic",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Route optimization strategies are implemented to improve efficiency",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Driver performance and safety training programs are established",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Transportation risk management processes cover potential disruptions and contingencies",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Real-time tracking and communication systems are integrated into transportation operations",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Compliance with transportation regulations and legal requirements is consistently maintained",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Subcontractor Activity",
+    "category": "Outsourced Processes",
+    "relatedProcesses": "Procurement, Supplier Management",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Third-party work is clearly defined and controlled",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Outsourced services meet quality standards",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "External providers are evaluated based on their ability to meet requirements",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Type and extent of control for external providers is determined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Comprehensive subcontractor qualification and onboarding process exists",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Performance metrics and KPIs for subcontractors are systematically tracked and reviewed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Clear communication channels and escalation procedures with subcontractors are established",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Risk assessment and mitigation strategies for subcontractor-related activities are documented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Confidentiality and data protection agreements are in place for all subcontractors",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Periodic performance reviews and continuous improvement mechanisms for subcontractors are implemented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Supplier Audit",
+    "category": "Outsourced Processes",
+    "relatedProcesses": "Procurement, Quality Control",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Supplier qualification process is comprehensive and well-documented",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier performance evaluation criteria are clearly defined",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Risk assessment process for suppliers is established",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier selection process considers quality, cost, and delivery capabilities",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Regular supplier performance reviews are conducted",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Corrective action processes for supplier nonconformities are established",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier communication channels are clear and effective",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier quality management system compliance is verified",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier confidentiality and data protection measures are in place",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier training and development programs are evaluated",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier contract terms include quality and performance expectations",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier innovation and continuous improvement are encouraged",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier financial stability and business continuity are assessed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Environmental and sustainability criteria are considered in supplier evaluation",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Supplier complaint and feedback mechanisms are established",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  },
+  {
+    "name": "Management Review",
+    "category": "Management Process",
+    "relatedProcesses": "Quality Management, Internal Audit, Continuous Improvement",
+    "lastModified": "2023-01-01T00:00:00.000Z",
+    "header": {
+      "auditNumber": "",
+      "auditDate": "",
+      "auditTeam": "",
+      "auditScope": "",
+      "auditObjective": "",
+      "auditCriteria": "",
+      "auditLocation": "",
+      "leadAuditor": "",
+      "additionalNotes": ""
+    },
+    "criteria": [
+      {
+        "description": "Previous management review actions have been followed up",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Changes in external and internal issues relevant to the quality management system have been reviewed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Information on the performance and effectiveness of the quality management system is available",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Customer feedback and satisfaction levels have been analyzed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Process performance and product conformity have been evaluated",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Nonconformities and corrective actions have been reviewed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Results of internal and external audits have been discussed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Performance of external providers has been evaluated",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Resource needs and adequacy have been assessed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Effectiveness of actions to address risks and opportunities has been evaluated",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Improvement opportunities have been identified",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Quality objectives and their achievement have been reviewed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Strategic direction and potential need for changes to the quality management system have been discussed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Recommendations for improvement have been developed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      },
+      {
+        "description": "Communication effectiveness within the organization has been assessed",
+        "compliant": false,
+        "notes": "",
+        "correctiveActions": "",
+        "auditStatus": "Not Assessed"
+      }
+    ]
+  }
+]

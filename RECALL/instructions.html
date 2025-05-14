@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use the Recall Customer Notification Letter Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .instructions-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .instructions-section {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .instructions-section:last-child {
+            border-bottom: none;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .tip {
+            background-color: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            color: #3498db;
+        }
+        
+        .screenshot {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions-container">
+        <h1>How to Use the Recall Customer Notification Letter Generator</h1>
+        
+        <div class="instructions-section">
+            <h2>Overview</h2>
+            <p>This tool allows you to generate professional recall notification letters for customers by combining your recall information with customer data from a CSV file. You can customize the letter content, group letters by different criteria, and export them in various formats.</p>
+        </div>
+        
+        <div class="instructions-section">
+            <h2>1. Enter Recall Information</h2>
+            <div class="step">
+                <h3>Required Fields</h3>
+                <p>Fill in these basic recall details:</p>
+                <ul>
+                    <li><strong>Recall Date:</strong> The date when the recall was issued</li>
+                    <li><strong>Manufacturer:</strong> The name of the product manufacturer</li>
+                    <li><strong>NCR:</strong> The Non-Conformance Report number</li>
+                    <li><strong>Material Category:</strong> The category of materials affected (e.g., "valves", "pipes")</li>
+                    <li><strong>Issue:</strong> Brief description of the problem (e.g., "found to have manufacturing defects")</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Optional Fields</h3>
+                <p>Additional information you can include:</p>
+                <ul>
+                    <li><strong>Heat Number:</strong> The product's heat or batch number if applicable</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Custom Fields</h3>
+                <p>You can define up to 5 custom fields that can be inserted into your letter content using placeholder tags:</p>
+                <ul>
+                    <li><strong>Field 1-5:</strong> Any additional information that may need to be inserted into your letters</li>
+                </ul>
+                <p>To use these fields in your letter content, insert <code>[FIELD1]</code>, <code>[FIELD2]</code>, etc. in the letter paragraphs.</p>
+            </div>
+        </div>
+        
+        <div class="instructions-section">
+            <h2>2. Customize Letter Content</h2>
+            <div class="step">
+                <p>The default letter template can be customized to fit your needs:</p>
+                <ul>
+                    <li><strong>Letter Title:</strong> The main heading of the letter (default is "PRODUCT ADVISORY NOTIFICATION")</li>
+                    <li><strong>Paragraphs 1-5:</strong> The main content of the letter</li>
+                    <li><strong>Contact Information:</strong> Details for customers to reach out with questions</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Using Placeholders</h3>
+                <p>You can use the following placeholders in your letter content:</p>
+                <ul>
+                    <li><code>[MANUFACTURER]</code> - Inserts the manufacturer name</li>
+                    <li><code>[MATERIAL_CATEGORY]</code> - Inserts the material category</li>
+                    <li><code>[ISSUE]</code> - Inserts the issue description</li>
+                    <li><code>[FIELD1]</code> through <code>[FIELD5]</code> - Inserts custom field values</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <h3>Content Override</h3>
+                <p>If you need complete control over the letter content:</p>
+                <ol>
+                    <li>Check the "Override Letter Content" checkbox below the Contact Information field</li>
+                    <li>Enter your custom letter content in the text box</li>
+                    <li>You can use all the same placeholders as in the standard paragraphs</li>
+                    <li>Additionally, use <code>[HEAT_NUMBER]</code> to insert the heat number</li>
+                </ol>
+                <p>The override content will completely replace all paragraphs in the generated letters.</p>
+            </div>
+            
+            <div class="tip">
+                <p><strong>Tip:</strong> Preview how your letter will look by generating a test letter with sample data before importing your full customer list.</p>
+            </div>
+        </div>
+        
+        <div class="instructions-section">
+            <h2>3. Upload Your Company Logo</h2>
+            <div class="step">
+                <p>Upload your company logo to appear on the letters:</p>
+                <ul>
+                    <li>Click the "Choose File" button in the "Upload Logo" section</li>
+                    <li>Select an image file (PNG, JPG, etc.)</li>
+                    <li>The logo will appear in the preview area and will be used on generated letters</li>
+                </ul>
+            </div>
+            
+            <div class="tip">
+                <p><strong>Tip:</strong> For best results, use a logo with transparent background in PNG format. Recommended size is around 150-200px wide.</p>
+            </div>
+        </div>
+        
+        <div class="instructions-section">
+            <h2>4. Import Customer Data</h2>
+            <div class="step">
+                <h3>Prepare Your CSV File</h3>
+                <p>Prepare a CSV file with customer information. The CSV should include columns like:</p>
+                <ul>
+                    <li>Control (control number)</li>
+                    <li>NCR (non-conformance report number)</li>
+                    <li>Address (customer address)</li>
+                    <li>Sales Order (sales order number)</li>
+                    <li>Invoice (invoice number)</li>
+                    <li>Invoice Date</li>
+                    <li>Ship Date</li>
+                    <li>Sales Representative</li>
+                    <li>Item ID</li>
+                    <li>Item Description</li>
+                    <li>Quantity</li>
+                    <li>ID</li>
+                    <li>Customer Order</li>
+                    <li>Contract Release#</li>
+                </ul>
+                <p>Your CSV can include additional fields as needed.</p>
+            </div>
+            
+            <div class="step">
+                <h3>Upload Your CSV</h3>
+                <p>Upload your customer data CSV file:</p>
+                <ol>
+                    <li>Click "Choose File" in the "Import Customer Data" section</li>
+                    <li>Select your CSV file</li>
+                    <li>The tool will read the column headers from the file</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3>Select Fields to Display</h3>
+                <p>After uploading the CSV, you can choose which fields to include in the letter:</p>
+                <ol>
+                    <li>Check or uncheck boxes for each field to include or exclude them</li>
+                    <li>Standard fields are checked by default</li>
+                    <li>Custom fields from your CSV can also be selected</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="instructions-section">
+            <h2>5. Group Letters by Different Criteria</h2>
+            <div class="step">
+                <p>You can group customer data to generate letters in different ways:</p>
+                <ul>
+                    <li><strong>Control Number:</strong> Groups customers by their control number</li>
+                    <li><strong>Item ID & Address:</strong> Creates a letter for each unique combination of item and address</li>
+                    <li><strong>Sales Representative:</strong> Groups customers by their sales representative</li>
+                    <li><strong>Item ID & Customer Order:</strong> Groups by the combination of item and customer order</li>
+                    <li><strong>Individual Line Items:</strong> Creates a separate letter for each line in the CSV</li>
+                </ul>
+            </div>
+            
+            <div class="tip">
+                <p><strong>Tip:</strong> Choose your grouping strategy based on how you want to organize the recall communication. "Control Number" is common for tracking purposes, while "Individual Line Items" gives you the most granular control.</p>
+            </div>
+        </div>
+        
+        <div class="instructions-section">
+            <h2>6. Generate and Work with Letters</h2>
+            <div class="step">
+                <h3>Generate Letters</h3>
+                <p>Once all information is entered:</p>
+                <ol>
+                    <li>Click the "Generate Letters" button</li>
+                    <li>The tool will process your data and display the generated letters</li>
+                    <li>Letters will be grouped according to your selected grouping method</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3>Edit Letters After Generation</h3>
+                <p>You can edit any part of the generated letters by:</p>
+                <ol>
+                    <li>Clicking on any editable content in a letter (address, title, paragraphs, etc.)</li>
+                    <li>Making your changes directly in the content</li>
+                    <li>Clicking "Save" to keep your changes or "Cancel" to discard them</li>
+                    <li>You can also press Enter to save or Escape to cancel</li>
+                </ol>
+                <p>This allows you to fine-tune individual letters as needed.</p>
+            </div>
+        </div>
+        
+        <div class="instructions-section">
+            <h2>7. Printing and Exporting Options</h2>
+            <div class="step">
+                <h3>Print Individual Letters</h3>
+                <p>To print a single letter:</p>
+                <ol>
+                    <li>Locate the "Print This Letter" button at the top of each letter</li>
+                    <li>Click the button to open the print dialog for just that letter</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3>Print All Letters</h3>
+                <p>To print all generated letters at once:</p>
+                <ol>
+                    <li>Click the "Print Letters" button at the top of the letters section</li>
+                    <li>The print dialog will open with all letters included</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3>Save as PDFs</h3>
+                <p>To save all letters as individual PDF files:</p>
+                <ol>
+                    <li>Click the "Save as PDFs" button</li>
+                    <li>The tool will convert each letter to a PDF</li>
+                    <li>All PDFs will be packaged in a ZIP file that will automatically download</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3>Print Letters in Batch</h3>
+                <p>To generate a batch of PDFs for printing:</p>
+                <ol>
+                    <li>Click the "Print Letters in Batch" button</li>
+                    <li>Similar to "Save as PDFs," this will create individual PDF files in a ZIP</li>
+                    <li>This is useful for bulk printing from a different application</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3>Save as Images</h3>
+                <p>To save letters as image files:</p>
+                <ol>
+                    <li>Click the "Save as Images" button</li>
+                    <li>Each letter will be converted to a JPG image</li>
+                    <li>All images will be packaged in a ZIP file that will automatically download</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <h3>Export as ZIP</h3>
+                <p>To export letters as text files:</p>
+                <ol>
+                    <li>Click the "Export as ZIP" button</li>
+                    <li>Each letter will be saved as a text file (.txt) with proper formatting</li>
+                    <li>All text files will be packaged in a ZIP file that will automatically download</li>
+                </ol>
+            </div>
+            
+            <div class="warning">
+                <p><strong>Note:</strong> Some export operations (especially PDF and image generation) may take several seconds to complete depending on the number of letters and your computer's performance. A loading indicator will appear during processing.</p>
+            </div>
+        </div>
+        
+        <div class="instructions-section">
+            <h2>8. Tips and Best Practices</h2>
+            <ul>
+                <li>Always verify the generated letters before sending them to customers</li>
+                <li>The "Control Number" typically appears in filenames when exporting, so use meaningful control numbers</li>
+                <li>You can generate and regenerate letters as many times as needed</li>
+                <li>For large datasets, consider breaking your CSV into smaller chunks</li>
+                <li>To create templates for future use, save your letter paragraphs in a separate document</li>
+                <li>If you encounter any issues with PDF generation, try the "Save as Images" option as an alternative</li>
+            </ul>
+        </div>
+        
+        <a href="index.html" class="back-link">← Back to Generator</a>
+    </div>
+</body>
+</html>

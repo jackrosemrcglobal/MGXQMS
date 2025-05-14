@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ISO 9001:2015 Clause-Based Audit Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>ISO 9001:2015 Clause-Based Audit Tool</h1>
+            <nav class="main-nav">
+                <a href="index.html">Process Audit Tool</a>
+                <a href="ClauseBasedAudit.html" class="active">Clause-Based Audit</a>
+                <a href="processregister.html">Process Register</a>
+            </nav>
+        </header>
+        <main>
+            <section class="audit-section">
+                <h2>Clause-Based Audit</h2>
+
+                <!-- File Input (hidden) -->
+                <input type="file" id="clause-audit-file-input" @change="loadClauseAuditFromFile" style="display: none;" accept=".json">
+
+                <div class="clause-based-audit-content" :class="{ 'print-mode': isPrintMode }">
+                    <div class="clause-audit-controls">
+                        <div class="clause-audit-header">
+                            <div class="clause-audit-summary">
+                                <p>{{ pendingEntries }} Entries yet to be entered</p>
+                                <p>{{ errorCount }} Errors</p>
+                            </div>
+                            <div class="clause-audit-stats">
+                                <div>
+                                    <label>Subscore:</label>
+                                    <input type="text" v-model="clauseAudit.subscore">
+                                </div>
+                                <div>
+                                    <label>Max:</label>
+                                    <input type="text" v-model="clauseAudit.max">
+                                </div>
+                                <div>
+                                    <label>% Compliant:</label>
+                                    <input type="text" v-model="clauseAudit.percentCompliant" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clause-audit-filters">
+                            <select v-model="selectedClauseAuditSection">
+                                <option value="">All Sections</option>
+                                <option>Management Responsibility</option>
+                                <option>Resource Management</option>
+                                <option>Measurement, Analysis & Improvement</option>
+                                <option>Marketing</option>
+                                <option>Sales</option>
+                                <option>Purchasing</option>
+                                <option>Warehousing</option>
+                                <option>Shop Work</option>
+                                <option>Subcontractor</option>
+                                <option>Transportation</option>
+                            </select>
+                        </div>
+                        <table class="clause-audit-table">
+                            <thead>
+                                <tr>
+                                    <th>Ref No.</th>
+                                    <th>Clause Title</th>
+                                    <th>Q-No</th>
+                                    <th>Requirements/Questions</th>
+                                    <th>Process</th>
+                                    <th>Audit Result</th>
+                                    <th>Recommended Actions</th>
+                                    <th>Audit Evidence & Notes</th>
+                                    <th>Conforms</th>
+                                    <th>Score</th>
+                                    <th>Possible Root-cause</th>
+                                    <th>Opportunities for Improvement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(entry, index) in filteredClauseAuditEntries" :key="index">
+                                    <td>
+                                        <input v-model="entry.refNo" type="text">
+                                    </td>
+                                    <td>
+                                        <input v-model="entry.clauseTitle" type="text">
+                                    </td>
+                                    <td>
+                                        <input v-model="entry.qNo" type="text">
+                                    </td>
+                                    <td>
+                                        <textarea v-model="entry.requirements"></textarea>
+                                    </td>
+                                    <td>
+                                        <select v-model="entry.process">
+                                            <option>Management Responsibility</option>
+                                            <option>Resource Management</option>
+                                            <option>Measurement, Analysis & Improvement</option>
+                                            <option>Marketing</option>
+                                            <option>Sales</option>
+                                            <option>Purchasing</option>
+                                            <option>Warehousing</option>
+                                            <option>Shop Work</option>
+                                            <option>Subcontractor</option>
+                                            <option>Transportation</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select v-model="entry.auditResult">
+                                            <option>Conforms</option>
+                                            <option>Minor NC</option>
+                                            <option>Major NC</option>
+                                            <option>OFI</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <textarea v-model="entry.recommendedActions"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea v-model="entry.auditEvidence"></textarea>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" v-model="entry.conforms">
+                                    </td>
+                                    <td>
+                                        <input v-model="entry.score" type="number" min="0" max="10">
+                                    </td>
+                                    <td>
+                                        <textarea v-model="entry.possibleRootCause"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea v-model="entry.opportunitiesForImprovement"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="clause-audit-bulk-entry">
+                            <h4>Bulk Entry</h4>
+                            <textarea 
+                                v-model="bulkEntryInput" 
+                                placeholder="Paste multiple entries. Format: RefNo, Clause Title, Q-No, Requirements, Process&#10;Separate entries by new lines, values by comma or tab"
+                                rows="5"
+                            ></textarea>
+                            <button @click="addMultipleClauseAuditEntries">Add Multiple Entries</button>
+                        </div>
+                        <div class="clause-audit-actions">
+                            <button @click="addClauseAuditEntry">Add Entry</button>
+                            <button @click="saveClauseAudit">Save Audit</button>
+                            <button @click="printClauseAuditToPDF">Print Audit to PDF</button>
+                            <button @click="copyClauseAuditToClipboard">Copy to Clipboard</button>
+                            <button @click="exportClauseAuditToFile">Export Audit to File</button>
+                            <button @click="triggerClauseAuditFileInput">Load Audit from File</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script type="module" src="clauseAudit.js"></script>
+</body>
+</html>

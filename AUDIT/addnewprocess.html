@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ISO 9001:2015 Add New Process</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>ISO 9001:2015 Add New Process</h1>
+            <nav class="main-nav">
+                <a href="index.html">Process Audit Tool</a>
+                <a href="ClauseBasedAudit.html">Clause-Based Audit</a>
+                <a href="processregister.html">Process Register</a>
+                <a href="addnewprocess.html" class="active">Add New Process</a>
+            </nav>
+        </header>
+        <main>
+            <section class="audit-section">
+                <h2>Add New Audit Process</h2>
+                <div class="add-process-form">
+                    <label>Process Name:</label>
+                    <input v-model="newProcess.name" type="text" placeholder="Enter process name">
+                    
+                    <label>Process Category:</label>
+                    <select v-model="newProcess.category">
+                        <option value="Management Process">Management Process</option>
+                        <option value="Basic & Supporting Processes">Basic & Supporting Processes</option>
+                        <option value="Outsourced Processes">Outsourced Processes</option>
+                    </select>
+
+                    <label>Related Processes:</label>
+                    <textarea v-model="newProcess.relatedProcesses" placeholder="Enter related processes"></textarea>
+
+                    <h4>Audit Criteria</h4>
+                    <div class="audit-criteria-input">
+                        <label>Audit Criteria From List:</label>
+                        <textarea 
+                            v-model="newProcess.criteriaFromList" 
+                            placeholder="Enter audit criteria, one per line or separated by semicolons"
+                            rows="5"
+                        ></textarea>
+                        <button @click="parseCriteriaFromList">Parse Criteria</button>
+                    </div>
+                    <div v-for="(criterion, index) in newProcess.criteria" :key="index" class="criterion-input">
+                        <input 
+                            v-model="newProcess.criteria[index]" 
+                            type="text" 
+                            placeholder="Enter audit criterion"
+                        >
+                        <button @click="removeProcessCriterion(index)">Remove</button>
+                    </div>
+                    <button @click="addProcessCriterion">Add Criterion</button>
+
+                    <h4>Audit Header Information</h4>
+                    <div class="audit-header">
+                        <div class="audit-header-grid">
+                            <div class="audit-header-item">
+                                <label>Audit Number:</label>
+                                <input type="text" v-model="newProcess.header.auditNumber">
+                            </div>
+                            <div class="audit-header-item">
+                                <label>Audit Scope:</label>
+                                <textarea v-model="newProcess.header.auditScope"></textarea>
+                            </div>
+                            <div class="audit-header-item">
+                                <label>Audit Objective:</label>
+                                <textarea v-model="newProcess.header.auditObjective"></textarea>
+                            </div>
+                            <div class="audit-header-item">
+                                <label>Audit Criteria:</label>
+                                <textarea v-model="newProcess.header.auditCriteria"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button @click="saveNewProcess">Save Process</button>
+                        <button @click="resetForm">Reset Form</button>
+                        <button @click="returnToMain">Return to Main Page</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script type="module" src="addnewprocess.js"></script>
+</body>
+</html>

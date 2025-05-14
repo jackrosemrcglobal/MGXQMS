@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ISO 9001:2015 Process Audit App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>ISO 9001:2015 Process Audit Tool</h1>
+            <nav class="main-nav">
+                <a href="index.html" class="active">Process Audit Tool</a>
+                <a href="ClauseBasedAudit.html">Clause-Based Audit</a>
+                <a href="processregister.html">Process Register</a>
+                <a href="addnewprocess.html">Add New Process</a>
+                <a href="processes.html">Process Library</a>
+            </nav>
+        </header>
+        <main>
+            <section class="audit-section">
+                <h2>Process Audit Checklist</h2>
+                <div class="audit-controls">
+                    <select v-model="selectedProcess">
+                        <option v-for="process in processes" :value="process">
+                            {{ process.name }}
+                        </option>
+                    </select>
+                    <button @click="startAudit">Begin Audit</button>
+                    <button @click="goToAddProcess">Add Process</button>
+                    <button @click="goToProcessLibrary">Process Library</button>
+                </div>
+
+                <!-- File Input (hidden) -->
+                <input type="file" id="process-audit-file-input" @change="loadAuditFromFile" style="display: none;" accept=".json">
+
+                <div v-if="currentAudit" class="audit-checklist" :class="{ 'print-mode': isPrintMode }">
+                    <div class="audit-logo-placeholder">
+                        <img src="/placeholder-logo.png" alt="Company Logo" class="audit-logo">
+                    </div>
+                    <h3>{{ selectedProcess.name }} Audit</h3>
+                    <div class="audit-header">
+                        <div class="audit-header-grid">
+                            <div class="audit-header-item">
+                                <label>Audit Number:</label>
+                                <input type="text" v-model="currentAudit.header.auditNumber">
+                            </div>
+                            <div class="audit-header-item">
+                                <label>Audit Date:</label>
+                                <input type="date" v-model="currentAudit.header.auditDate">
+                            </div>
+                            <div class="audit-header-item">
+                                <label>Audit Team:</label>
+                                <input type="text" v-model="currentAudit.header.auditTeam">
+                            </div>
+                            <div class="audit-header-item">
+                                <label>Audit Scope:</label>
+                                <textarea v-model="currentAudit.header.auditScope"></textarea>
+                            </div>
+                            <div class="audit-header-item">
+                                <label>Audit Objective:</label>
+                                <textarea v-model="currentAudit.header.auditObjective"></textarea>
+                            </div>
+                            <div class="audit-header-item">
+                                <label>Audit Criteria:</label>
+                                <textarea v-model="currentAudit.header.auditCriteria"></textarea>
+                            </div>
+                            <div class="audit-header-item">
+                                <label>Audit Location:</label>
+                                <input type="text" v-model="currentAudit.header.auditLocation">
+                            </div>
+                            <div class="audit-header-item">
+                                <label>Lead Auditor:</label>
+                                <input type="text" v-model="currentAudit.header.leadAuditor">
+                            </div>
+                        </div>
+                        <div class="audit-header-notes">
+                            <label>Additional Notes:</label>
+                            <textarea v-model="currentAudit.header.additionalNotes" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div v-for="(criterion, index) in currentAudit.criteria" :key="index" class="audit-criterion">
+                        <label>
+                            <input type="checkbox" v-model="criterion.compliant">
+                            {{ criterion.description }}
+                        </label>
+                        <select v-model="criterion.auditStatus">
+                            <option>Not Assessed</option>
+                            <option>Conforms</option>
+                            <option>Nonconformance</option>
+                            <option>Opportunity for Improvement</option>
+                            <option>Finding</option>
+                        </select>
+                        <textarea 
+                            v-model="criterion.notes" 
+                            placeholder="Additional observations"
+                        ></textarea>
+                        <textarea 
+                            v-model="criterion.correctiveActions" 
+                            placeholder="Corrective actions required"
+                        ></textarea>
+                    </div>
+                    <div class="audit-summary">
+                        <h4>Compliance Score: {{ compliancePercentage }}%</h4>
+                        <button @click="finalizeAudit">Complete Audit</button>
+                    </div>
+                    <div class="audit-actions">
+                        <button @click="printAuditToPDF">Print Audit to PDF</button>
+                        <button @click="exportAuditToFile">Export Audit to File</button>
+                        <button @click="triggerAuditFileInput">Load Audit from File</button>
+                    </div>
+                </div>
+
+                <section class="audit-history">
+                    <h2>Previous Audits</h2>
+                    <div v-for="(audit, index) in auditHistory" :key="index" class="audit-record">
+                        <p>{{ audit.processName }} - {{ audit.date }}</p>
+                        <p>Compliance: {{ audit.complianceScore }}%</p>
+                        <details>
+                            <summary>Audit Details</summary>
+                            <div v-for="(criterion, critIndex) in audit.fullAuditDetails" :key="critIndex" class="audit-detail">
+                                <strong>{{ criterion.description }}</strong>
+                                <p>Status: {{ criterion.auditStatus }}</p>
+                                <p>Compliant: {{ criterion.compliant ? 'Yes' : 'No' }}</p>
+                                <p>Notes: {{ criterion.notes }}</p>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

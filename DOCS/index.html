@@ -1,0 +1,162 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Document Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="toolbar">
+            <select id="documentType">
+                <option value="quality-policy" selected>Quality Policy</option>
+                <option value="quality-manual">Quality Manual</option>
+                <option value="procedure">Procedure</option>
+                <option value="work-instruction">Work Instruction</option>
+                <option value="form">Form</option>
+                <option value="management-review">Management Review Meeting Minutes</option>
+                <option value="master-register">Master Document Change Register</option>
+                <option value="external-internal-issues">External and Internal Issues</option>
+                <option value="interested-parties">Interested Parties</option>
+                <option value="qms-scope">Scope of QMS</option>
+                <option value="qms-processes">QMS Processes</option>
+                <option value="leadership-commitment">Leadership Commitment</option>
+                <option value="communicating-quality-policy">Communicating Quality Policy</option>
+                <option value="roles-responsibilities">Roles, Responsibilities and Authorities</option>
+                <option value="risks-opportunities">Risks and Opportunities</option>
+                <option value="quality-objectives">Quality Objectives</option>
+                <option value="audit-plan">Audit Plan</option>
+                <option value="audit-report">Audit Report</option>
+                <option value="nonconformity-report">Nonconformity Report</option>
+                <option value="corrective-action-request">Corrective Action Request</option>
+                <option value="training-record">Training Record</option>
+                <option value="supplier-evaluation">Supplier Evaluation</option>
+                <option value="calibration-record">Calibration Record</option>
+                <option value="design-development-plan">Design and Development Plan</option>
+                <option value="customer-feedback-log">Customer Feedback Log</option>
+            </select>
+            <button id="importLogo">Import Logo</button>
+            <button id="addSection">Add Section</button>
+            <button id="addImage">Add Image</button>
+            <button id="updateDocument">Update Document</button>
+            <button id="publishChanges">Publish Changes</button>
+            <button id="printDoc">Print/Export</button>
+            <button id="toggleEditMode" class="toggle-btn">Hide Edit Controls</button>
+        </div>
+        
+        <div id="document" class="document">
+            <div class="document-header">
+                <div class="logo-container">
+                    <img src="company_logo.png" alt="Company Logo" id="companyLogo">
+                </div>
+                <div class="revision-block">
+                    <table>
+                        <tr>
+                            <th>Document No:</th>
+                            <td><input type="text" id="docNumber" placeholder="QP-001"></td>
+                        </tr>
+                        <tr>
+                            <th>Revision:</th>
+                            <td><input type="text" id="revision" placeholder="01"></td>
+                        </tr>
+                        <tr>
+                            <th>Published Date:</th>
+                            <td><input type="date" id="revisionDate"></td>
+                        </tr>
+                        <tr>
+                            <th>Effective Date:</th>
+                            <td><input type="date" id="effectiveDate"></td>
+                        </tr>
+                        <tr>
+                            <th>Last Review:</th>
+                            <td><input type="date" id="lastReviewDate"></td>
+                        </tr>
+                        <tr>
+                            <th>Next Review:</th>
+                            <td><input type="date" id="nextReviewDate"></td>
+                        </tr>
+                        <tr>
+                            <th>Owner:</th>
+                            <td><input type="text" id="owner" placeholder="Quality Manager"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="document-title">
+                <h1 contenteditable="true">Quality Policy</h1>
+            </div>
+            
+            <div id="documentContent" class="document-content">
+                <!-- Default Quality Policy Template -->
+                <div class="section">
+                    <h2><span class="section-number">1.</span> <span class="section-title" contenteditable="true">Purpose</span></h2>
+                    <div class="section-content" contenteditable="true">
+                        This Quality Policy outlines our organization's commitment to quality in all aspects of our operations.
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2><span class="section-number">2.</span> <span class="section-title" contenteditable="true">Scope</span></h2>
+                    <div class="section-content" contenteditable="true">
+                        This policy applies to all employees, contractors, and activities within our organization.
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2><span class="section-number">3.</span> <span class="section-title" contenteditable="true">Policy Statement</span></h2>
+                    <div class="section-content" contenteditable="true">
+                        Our organization is committed to:
+                        • Meeting or exceeding customer expectations
+                        • Complying with all applicable requirements
+                        • Continually improving our quality management system
+                        • Ensuring employee engagement in quality initiatives
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2><span class="section-number">4.</span> <span class="section-title" contenteditable="true">Responsibilities</span></h2>
+                    <div class="section-content" contenteditable="true">
+                        All employees are responsible for implementing this policy in their daily work. Management is responsible for providing necessary resources and support.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="change-register">
+                <h3>Document Change Register</h3>
+                <table id="changeRegister">
+                    <thead>
+                        <tr>
+                            <th class="select-row edit-control"><input type="checkbox" id="selectAllRecords"></th>
+                            <th>Document ID</th>
+                            <th>Document Title</th>
+                            <th>Revision</th>
+                            <th>Date</th>
+                            <th>Description of Change</th>
+                            <th>Author</th>
+                            <th>Approver</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="select-row edit-control"><input type="checkbox" class="record-checkbox"></td>
+                            <td contenteditable="true" id="initialDocId"></td>
+                            <td contenteditable="true" id="initialDocTitle"></td>
+                            <td contenteditable="true">01</td>
+                            <td id="initialDate" contenteditable="true"></td>
+                            <td contenteditable="true">Initial release</td>
+                            <td contenteditable="true"></td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="action-buttons">
+                    <button id="addChangeRow" class="edit-control">Add Change Record</button>
+                    <button id="deleteSelectedRecords" class="delete-btn edit-control">Delete Selected Records</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

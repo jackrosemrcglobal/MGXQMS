@@ -1,0 +1,605 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #00447c; 
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #00447c;
+}
+
+h2 {
+    color: #00447c;
+    margin-bottom: 15px;
+    font-weight: 500;
+    padding-left: 5px;
+    border-left: 4px solid #00447c;
+}
+
+h3 {
+    color: #1a6eaf;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid #eaeaea;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+    border-color: #00447c;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 68, 124, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #00447c; 
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 10px;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn:hover {
+    background-color: #003063;
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+#batchPrintBtn {
+    background-color: #1a6eaf;
+}
+
+#batchPrintBtn:hover {
+    background-color: #125a91;
+}
+
+.hidden {
+    display: none;
+}
+
+.letters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+#letters {
+    margin-top: 20px;
+}
+
+.letter {
+    margin-bottom: 50px;
+    padding: 40px;
+    border: 1px solid #ddd;
+    page-break-after: always;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 5px;
+}
+
+.letter-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.logo-address-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.letter-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.letter-date {
+    text-align: right;
+    color: #555;
+    font-weight: 500;
+}
+
+.letter-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #00447c;
+    text-transform: uppercase;
+}
+
+.letter-manufacturer {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.letter-control {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.letter-ncr {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.letter-address {
+    font-weight: bold;
+    margin-bottom: 20px;
+    max-width: 250px;
+    line-height: 1.4;
+}
+
+.letter-content {
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.letter-content p {
+    margin-bottom: 15px;
+}
+
+.letter-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.letter-table th,
+.letter-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.letter-table th {
+    background-color: #f2f6f9;
+    color: #00447c;
+    font-weight: 600;
+}
+
+.letter-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.letter-table tr:hover {
+    background-color: #f2f6f9;
+}
+
+.radio-group {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 8px;
+}
+
+#fieldSelection {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border-left: 3px solid #00447c;
+}
+
+#fieldCheckboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+#fieldCheckboxes > div {
+    background-color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+}
+
+#fieldCheckboxes label {
+    margin-bottom: 0;
+    margin-left: 5px;
+    font-weight: normal;
+}
+
+#logoPreview {
+    margin-top: 10px;
+    max-width: 180px;
+    padding: 10px;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.custom-fields-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f2f6f9;
+    border-radius: 5px;
+    border-left: 3px solid #1a6eaf;
+}
+
+.field-hint {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    font-style: italic;
+    padding: 8px 12px;
+    background-color: #fff;
+    border-radius: 4px;
+    border-left: 2px solid #00447c;
+}
+
+.content-override-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff3cd;
+    border-radius: 5px;
+    border-left: 3px solid #ffc107;
+}
+
+.override-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.override-checkbox {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.override-textarea {
+    width: 100%;
+    min-height: 180px;
+    padding: 12px;
+    font-family: inherit;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.override-textarea:focus {
+    border-color: #00447c;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 68, 124, 0.1);
+}
+
+.override-header label {
+    font-weight: 600;
+    color: #856404;
+    margin-bottom: 0;
+}
+
+.override-header .field-hint {
+    margin-left: 10px;
+    margin-bottom: 0;
+    font-size: 13px;
+    background-color: transparent;
+    border-left: none;
+    padding: 0;
+}
+
+/* Loading overlay styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.92);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #00447c;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-overlay p {
+    color: #00447c;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.letter-print-button-container {
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+.letter-print-btn {
+    background-color: #1a6eaf;
+    font-size: 14px;
+    padding: 8px 15px;
+}
+
+.letter-print-btn:hover {
+    background-color: #125a91;
+}
+
+/* Editable content styling */
+.editable {
+    cursor: text;
+    position: relative;
+    transition: background-color 0.2s;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.editable:hover {
+    background-color: rgba(26, 110, 175, 0.1);
+}
+
+.editable:hover::after {
+    content: "Click to edit";
+    position: absolute;
+    top: -25px;
+    right: 0;
+    background-color: #00447c;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.editing {
+    background-color: rgba(26, 110, 175, 0.1);
+    outline: 2px solid #1a6eaf;
+}
+
+/* Preserve whitespace in edited content */
+.letter-content p {
+    white-space: pre-wrap;
+}
+
+.letter-manufacturer, .letter-control, .letter-ncr, .letter-title {
+    white-space: pre-wrap;
+}
+
+.edit-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 5px;
+    justify-content: flex-end;
+}
+
+.edit-btn {
+    padding: 4px 10px;
+    font-size: 12px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.save-edit-btn {
+    background-color: #27ae60;
+    color: white;
+}
+
+.save-edit-btn:hover {
+    background-color: #219653;
+}
+
+.cancel-edit-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.cancel-edit-btn:hover {
+    background-color: #c0392b;
+}
+
+.edit-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #f39c12;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.help-link-container {
+    text-align: center;
+    margin: -10px 0 20px;
+}
+
+.help-link {
+    display: inline-block;
+    color: #1a6eaf;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid #1a6eaf;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.help-link:hover {
+    background-color: #1a6eaf;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* File upload button styling */
+input[type="file"] {
+    display: block;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    width: 100%;
+    cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background-color: #1a6eaf;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 3px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #125a91;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .section {
+        padding: 15px;
+    }
+    
+    .letter {
+        padding: 20px;
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    
+    #letters, #letters * {
+        visibility: visible;
+    }
+    
+    #letters {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    
+    .letter {
+        page-break-after: always;
+        border: none;
+        box-shadow: none;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+}

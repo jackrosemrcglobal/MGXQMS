@@ -1,0 +1,199 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recall Customer Notification Letter Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Recall Customer Notification Letter Generator</h1>
+        <div class="help-link-container">
+            <a href="instructions.html" class="help-link" target="_blank">How to use this tool</a>
+        </div>
+        
+        <div class="section">
+            <h2>Enter Recall Information</h2>
+            <div class="form-group">
+                <label for="recallDate">Recall Date:</label>
+                <input type="date" id="recallDate" required>
+            </div>
+            <div class="form-group">
+                <label for="manufacturer">Manufacturer:</label>
+                <input type="text" id="manufacturer" required>
+            </div>
+            <div class="form-group">
+                <label for="ncr">NCR:</label>
+                <input type="text" id="ncr" required>
+            </div>
+            <div class="form-group">
+                <label for="materialCategory">Material Category:</label>
+                <input type="text" id="materialCategory" required>
+            </div>
+            <div class="form-group">
+                <label for="issue">Issue:</label>
+                <input type="text" id="issue" required>
+            </div>
+            <div class="form-group">
+                <label for="heatNumber">Heat Number:</label>
+                <input type="text" id="heatNumber">
+            </div>
+            
+            <!-- New custom fields -->
+            <div class="custom-fields-section">
+                <h3>Custom Fields</h3>
+                <p class="field-hint">These fields can be inserted into letter content using [FIELD1], [FIELD2], etc.</p>
+                <div class="form-group">
+                    <label for="customField1">Field 1:</label>
+                    <input type="text" id="customField1">
+                </div>
+                <div class="form-group">
+                    <label for="customField2">Field 2:</label>
+                    <input type="text" id="customField2">
+                </div>
+                <div class="form-group">
+                    <label for="customField3">Field 3:</label>
+                    <input type="text" id="customField3">
+                </div>
+                <div class="form-group">
+                    <label for="customField4">Field 4:</label>
+                    <input type="text" id="customField4">
+                </div>
+                <div class="form-group">
+                    <label for="customField5">Field 5:</label>
+                    <input type="text" id="customField5">
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Letter Content</h2>
+            <div class="form-group">
+                <label for="letterTitle">Letter Title:</label>
+                <input type="text" id="letterTitle" value="PRODUCT ADVISORY NOTIFICATION">
+            </div>
+            <div class="form-group">
+                <label for="paragraph1">Paragraph 1:</label>
+                <textarea id="paragraph1" rows="3">MRC Global has been notified by the manufacturer, [MANUFACTURER], that the following [MATERIAL_CATEGORY] were [ISSUE].</textarea>
+            </div>
+            <div class="form-group">
+                <label for="paragraph2">Paragraph 2:</label>
+                <textarea id="paragraph2" rows="3">Our records indicate that MRC Global supplied your company this product on the following orders.</textarea>
+            </div>
+            <div class="form-group">
+                <label for="paragraph3">Paragraph 3:</label>
+                <textarea id="paragraph3" rows="3">Please quarantine these [MATERIAL_CATEGORY] and contact your local MRC Global sales representative to request return material authorization.</textarea>
+            </div>
+            <div class="form-group">
+                <label for="paragraph4">Paragraph 4:</label>
+                <textarea id="paragraph4" rows="3">We apologize for any inconvenience this may cause and appreciate your assistance with this matter.</textarea>
+            </div>
+            <div class="form-group">
+                <label for="paragraph5">Paragraph 5:</label>
+                <textarea id="paragraph5" rows="3">For inquiries, please contact your local Sales and Service Representative or the MRC Global Quality Department</textarea>
+            </div>
+            <div class="form-group">
+                <label for="contactInfo">Contact Information:</label>
+                <textarea id="contactInfo" rows="2">Rob Jackson | Senior Quality Manager
+Rob.Jackson@mrcglobal.com | (304-347-2612)</textarea>
+            </div>
+            
+            <!-- New content override section -->
+            <div class="content-override-section">
+                <div class="form-group override-header">
+                    <input type="checkbox" id="useContentOverride" class="override-checkbox">
+                    <label for="useContentOverride">Override Letter Content</label>
+                    <p class="field-hint">When checked, the text below will replace all paragraphs in the generated letters.</p>
+                </div>
+                <div class="form-group">
+                    <label for="contentOverride">Custom Letter Content:</label>
+                    <textarea id="contentOverride" rows="8" class="override-textarea">
+To Whom It May Concern:
+
+MRC Global has been notified by the manufacturer, [MANUFACTURER], that the following [MATERIAL_CATEGORY] were [ISSUE].
+
+Heat Number: [HEAT_NUMBER]
+
+Our records indicate that MRC Global supplied your company this product on the following orders.
+
+[FIELD1]
+[FIELD2]
+[FIELD3]
+
+Please contact your local MRC Global sales representative at your earliest convenience.
+
+Regards,
+[FIELD4]
+[FIELD5]</textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Upload Logo</h2>
+            <div class="form-group">
+                <label for="logoUpload">Company Logo:</label>
+                <input type="file" id="logoUpload" accept="image/*">
+            </div>
+            <div id="logoPreview"></div>
+        </div>
+        
+        <div class="section">
+            <h2>Import Customer Data</h2>
+            <div class="form-group">
+                <label for="csvUpload">CSV File:</label>
+                <input type="file" id="csvUpload" accept=".csv">
+            </div>
+            
+            <div id="fieldSelection" class="hidden">
+                <h3>Choose Fields to Display</h3>
+                <div id="fieldCheckboxes"></div>
+            </div>
+            
+            <div class="form-group">
+                <h3>Group Letters By:</h3>
+                <div class="radio-group">
+                    <input type="radio" id="groupByControl" name="groupBy" value="Control" checked>
+                    <label for="groupByControl">Control Number</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="groupByItemAddress" name="groupBy" value="ItemAddress">
+                    <label for="groupByItemAddress">Item ID & Address</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="groupBySSR" name="groupBy" value="SSR">
+                    <label for="groupBySSR">Sales Representative</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="groupByItemOrder" name="groupBy" value="ItemOrder">
+                    <label for="groupByItemOrder">Item ID & Customer Order</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="groupByLine" name="groupBy" value="Line">
+                    <label for="groupByLine">Individual Line Items</label>
+                </div>
+            </div>
+            
+            <button id="generateBtn" class="btn">Generate Letters</button>
+        </div>
+        
+        <div id="lettersContainer" class="hidden">
+            <div class="letters-header">
+                <h2>Generated Letters</h2>
+                <div class="buttons-container">
+                    <button id="printBtn" class="btn">Print Letters</button>
+                    <button id="exportBtn" class="btn">Export as ZIP</button>
+                    <button id="saveAsImagesBtn" class="btn">Save as Images</button>
+                </div>
+            </div>
+            <div id="letters"></div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRC Global Approved Suppliers</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- End Google Translate Script -->
+
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-placeholder" id="home-link">
+                <!-- Placeholder for MRC Global Logo -->
+                <img src="/placeholder-logo.png" alt="MRC Global Logo Placeholder">
+            </div>
+            <h1>MRC Global Approved Manufacturer/Supplier List</h1>
+            <div id="google_translate_element"></div> <!-- Placeholder for Google Translate -->
+        </div>
+    </header>
+    <main>
+        <div id="supplier-list-view">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search suppliers or categories...">
+                <button id="toggle-view-button">Show Table View</button>
+                <button id="show-materials-view-button-list">Show Materials View</button>
+                <button id="show-manufacturers-view-button-list">Show Manufacturers View</button>
+                <button id="export-csv-button-list">Export as CSV</button>
+                <button id="import-csv-button-list">Import from CSV</button>
+            </div>
+            <div class="supplier-list" id="supplier-card-list">
+                <!-- Supplier items will be rendered here by script.js -->
+                <p class="loading">Loading suppliers...</p>
+            </div>
+        </div>
+
+        <div id="supplier-table-view" class="hidden">
+            <div class="search-container">
+                 <input type="text" id="search-input-table" placeholder="Search suppliers or categories...">
+                 <button id="toggle-view-button-table">Show Card View</button>
+                 <button id="show-materials-view-button-table">Show Materials View</button>
+                 <button id="show-manufacturers-view-button-table">Show Manufacturers View</button>
+                 <button id="toggle-extra-columns-button">Show Extra Columns</button> 
+                 <button id="export-csv-button-table">Export as CSV</button>
+                 <button id="import-csv-button-table">Import from CSV</button>
+            </div>
+             <div class="supplier-table-container">
+                <table id="supplier-table">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Group</th>
+                            <th>Material</th>
+                            <th>Status</th>
+                            <th>Region</th>
+                            <th>Brand</th>
+                            <th>Facility</th>
+                            <th>Country</th>
+                            <th>Details Action</th>
+                            <th class="col-other">Certification</th>
+                            <th class="col-other">Next Audit</th>
+                            <th class="col-other">Preferred</th>
+                            <th class="col-other">Compliance Score</th>
+                            <th class="col-other">Risk Score</th>
+                            <th class="col-other">Contact</th>
+                            <th class="col-other">Website</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Table rows will be rendered here by script.js -->
+                    </tbody>
+                </table>
+                <p class="loading" id="loading-table">Loading suppliers...</p>
+            </div>
+        </div>
+
+        <div id="audit-view" class="hidden">
+            <button id="back-to-list">← Back to List</button>
+            <h2 id="audit-supplier-name"></h2>
+            <div class="audit-details">
+                <h3>Audit History</h3>
+                <ul id="audit-history-list">
+                    <!-- Audit history will be rendered here -->
+                </ul>
+            </div>
+            <div class="new-audit-form">
+                <h3>Record New Audit</h3>
+                <label for="new-audit-date">Date:</label>
+                <input type="date" id="new-audit-date">
+                <label for="new-audit-notes">Notes/Results:</label>
+                <textarea id="new-audit-notes" rows="4"></textarea>
+                <button id="save-audit">Save Audit</button>
+            </div>
+        </div>
+
+        <div id="materials-view" class="hidden">
+            <button id="back-to-list-from-materials">← Back to Supplier List</button>
+            <h2>Materials List</h2>
+            <div class="materials-table-container">
+                <table id="materials-table">
+                    <thead>
+                        <tr>
+                            <th>Group</th>
+                            <th>Material</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Material rows will be rendered here by script.js -->
+                    </tbody>
+                </table>
+                <p class="loading" id="loading-materials">Loading materials...</p>
+            </div>
+        </div>
+
+        <div id="manufacturers-view" class="hidden">
+            <button id="back-to-list-from-mfg">← Back to Supplier List</button>
+            <h2>Manufacturers List</h2>
+            <div class="manufacturers-table-container">
+                <table id="manufacturers-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Region</th>
+                            <th>Country</th>
+                            <th>Brand</th>
+                            <th>Facility</th>
+                            <th>Preferred</th>
+                            <th>Contact</th>
+                            <th>Website</th>
+                            <th>Compliance Score</th>
+                            <th>Risk Score</th>
+                            <th>Next Audit</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Manufacturer rows will be rendered here by script.js -->
+                    </tbody>
+                </table>
+                <p class="loading" id="loading-manufacturers">Loading manufacturers...</p>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
