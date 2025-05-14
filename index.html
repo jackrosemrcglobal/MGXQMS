@@ -1,0 +1,1381 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MRC Global Inspection Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f4f7fa;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 2px solid #003366;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 100px;
+      height: auto;
+      margin-right: 20px;
+    }
+
+    .header-text {
+      flex: 1;
+    }
+
+    h1 {
+      color: #003366;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 16px;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 0;
+    }
+
+    .welcome-message {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 40px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 350px;
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .card-active {
+      border-top: 4px solid #003366;
+    }
+
+    .card-coming-soon {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .card i {
+      font-size: 48px;
+      color: #003366;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #003366;
+    }
+
+    .card p {
+      margin-bottom: 20px;
+      color: #666;
+    }
+
+    .card-btn {
+      display: inline-block;
+      background-color: #003366;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .card-btn:hover {
+      background-color: #004c99;
+    }
+
+    .card-coming-soon .card-btn {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+
+    .card-coming-soon .card-btn:hover {
+      background-color: #999;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 60px;
+      color: #666;
+      font-size: 14px;
+      border-top: 1px solid #ddd;
+    }
+
+    @media (max-width: 768px) {
+      .card-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .card {
+        max-width: 100%;
+      }
+    }
+
+    /* User guide link styling */
+    .user-guide-link {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: #003366;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .user-guide-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Remove icon from user guide link */
+    .user-guide-link i {
+      display: none;
+    }
+
+    /* Help icon in header */
+    .help-link {
+      display: inline-flex;
+      align-items: center;
+      font-size: 14px;
+      color: #003366;
+      margin-left: 0;
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .help-link:hover {
+      background-color: #f0f7ff;
+      text-decoration: underline;
+    }
+
+    .help-link i {
+      margin-right: 5px;
+    }
+
+    /* Tools Dropdown Styles */
+    .tools-dropdown {
+      position: relative;
+      display: inline-block;
+      margin-left: auto;
+      margin-right: 15px;
+    }
+
+    .tools-dropbtn {
+      background-color: #003366;
+      color: white;
+      padding: 10px 15px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    .tools-dropbtn i {
+      margin-right: 5px;
+    }
+
+    .tools-dropbtn .fa-caret-down {
+      margin-left: 5px;
+    }
+
+    .tools-dropbtn:hover {
+      background-color: #004c99;
+    }
+
+    .tools-dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #f9f9f9;
+      min-width: 250px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 4px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .tools-dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .tools-dropdown-content a i {
+      margin-right: 10px;
+      width: 16px;
+      text-align: center;
+    }
+
+    .tools-dropdown-content a:hover {
+      background-color: #f0f7ff;
+    }
+      
+    .tools-dropdown:hover .tools-dropdown-content {
+      display: block;
+    }
+
+    /* Google Translate styles */
+    #google_translate_element {
+      margin-left: 15px;
+    }
+    
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    } 
+    
+    body {
+        top: 0px !important; 
+    }
+
+    .translate-container {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+    }
+
+    .translate-label {
+      font-size: 14px;
+      color: #003366;
+      margin-right: 5px;
+    }
+
+    /* View Toggle Styles */
+    .view-toggle {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .view-toggle label {
+      margin-right: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .view-toggle-btn {
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .view-toggle-btn:hover {
+      background-color: #e4e4e4;
+    }
+
+    .view-toggle-btn.active {
+      background-color: #003366;
+      color: white;
+    }
+
+    /* List View Styles */
+    .list-view .card-container {
+      display: block;
+      width: 100%;
+    }
+
+    .list-view .card {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      max-width: 100%;
+      margin-bottom: 10px;
+      padding: 15px;
+    }
+
+    .list-view .card i {
+      font-size: 24px;
+      margin-bottom: 0;
+      margin-right: 15px;
+      min-width: 24px;
+    }
+
+    .list-view .card h3 {
+      font-size: 16px;
+      margin-bottom: 0;
+      margin-right: 20px;
+      min-width: 200px;
+    }
+
+    .list-view .card p {
+      flex: 1;
+      margin-bottom: 0;
+      margin-right: 20px;
+      text-align: left;
+    }
+
+    .list-view .card-btn {
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .list-view .user-guide-link {
+      display: none;
+    }
+
+    /* Compact View Styles */
+    .compact-view .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .compact-view .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      width: 250px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .compact-view .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+
+    .compact-view .card i {
+      font-size: 32px;
+      color: #003366;
+      margin-bottom: 10px;
+    }
+
+    .compact-view .card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .compact-view .card p {
+      display: none;
+    }
+
+    .compact-view .user-guide-link {
+      font-size: 12px;
+    }
+
+    /* Category View Styles */
+    .category-view .card-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .category-section {
+      margin-bottom: 30px;
+    }
+
+    .category-title {
+      color: #003366;
+      font-size: 20px;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #003366;
+    }
+
+    .category-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .category-view .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      width: 280px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .category-view .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .category-view .card i {
+      font-size: 36px;
+      color: #003366;
+      margin-bottom: 15px;
+    }
+
+    .category-view .card p {
+      font-size: 14px;
+      height: 60px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .category-cards {
+        flex-direction: column;
+      }
+      .compact-view .card,
+      .category-view .card {
+        width: 100%;
+      }
+    }
+
+    /* Settings Panel Styles */
+    .settings-btn {
+      background-color: transparent;
+      color: #003366;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-left: 15px;
+    }
+
+    .settings-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: #004c99;
+    }
+    
+    #settingsModal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    .settings-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .settings-header h2 {
+      color: #003366;
+      margin: 0;
+    }
+    
+    .settings-close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .settings-close:hover {
+      color: #000;
+    }
+    
+    .settings-body {
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 15px;
+    }
+    
+    .settings-section {
+      margin-bottom: 25px;
+    }
+    
+    .settings-section h3 {
+      color: #003366;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .tool-visibility-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .tool-toggle {
+      display: flex;
+      align-items: center;
+      background-color: #f5f5f5;
+      padding: 8px 12px;
+      border-radius: 5px;
+      width: 220px;
+      margin-bottom: 5px;
+    }
+    
+    .tool-toggle label {
+      margin-left: 8px;
+      flex-grow: 1;
+      cursor: pointer;
+    }
+    
+    .tool-toggle input[type="checkbox"] {
+      cursor: pointer;
+    }
+    
+    .settings-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #ddd;
+    }
+    
+    .settings-footer button {
+      margin-left: 10px;
+      padding: 8px 16px;
+    }
+    
+    .btn-reset {
+      background-color: #f8f9fa;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    
+    .btn-reset:hover {
+      background-color: #e9ecef;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="mrc_logo.png" alt="MRC Global Logo" class="logo">
+      <div class="header-text">
+        <h1>MRC Global Inspection Portal</h1>
+        <p class="subtitle">Quality Assurance and Inspection Management</p>
+      </div>
+      <div class="translate-container">
+        <span class="translate-label"><i class="fas fa-globe"></i> Translate:</span>
+        <div id="google_translate_element"></div>
+      </div>
+      <div class="tools-dropdown">
+        <button class="tools-dropbtn"><i class="fas fa-tools"></i> Tools & Reports <i class="fas fa-caret-down"></i></button>
+        <div class="tools-dropdown-content">
+          <a href="inspection-report.html"><i class="fas fa-clipboard-check"></i> Inspection Report</a>
+          <a href="/ProcessAudit/index.html"><i class="fas fa-tasks"></i> Audit Tool</a>
+          <a href="product-nonconformance.html"><i class="fas fa-times-circle"></i> Product Nonconformance</a>
+          <a href="process-nonconformance.html"><i class="fas fa-cogs"></i> Process Nonconformance</a>
+          <a href="customer-complaints.html"><i class="fas fa-comments-dollar"></i> Customer Complaints</a>
+          <a href="customer-delight.html"><i class="fas fa-heart"></i> Customer Delight</a>
+          <a href="safety.html"><i class="fas fa-shield-alt"></i> Safety</a>
+          <a href="it-security.html"><i class="fas fa-lock"></i> IT Security</a>
+          <a href="process.html"><i class="fas fa-project-diagram"></i> Processes</a>
+          <a href="iso-certified-locations.html"><i class="fas fa-certificate"></i> ISO Certified Locations</a>
+          <a href="operational-procedures.html"><i class="fas fa-book"></i> Operational Procedures</a>
+        </div>
+      </div>
+      <a href="user_guide.html" class="help-link"><i class="fas fa-question-circle"></i> Help Center</a>
+      <button id="settingsBtn" class="settings-btn" title="Settings">
+        <i class="fas fa-cog"></i>
+      </button>
+    </header>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+      <div class="settings-content">
+        <div class="settings-header">
+          <h2><i class="fas fa-cog"></i> Portal Settings</h2>
+          <span class="settings-close">&times;</span>
+        </div>
+        <div class="settings-body">
+          <div class="settings-section">
+            <h3>Tool Visibility</h3>
+            <p>Select which tools and reports appear on your portal homepage:</p>
+            <div class="tool-visibility-list" id="toolVisibilityList">
+              <!-- Tool checkboxes will be generated here -->
+            </div>
+          </div>
+          
+          <div class="settings-section">
+            <h3>Display Preferences</h3>
+            <div class="tool-toggle">
+              <input type="checkbox" id="saveViewPref" checked>
+              <label for="saveViewPref">Remember my view mode preference</label>
+            </div>
+            <div class="tool-toggle">
+              <input type="checkbox" id="expandAllCards">
+              <label for="expandAllCards">Expand all card descriptions</label>
+            </div>
+          </div>
+        </div>
+        <div class="settings-footer">
+          <button type="button" class="btn btn-reset" id="resetSettingsBtn">Reset to Default</button>
+          <button type="button" class="btn btn-primary" id="saveSettingsBtn">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <div class="welcome-message">
+        <h2>Welcome to the Inspection Portal</h2>
+        <p>This platform provides tools for comprehensive inspection and quality management. Select an option below to get started.</p>
+      </div>
+
+      <div class="view-toggle">
+        <label>View Mode:</label>
+        <button class="view-toggle-btn active" id="cardViewBtn"><i class="fas fa-th-large"></i> Card</button>
+        <button class="view-toggle-btn" id="compactViewBtn"><i class="fas fa-th"></i> Compact</button>
+        <button class="view-toggle-btn" id="listViewBtn"><i class="fas fa-list"></i> List</button>
+        <button class="view-toggle-btn" id="categoryViewBtn"><i class="fas fa-folder"></i> Category</button>
+      </div>
+
+      <!-- Category sections for category view - will be dynamically shown/hidden -->
+      <div id="categoryContainer" style="display: none;">
+        <div class="category-section" id="inspectionCategory">
+          <h3 class="category-title">Inspection & Audits</h3>
+          <div class="category-cards">
+            <!-- Cards will be moved here by JavaScript -->
+          </div>
+        </div>
+        
+        <div class="category-section" id="documentsCategory">
+          <h3 class="category-title">Documents & Reporting</h3>
+          <div class="category-cards">
+            <!-- Cards will be moved here by JavaScript -->
+          </div>
+        </div>
+        
+        <div class="category-section" id="qualityCategory">
+          <h3 class="category-title">Quality Management</h3>
+          <div class="category-cards">
+            <!-- Cards will be moved here by JavaScript -->
+          </div>
+        </div>
+        
+        <div class="category-section" id="safetyCategory">
+          <h3 class="category-title">Safety & Compliance</h3>
+          <div class="category-cards">
+            <!-- Cards will be moved here by JavaScript -->
+          </div>
+        </div>
+        
+        <div class="category-section" id="otherCategory">
+          <h3 class="category-title">Other Tools</h3>
+          <div class="category-cards">
+            <!-- Cards will be moved here by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <div class="card-container">
+        <!-- Inspection Report Card -->
+        <div class="card card-active">
+          <i class="fas fa-clipboard-check"></i>
+          <h3>Inspection Report</h3>
+          <p>Create, manage, and submit detailed inspection reports for valves, actuators, and other equipment.</p>
+          <a href="inspection-report.html" class="card-btn">Open Report</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Audit Tool Card -->
+        <div class="card card-active">
+          <i class="fas fa-tasks"></i>
+          <h3>Audit Tool</h3>
+          <p>Conduct comprehensive audits of manufacturing facilities and track compliance with quality standards.</p>
+          <a href="/ProcessAudit/index.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Recall Letter Tool -->
+        <div class="card card-active">
+          <i class="fas fa-envelope-open-text"></i>
+          <h3>Recall Letter Tool</h3>
+          <p>Generate and manage product recall communications with templates for different scenarios and regulatory requirements.</p>
+          <a href="RecallNotice/index.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Document Builder Tool -->
+        <div class="card card-active">
+          <i class="fas fa-file-contract"></i>
+          <h3>Document Builder</h3>
+          <p>Create standardized technical documents, contracts, and specifications using customizable templates and industry standards.</p>
+          <a href="Documents/index.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Approved Supply Card -->
+        <div class="card card-active">
+          <i class="fas fa-check-circle"></i>
+          <h3>Approved Supply</h3>
+          <p>Manage and access information about approved suppliers and manufacturers for quality assurance purposes.</p>
+          <a href="ApprovedSupply/index.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Product Nonconformance Card -->
+        <div class="card card-active">
+          <i class="fas fa-times-circle"></i>
+          <h3>Product Nonconformance</h3>
+          <p>Report and track nonconforming products, manage investigations, and implement corrective actions.</p>
+          <a href="product-nonconformance.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Process Nonconformance Card -->
+        <div class="card card-active">
+          <i class="fas fa-cogs"></i>
+          <h3>Process Nonconformance</h3>
+          <p>Report and manage nonconformities identified in processes, including root cause analysis and corrective actions.</p>
+          <a href="process-nonconformance.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Customer Complaints Card -->
+        <div class="card card-active">
+          <i class="fas fa-comments-dollar"></i>
+          <h3>Customer Complaints</h3>
+          <p>Record, track, and manage customer feedback and complaints regarding product or service issues.</p>
+          <a href="customer-complaints.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Customer Delight Card -->
+        <div class="card card-active">
+          <i class="fas fa-heart"></i>
+          <h3>Customer Delight</h3>
+          <p>Track and manage initiatives aimed at exceeding customer expectations and fostering positive relationships.</p>
+          <a href="customer-delight.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Safety Card -->
+        <div class="card card-active">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Safety</h3>
+          <p>Access resources and tools related to workplace safety, incident reporting, and safety procedures.</p>
+          <a href="safety.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- IT Security Card -->
+        <div class="card card-active">
+          <i class="fas fa-lock"></i>
+          <h3>IT Security</h3>
+          <p>Access resources and tools related to IT security policies, data protection, and compliance.</p>
+          <a href="it-security.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Processes Card -->
+        <div class="card card-active">
+          <i class="fas fa-project-diagram"></i>
+          <h3>Processes</h3>
+          <p>View and manage documented business processes and workflows within the organization.</p>
+          <a href="process.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- ISO Certified Locations Card -->
+        <div class="card card-active">
+          <i class="fas fa-certificate"></i>
+          <h3>ISO Certified Locations</h3>
+          <p>Find information about MRC Global locations that hold ISO certifications and their scopes.</p>
+          <a href="iso-certified-locations.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Operational Procedures Card -->
+        <div class="card card-active">
+          <i class="fas fa-book"></i>
+          <h3>Operational Procedures</h3>
+          <p>Access and manage standardized operating procedures for various tasks and processes.</p>
+          <a href="operational-procedures.html" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Training and Development Card -->
+        <div class="card card-active">
+          <i class="fas fa-graduation-cap"></i>
+          <h3>Training and Development</h3>
+          <p>Manage training programs, track employee competencies, and access learning materials.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Equipment Management Card -->
+        <div class="card card-active">
+          <i class="fas fa-tools"></i>
+          <h3>Equipment Management</h3>
+          <p>Track equipment maintenance, calibration schedules, and certification status.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Document Control Card -->
+        <div class="card card-active">
+          <i class="fas fa-file-alt"></i>
+          <h3>Document Control</h3>
+          <p>Manage document lifecycles, control versions, and ensure compliance with document standards.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Supplier Management Card -->
+        <div class="card card-active">
+          <i class="fas fa-industry"></i>
+          <h3>Supplier Management</h3>
+          <p>Evaluate, qualify, and monitor suppliers to ensure consistent quality and compliance.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Risk Assessment Card -->
+        <div class="card card-active">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h3>Risk Assessment</h3>
+          <p>Identify, analyze, and mitigate risks related to products, processes, and operations.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Improvement Tracking Card -->
+        <div class="card card-active">
+          <i class="fas fa-chart-line"></i>
+          <h3>Continuous Improvement</h3>
+          <p>Track improvement initiatives, measure progress, and document outcomes.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Regulatory Compliance Card -->
+        <div class="card card-active">
+          <i class="fas fa-balance-scale"></i>
+          <h3>Regulatory Compliance</h3>
+          <p>Monitor compliance with industry regulations and standards relevant to MRC Global operations.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Change Management Card -->
+        <div class="card card-active">
+          <i class="fas fa-exchange-alt"></i>
+          <h3>Change Management</h3>
+          <p>Control and document changes to products, processes, and systems to maintain quality and compliance.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Context of the Organization Card -->
+        <div class="card card-active">
+          <i class="fas fa-sitemap"></i>
+          <h3>Context of the Organization</h3>
+          <p>Define and analyze organizational context including internal and external factors affecting strategic direction.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Leadership Card -->
+        <div class="card card-active">
+          <i class="fas fa-user-tie"></i>
+          <h3>Leadership</h3>
+          <p>Access resources and guidelines related to leadership principles and organizational management.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Planning Card -->
+        <div class="card card-active">
+          <i class="fas fa-calendar-alt"></i>
+          <h3>Planning</h3>
+          <p>Tools and resources for strategic planning, project scheduling, and workflow management.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Support Card -->
+        <div class="card card-active">
+          <i class="fas fa-headset"></i>
+          <h3>Support</h3>
+          <p>Access help resources, submit support tickets, and find contact information for assistance.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Operation Card -->
+        <div class="card card-active">
+          <i class="fas fa-wrench"></i>
+          <h3>Operation</h3>
+          <p>Manage operational workflows, equipment usage, and maintenance schedules.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Performance Evaluation Card -->
+        <div class="card card-active">
+          <i class="fas fa-chart-line"></i>
+          <h3>Performance Evaluation</h3>
+          <p>Tools and metrics for evaluating process and equipment performance against benchmarks.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Improvement Card -->
+        <div class="card card-active">
+          <i class="fas fa-arrow-up"></i>
+          <h3>Improvement</h3>
+          <p>Tools and resources for tracking, implementing, and managing continuous improvement initiatives.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Knowledge Management Card -->
+        <div class="card card-active">
+          <i class="fas fa-brain"></i>
+          <h3>Knowledge Management</h3>
+          <p>Document and share organizational knowledge, best practices, and lessons learned.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Calibration Management Card -->
+        <div class="card card-active">
+          <i class="fas fa-ruler-combined"></i>
+          <h3>Calibration Management</h3>
+          <p>Track calibration schedules, maintain calibration records, and ensure measurement accuracy.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+
+        <!-- Quality Metrics Card -->
+        <div class="card card-active">
+          <i class="fas fa-chart-pie"></i>
+          <h3>Quality Metrics</h3>
+          <p>Monitor key quality indicators, track trends, and generate performance reports.</p>
+          <a href="#" class="card-btn">Open Tool</a>
+          <a href="user_guide.html" class="user-guide-link">View User Guide</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; <script>document.write(new Date().getFullYear())</script> MRC Global. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Google Translate Script -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+  <!-- View Toggle Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cardViewBtn = document.getElementById('cardViewBtn');
+      const compactViewBtn = document.getElementById('compactViewBtn');
+      const listViewBtn = document.getElementById('listViewBtn');
+      const categoryViewBtn = document.getElementById('categoryViewBtn');
+      const mainContent = document.querySelector('.main-content');
+      const cardContainer = document.querySelector('.card-container');
+      const categoryContainer = document.getElementById('categoryContainer');
+      
+      // Map of cards to categories for the category view
+      const cardCategories = {
+        // Inspection & Audits
+        "Inspection Report": "inspectionCategory",
+        "Audit Tool": "inspectionCategory",
+        "Equipment Management": "inspectionCategory",
+        
+        // Documents & Reporting
+        "Recall Letter Tool": "documentsCategory",
+        "Document Builder": "documentsCategory",
+        "Document Control": "documentsCategory",
+        
+        // Quality Management
+        "Product Nonconformance": "qualityCategory",
+        "Process Nonconformance": "qualityCategory",
+        "Customer Complaints": "qualityCategory",
+        "Customer Delight": "qualityCategory",
+        "Approved Supply": "qualityCategory",
+        "Supplier Management": "qualityCategory",
+        "Quality Metrics": "qualityCategory",
+        
+        // Safety & Compliance
+        "Safety": "safetyCategory",
+        "IT Security": "safetyCategory",
+        "Regulatory Compliance": "safetyCategory",
+        "ISO Certified Locations": "safetyCategory",
+        
+        // Catch all for other cards
+        "default": "otherCategory"
+      };
+      
+      // Organize cards into categories for category view
+      function organizeCardsByCategory() {
+        // Clear existing cards in category containers
+        document.querySelectorAll('.category-cards').forEach(container => {
+          container.innerHTML = '';
+        });
+        
+        // Clone all cards
+        const cards = document.querySelectorAll('.card-container .card');
+        
+        // For each card, determine its category and append to appropriate container
+        cards.forEach(card => {
+          const cardClone = card.cloneNode(true);
+          const cardTitle = cardClone.querySelector('h3').textContent.trim();
+          const categoryId = cardCategories[cardTitle] || cardCategories['default'];
+          const categoryCardsContainer = document.querySelector(`#${categoryId} .category-cards`);
+          categoryCardsContainer.appendChild(cardClone);
+        });
+      }
+      
+      // Set the initial view from localStorage (if available)
+      const savedView = localStorage.getItem('inspectionPortalView');
+      if (savedView) {
+        setActiveView(savedView);
+      }
+      
+      // Switch to card view
+      cardViewBtn.addEventListener('click', function() {
+        setActiveView('card');
+      });
+      
+      // Switch to compact view
+      compactViewBtn.addEventListener('click', function() {
+        setActiveView('compact');
+      });
+      
+      // Switch to list view
+      listViewBtn.addEventListener('click', function() {
+        setActiveView('list');
+      });
+      
+      // Switch to category view
+      categoryViewBtn.addEventListener('click', function() {
+        // Organize cards by category if not already done
+        organizeCardsByCategory();
+        setActiveView('category');
+      });
+      
+      // Helper function to set active view
+      function setActiveView(viewMode) {
+        // Reset all classes and buttons
+        mainContent.classList.remove('list-view', 'compact-view', 'category-view');
+        cardViewBtn.classList.remove('active');
+        compactViewBtn.classList.remove('active');
+        listViewBtn.classList.remove('active');
+        categoryViewBtn.classList.remove('active');
+        
+        // Hide/show containers based on view
+        cardContainer.style.display = viewMode === 'category' ? 'none' : 'flex';
+        categoryContainer.style.display = viewMode === 'category' ? 'block' : 'none';
+        
+        // Set the appropriate view
+        switch(viewMode) {
+          case 'compact':
+            mainContent.classList.add('compact-view');
+            compactViewBtn.classList.add('active');
+            break;
+          case 'list':
+            mainContent.classList.add('list-view');
+            listViewBtn.classList.add('active');
+            break;
+          case 'category':
+            mainContent.classList.add('category-view');
+            categoryViewBtn.classList.add('active');
+            break;
+          default: // card view
+            cardViewBtn.classList.add('active');
+            break;
+        }
+        
+        // Save to localStorage
+        localStorage.setItem('inspectionPortalView', viewMode);
+      }
+      
+      // Settings functionality
+      const settingsBtn = document.getElementById('settingsBtn');
+      const settingsModal = document.getElementById('settingsModal');
+      const settingsClose = document.querySelector('.settings-close');
+      const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+      const resetSettingsBtn = document.getElementById('resetSettingsBtn');
+      const toolVisibilityList = document.getElementById('toolVisibilityList');
+      
+      // Define default visible tools
+      const defaultVisibleTools = [
+        "Inspection Report", 
+        "Audit Tool", 
+        "Recall Letter Tool", 
+        "Document Builder", 
+        "Approved Supply"
+      ];
+      
+      // Load tool visibility settings from localStorage or use defaults
+      function loadToolVisibilitySettings() {
+        let hiddenTools = localStorage.getItem('hiddenTools');
+        
+        // If no settings exist yet, create default settings
+        if (!hiddenTools) {
+          // Get all tool names
+          const allToolNames = Array.from(document.querySelectorAll('.card h3')).map(h => h.textContent);
+          
+          // Hide all tools that are not in the default visible tools list
+          hiddenTools = allToolNames.filter(tool => !defaultVisibleTools.includes(tool));
+          
+          // Save default settings to localStorage
+          localStorage.setItem('hiddenTools', JSON.stringify(hiddenTools));
+        } else {
+          hiddenTools = JSON.parse(hiddenTools);
+        }
+        
+        return hiddenTools;
+      }
+      
+      // Generate tool checkboxes for settings panel
+      function generateToolCheckboxes() {
+        const cards = document.querySelectorAll('.card');
+        const hiddenTools = loadToolVisibilitySettings();
+        
+        toolVisibilityList.innerHTML = ''; // Clear existing checkboxes
+        
+        cards.forEach(card => {
+          const title = card.querySelector('h3').textContent;
+          const id = 'tool-' + title.replace(/\s+/g, '-').toLowerCase();
+          const isHidden = hiddenTools.includes(title);
+          
+          const toggleDiv = document.createElement('div');
+          toggleDiv.className = 'tool-toggle';
+          
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.id = id;
+          checkbox.checked = !isHidden;
+          checkbox.dataset.toolName = title;
+          
+          const label = document.createElement('label');
+          label.textContent = title;
+          label.htmlFor = id;
+          
+          toggleDiv.appendChild(checkbox);
+          toggleDiv.appendChild(label);
+          toolVisibilityList.appendChild(toggleDiv);
+        });
+      }
+      
+      // Apply tool visibility settings to the cards
+      function applyToolVisibility() {
+        const hiddenTools = loadToolVisibilitySettings();
+        const cards = document.querySelectorAll('.card');
+        
+        cards.forEach(card => {
+          const title = card.querySelector('h3').textContent;
+          if (hiddenTools.includes(title)) {
+            card.style.display = 'none';
+          } else {
+            card.style.display = '';
+          }
+        });
+      }
+      
+      // Save tool visibility settings
+      function saveToolVisibilitySettings() {
+        const checkboxes = document.querySelectorAll('.tool-toggle input[type="checkbox"]');
+        const hiddenTools = [];
+        
+        checkboxes.forEach(checkbox => {
+          if (!checkbox.checked) {
+            hiddenTools.push(checkbox.dataset.toolName);
+          }
+        });
+        
+        localStorage.setItem('hiddenTools', JSON.stringify(hiddenTools));
+        applyToolVisibility();
+      }
+      
+      // Show settings modal
+      settingsBtn.addEventListener('click', function() {
+        generateToolCheckboxes();
+        settingsModal.style.display = 'block';
+      });
+      
+      // Close settings modal
+      settingsClose.addEventListener('click', function() {
+        settingsModal.style.display = 'none';
+      });
+      
+      // Close modal when clicking outside
+      window.addEventListener('click', function(event) {
+        if (event.target === settingsModal) {
+          settingsModal.style.display = 'none';
+        }
+      });
+      
+      // Save settings
+      saveSettingsBtn.addEventListener('click', function() {
+        saveToolVisibilitySettings();
+        
+        // Save other settings
+        const saveViewPref = document.getElementById('saveViewPref').checked;
+        localStorage.setItem('saveViewPreference', saveViewPref.toString());
+        
+        const expandAllCards = document.getElementById('expandAllCards').checked;
+        localStorage.setItem('expandAllCards', expandAllCards.toString());
+        
+        if (expandAllCards) {
+          document.querySelectorAll('.card p').forEach(p => {
+            p.style.display = 'block';
+          });
+        } else {
+          document.querySelectorAll('.card p').forEach(p => {
+            p.style.display = '';
+          });
+        }
+        
+        settingsModal.style.display = 'none';
+        
+        // Show confirmation
+        const alertBox = document.createElement('div');
+        alertBox.className = 'alert alert-success';
+        alertBox.style.position = 'fixed';
+        alertBox.style.top = '20px';
+        alertBox.style.left = '50%';
+        alertBox.style.transform = 'translateX(-50%)';
+        alertBox.style.padding = '10px 20px';
+        alertBox.style.borderRadius = '5px';
+        alertBox.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+        alertBox.style.zIndex = '9999';
+        alertBox.textContent = 'Settings saved successfully';
+        
+        document.body.appendChild(alertBox);
+        
+        setTimeout(() => {
+          alertBox.style.opacity = '0';
+          alertBox.style.transition = 'opacity 0.5s';
+          setTimeout(() => {
+            document.body.removeChild(alertBox);
+          }, 500);
+        }, 2000);
+      });
+      
+      // Reset settings to default
+      resetSettingsBtn.addEventListener('click', function() {
+        if (confirm('Reset all settings to default? This will show all tools and restore default preferences.')) {
+          // Clear the hidden tools and reset to default visible tools
+          const allToolNames = Array.from(document.querySelectorAll('.card h3')).map(h => h.textContent);
+          const hiddenTools = allToolNames.filter(tool => !defaultVisibleTools.includes(tool));
+          localStorage.setItem('hiddenTools', JSON.stringify(hiddenTools));
+          
+          localStorage.removeItem('expandAllCards');
+          
+          // Keep view preference setting based on user choice
+          const saveViewPref = document.getElementById('saveViewPref').checked;
+          if (!saveViewPref) {
+            localStorage.removeItem('inspectionPortalView');
+          }
+          
+          // Reset checkboxes
+          document.querySelectorAll('.tool-toggle input[type="checkbox"]').forEach(checkbox => {
+            const toolName = checkbox.dataset.toolName;
+            checkbox.checked = defaultVisibleTools.includes(toolName);
+          });
+          
+          document.getElementById('expandAllCards').checked = false;
+          
+          // Apply visibility settings
+          applyToolVisibility();
+          
+          // Reset card description display
+          document.querySelectorAll('.card p').forEach(p => {
+            p.style.display = '';
+          });
+        }
+      });
+      
+      // Apply tool visibility settings on page load
+      applyToolVisibility();
+      
+      // Apply expand all cards setting
+      const expandAllCards = localStorage.getItem('expandAllCards') === 'true';
+      if (expandAllCards) {
+        document.querySelectorAll('.card p').forEach(p => {
+          p.style.display = 'block';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

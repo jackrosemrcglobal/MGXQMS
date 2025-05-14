@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MRC Global Inspection Report Tool - User Guide</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f4f7fa;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 2px solid #003366;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 100px;
+      height: auto;
+      margin-right: 20px;
+    }
+
+    .header-text {
+      flex: 1;
+    }
+
+    h1 {
+      color: #003366;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 16px;
+    }
+
+    .guide-nav {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .guide-nav h2 {
+      color: #003366;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .guide-nav ul {
+      list-style-type: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .guide-nav li {
+      margin-bottom: 5px;
+    }
+
+    .guide-nav a {
+      display: inline-block;
+      background-color: #f0f7ff;
+      color: #003366;
+      padding: 8px 15px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .guide-nav a:hover {
+      background-color: #d0e4ff;
+    }
+
+    .section {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      color: #003366;
+      font-size: 24px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .section h3 {
+      color: #003366;
+      font-size: 20px;
+      margin: 25px 0 15px;
+    }
+
+    .section p {
+      margin-bottom: 15px;
+    }
+
+    .section ul, .section ol {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    .section li {
+      margin-bottom: 8px;
+    }
+
+    .feature-box {
+      background-color: #f9f9f9;
+      border-left: 4px solid #003366;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .feature-box h4 {
+      color: #003366;
+      margin-bottom: 10px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    .icon {
+      display: inline-block;
+      width: 24px;
+      text-align: center;
+      margin-right: 5px;
+    }
+
+    .note {
+      background-color: #fff8e1;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .tip {
+      background-color: #e8f5e9;
+      border-left: 4px solid #4caf50;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .warning {
+      background-color: #ffebee;
+      border-left: 4px solid #f44336;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .image-placeholder {
+      background-color: #eee;
+      border: 1px dashed #ccc;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+
+    code {
+      font-family: Consolas, Monaco, 'Andale Mono', monospace;
+      background: #f5f5f5;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+
+    .button-example {
+      background-color: #f5f5f5;
+      padding: 5px 10px;
+      border-radius: 3px;
+      color: #003366;
+      font-weight: bold;
+      display: inline-block;
+      margin: 2px;
+      border: 1px solid #ddd;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 60px;
+      color: #666;
+      font-size: 14px;
+      border-top: 1px solid #ddd;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #003366;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .back-to-top:hover {
+      opacity: 1;
+    }
+
+    /* Home link styling */
+    .home-link {
+      color: #003366;
+      text-decoration: none;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      margin-left: auto;
+      margin-right: 15px;
+    }
+
+    .home-link i {
+      margin-right: 5px;
+    }
+
+    .home-link:hover {
+      color: #004c99;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 20px;
+      }
+      
+      .guide-nav ul {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="mrc_logo.png" alt="MRC Global Logo" class="logo">
+      <div class="header-text">
+        <h1>Inspection Report Tool</h1>
+        <p class="subtitle">User Guide</p>
+      </div>
+      <!-- Added home link -->
+      <a href="index.html" class="home-link"><i class="fas fa-home"></i> Home</a>
+    </header>
+
+    <div class="guide-nav">
+      <h2>Quick Navigation</h2>
+      <ul>
+        <li><a href="#introduction"><i class="fas fa-info-circle"></i> Introduction</a></li>
+        <li><a href="#getting-started"><i class="fas fa-play-circle"></i> Getting Started</a></li>
+        <li><a href="#navigation"><i class="fas fa-compass"></i> Interface Navigation</a></li>
+        <li><a href="#filling-out"><i class="fas fa-edit"></i> Filling Out Reports</a></li>
+        <li><a href="#saving-loading"><i class="fas fa-save"></i> Saving & Loading</a></li>
+        <li><a href="#image-documentation"><i class="fas fa-images"></i> Image Documentation</a></li>
+        <li><a href="#printing-exporting"><i class="fas fa-print"></i> Printing & Exporting</a></li>
+        <li><a href="#form-customization"><i class="fas fa-sliders-h"></i> Form Customization</a></li>
+        <li><a href="#tips-tricks"><i class="fas fa-lightbulb"></i> Tips & Tricks</a></li>
+        <li><a href="#troubleshooting"><i class="fas fa-wrench"></i> Troubleshooting</a></li>
+      </ul>
+    </div>
+
+    <section id="introduction" class="section">
+      <h2>Introduction</h2>
+      <p>Welcome to the MRC Global Inspection Report Tool User Guide. This comprehensive tool has been designed to streamline the process of creating, managing, and submitting detailed inspection reports for valves, actuators, and other equipment.</p>
+      
+      <p>The Inspection Report Tool provides a structured approach to documenting inspection activities, with specialized sections for different types of equipment and inspection parameters. This guide will walk you through all features and functionalities to help you use the tool effectively.</p>
+      
+      <div class="feature-box">
+        <h4>Key Features</h4>
+        <ul>
+          <li>Comprehensive inspection form with specialized sections for valves, actuators, and ancillaries</li>
+          <li>Image documentation capabilities with annotation</li>
+          <li>Save and load functionality for managing multiple reports</li>
+          <li>Export options for sharing and archiving reports</li>
+          <li>Customizable form layout through drag-and-drop functionality</li>
+          <li>Automatic calculations for time tracking</li>
+          <li>Integrated print functionality with optimized formatting</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="getting-started" class="section">
+      <h2>Getting Started</h2>
+      <p>This section will guide you through the initial steps of accessing and using the Inspection Report Tool.</p>
+      
+      <h3>Accessing the Tool</h3>
+      <ol>
+        <li>From the MRC Global Portal homepage, locate the "Inspection Report" card</li>
+        <li>Click the "Open Report" button to launch the tool</li>
+        <li>The tool will open in a new page with an empty inspection form ready to be filled out</li>
+      </ol>
+      
+      <h3>System Requirements</h3>
+      <p>The MRC Global Inspection Report Tool works best with:</p>
+      <ul>
+        <li>A modern web browser (Chrome, Firefox, Edge, or Safari)</li>
+        <li>JavaScript enabled</li>
+        <li>Minimum screen resolution of 1280 × 800 pixels (larger displays provide better user experience)</li>
+      </ul>
+      
+      <div class="note">
+        <strong>Note:</strong> For the best experience, use the tool on a desktop or laptop computer. While the interface is responsive, the complexity of the form makes it more challenging to use on smaller screens.
+      </div>
+    </section>
+
+    <section id="navigation" class="section">
+      <h2>Interface Navigation</h2>
+      <p>The Inspection Report Tool interface is organized into logical sections to facilitate easy navigation and data entry.</p>
+      
+      <h3>Header Section</h3>
+      <p>At the top of the page, you'll find:</p>
+      <ul>
+        <li><strong>MRC Global Logo</strong> - Displayed in the top left</li>
+        <li><strong>Title</strong> - "MRC Global Inspection Report"</li>
+        <li><strong>Home Link</strong> - Click the home icon to return to the portal homepage</li>
+        <li><strong>Form Actions Button</strong> - A dropdown menu with options for saving, loading, printing, and exporting reports</li>
+      </ul>
+      
+      <h3>Control Number</h3>
+      <p>Below the header, you'll find the Control Number section. This automatically generated identifier combines information from several fields:</p>
+      <ul>
+        <li>Report Number</li>
+        <li>Supplier</li>
+        <li>IR Revision</li>
+        <li>Current Year</li>
+        <li>Date (in DD.MM.YYYY format)</li>
+      </ul>
+      
+      <h3>Form Sections</h3>
+      <p>The main form is divided into multiple sections, each focusing on a specific aspect of the inspection. Major sections include:</p>
+      <ul>
+        <li>Basic Information</li>
+        <li>Contact Information</li>
+        <li>Order Information</li>
+        <li>Time Breakdown</li>
+        <li>Purpose and Summary</li>
+        <li>Item Details</li>
+        <li>Inspection Results</li>
+        <li>Equipment-specific inspections (Valves, Actuators, etc.)</li>
+        <li>Visual Inspection Notes</li>
+        <li>Document References</li>
+        <li>Image Documentation</li>
+      </ul>
+      
+      <h3>Section Navigation</h3>
+      <p>Each section has a header with a title and can be moved within the form using the drag handle (six vertical dots on the left side of each section header).</p>
+      
+      <div class="tip">
+        <strong>Tip:</strong> If the form is very long, you can use your browser's "Find" function (usually Ctrl+F or Cmd+F) to quickly locate specific sections or fields.
+      </div>
+    </section>
+
+    <section id="filling-out" class="section">
+      <h2>Filling Out Reports</h2>
+      <p>This section provides guidance on how to complete the various sections of the inspection report form efficiently.</p>
+      
+      <h3>Basic Information</h3>
+      <p>Start by filling out the basic information section:</p>
+      <ul>
+        <li><strong>IR Issued Date</strong> - Defaults to today's date but can be changed as needed</li>
+        <li><strong>Reference Order/Project</strong> - Enter the reference order or project identifier</li>
+        <li><strong>Report Number</strong> - Enter a unique report number</li>
+        <li><strong>IR Revision</strong> - Enter the revision number (defaults to 0 for new reports)</li>
+        <li><strong>Manufacturer</strong> - Enter the name of the equipment manufacturer</li>
+        <li><strong>Supplier/SubSupplier</strong> - Enter the name of the supplier or subsupplier</li>
+        <li><strong>MRC Client</strong> - Enter the name of the MRC client</li>
+        <li><strong>Supplier Job No.</strong> - Enter the supplier's job number</li>
+      </ul>
+      
+      <p>As you fill out the Report Number, Supplier, IR Revision, and IR Date fields, the Control Number at the top of the form will automatically update.</p>
+      
+      <h3>Contact Information and Inspection Type</h3>
+      <p>Complete the contact information section with:</p>
+      <ul>
+        <li>Contact Person</li>
+        <li>Inspection Location</li>
+        <li>Tel No.</li>
+      </ul>
+      
+      <p>In the same section, select the appropriate checkboxes for:</p>
+      <ul>
+        <li>Type of Inspection (Interim, Final, or Other)</li>
+        <li>Result of Inspection (Accepted, Hold, Rejected, or Other)</li>
+        <li>Order Status (Whole, Part, or Balance)</li>
+      </ul>
+      
+      <h3>Time Tracking</h3>
+      <p>The Time Breakdown section allows you to record time spent on different activities across the week:</p>
+      <ul>
+        <li>Inspection Time</li>
+        <li>Reporting Time</li>
+        <li>Travel Time</li>
+        <li>Travel Km</li>
+      </ul>
+      
+      <p>Enter values for each day (M, T, W, TH, F) and the system will automatically calculate the partial totals and weekly total.</p>
+      
+      <h3>Equipment Inspection Sections</h3>
+      <p>The tool includes dedicated inspection sections for different types of equipment:</p>
+      <ul>
+        <li><strong>Valves Inspection</strong> - For documenting valve-specific inspection parameters</li>
+        <li><strong>Actuators Inspection</strong> - For documenting actuator-specific inspection parameters</li>
+        <li><strong>Ancillaries Inspection</strong> - For documenting inspection of ancillary equipment</li>
+        <li><strong>Spools/Framework Inspection</strong> - For documenting inspection of spools and frameworks</li>
+      </ul>
+      
+      <p>In each section, mark the appropriate radio button (Pass, Fail, or N/A) for each inspection item.</p>
+      
+      <div class="note">
+        <strong>Note:</strong> Not all sections may be relevant for every inspection. Focus on completing the sections that apply to your specific inspection scenario.
+      </div>
+      
+      <h3>Additional Notes & Comments</h3>
+      <p>Use the "Additional Notes & Comments" section to provide any supplementary information about the inspection that doesn't fit in the structured fields.</p>
+      
+      <h3>Document References</h3>
+      <p>The Document References section allows you to select which standards and specifications were used during the inspection. Simply check the boxes next to the relevant documents.</p>
+    </section>
+
+    <section id="saving-loading" class="section">
+      <h2>Saving & Loading</h2>
+      <p>The Inspection Report Tool offers multiple options for saving and loading reports, ensuring you never lose your work.</p>
+      
+      <h3>Saving Reports</h3>
+      <p>To save a report, click the "Form Actions" button in the top right corner and select one of the following options:</p>
+      
+      <div class="feature-box">
+        <h4>Save Report</h4>
+        <p>This option saves the report to your browser's local storage:</p>
+        <ol>
+          <li>Click "Save Report" from the Form Actions menu</li>
+          <li>Enter a name for your report when prompted</li>
+          <li>Click OK to save</li>
+        </ol>
+        <p><strong>Note:</strong> Local storage is specific to your browser on your current device. Reports saved this way won't be accessible from other devices or browsers.</p>
+      </div>
+      
+      <div class="feature-box">
+        <h4>Save as File</h4>
+        <p>This option saves the report as a JSON file that can be stored, shared, or loaded later:</p>
+        <ol>
+          <li>Click "Save as File" from the Form Actions menu</li>
+          <li>Enter a name for your report when prompted</li>
+          <li>Choose where to save the file when your browser's download dialog appears</li>
+        </ol>
+        <p><strong>Note:</strong> Saving as a file is recommended for long-term storage or when you need to share the report with others.</p>
+      </div>
+      
+      <h3>Loading Reports</h3>
+      <p>To load a previously saved report, click the "Form Actions" button and select one of the following options:</p>
+      
+      <div class="feature-box">
+        <h4>Load Report</h4>
+        <p>This option loads a report from your browser's local storage:</p>
+        <ol>
+          <li>Click "Load Report" from the Form Actions menu</li>
+          <li>Select the report you want to load from the list that appears</li>
+          <li>The form will be populated with the saved data</li>
+        </ol>
+      </div>
+      
+      <div class="feature-box">
+        <h4>Load from File</h4>
+        <p>This option loads a report from a previously saved JSON file:</p>
+        <ol>
+          <li>Click "Load from File" from the Form Actions menu</li>
+          <li>Browse for and select the report file when prompted</li>
+          <li>The form will be populated with the data from the file</li>
+        </ol>
+      </div>
+      
+      <div class="warning">
+        <strong>Warning:</strong> Loading a report will replace all current form data. Make sure to save your current work before loading a different report.
+      </div>
+    </section>
+
+    <section id="image-documentation" class="section">
+      <h2>Image Documentation</h2>
+      <p>The Image Documentation section allows you to include visual evidence in your inspection reports.</p>
+      
+      <h3>Adding Images</h3>
+      <ol>
+        <li>Navigate to the "Image Documentation" section of the form</li>
+        <li>Click the "Add New Image" button</li>
+        <li>Select an image file from your device (supported formats: JPEG, PNG, GIF)</li>
+        <li>The image will be uploaded and displayed in the form</li>
+      </ol>
+      
+      <h3>Managing Images</h3>
+      <p>Each uploaded image includes:</p>
+      <ul>
+        <li>A filename header</li>
+        <li>The image itself</li>
+        <li>A comments field where you can add notes about the image</li>
+        <li>A remove button to delete the image if needed</li>
+      </ul>
+      
+      <p>To add comments to an image:</p>
+      <ol>
+        <li>Locate the comments field below the image</li>
+        <li>Enter your notes about what the image shows, relevant observations, etc.</li>
+        <li>Comments are automatically saved as you type</li>
+      </ol>
+      
+      <p>To remove an image:</p>
+      <ol>
+        <li>Click the "Remove" button in the top right corner of the image item</li>
+        <li>The image and its associated comments will be removed from the report</li>
+      </ol>
+      
+      <div class="tip">
+        <strong>Tip:</strong> For the best results, use clear, well-lit images that highlight the specific aspects of the equipment being inspected. Adding detailed comments to each image helps provide context for later review.
+      </div>
+    </section>
+
+    <section id="printing-exporting" class="section">
+      <h2>Printing & Exporting</h2>
+      <p>The Inspection Report Tool offers options for printing and exporting reports for documentation and sharing purposes.</p>
+      
+      <h3>Printing Reports</h3>
+      <ol>
+        <li>Click the "Form Actions" button in the top right corner</li>
+        <li>Select "Print Report" from the dropdown menu</li>
+        <li>Your browser's print dialog will appear</li>
+        <li>Select your desired printer and print settings</li>
+        <li>Click Print to generate a hard copy of the report</li>
+      </ol>
+      
+      <p>When printing:</p>
+      <ul>
+        <li>Control elements like the drag handles and form actions dropdown are automatically hidden</li>
+        <li>The layout is optimized for paper size</li>
+        <li>Font sizes are adjusted for better readability in print</li>
+      </ul>
+      
+      <div class="tip">
+        <strong>Tip:</strong> If you want to save a digital copy rather than printing to paper, select "Save as PDF" or similar option in your print dialog. This creates a PDF version of the report that can be easily stored or shared electronically.
+      </div>
+      
+      <h3>Exporting to CSV</h3>
+      <p>For data analysis or integration with other systems, you can export report data to CSV format:</p>
+      <ol>
+        <li>Click the "Form Actions" button</li>
+        <li>Select "Export to CSV" from the dropdown menu</li>
+        <li>A CSV file with all form field data will be downloaded</li>
+      </ol>
+      
+      <p>The CSV export includes:</p>
+      <ul>
+        <li>Field names and values in a comma-separated format</li>
+        <li>All text and numerical data from the form</li>
+      </ul>
+      
+      <p>If your report contains file attachments, they will be automatically bundled into a ZIP file that downloads alongside the CSV file.</p>
+    </section>
+
+    <section id="form-customization" class="section">
+      <h2>Form Customization</h2>
+      <p>The Inspection Report Tool allows you to customize the layout of the form to better suit your specific inspection workflows.</p>
+      
+      <h3>Reordering Sections</h3>
+      <p>Most sections of the form can be reordered using drag and drop:</p>
+      <ol>
+        <li>Locate the drag handle (six vertical dots) on the left side of the section header</li>
+        <li>Click and hold the drag handle</li>
+        <li>Drag the section to its new position in the form</li>
+        <li>Release to drop the section in place</li>
+      </ol>
+      
+      <p>The new order of sections will be preserved when you save the report.</p>
+      
+      <div class="note">
+        <strong>Note:</strong> Some sections like the Control Number and Signatures sections cannot be reordered as they must remain at fixed positions in the form.
+      </div>
+      
+      <h3>Layout Persistence</h3>
+      <p>The tool automatically remembers your preferred section order:</p>
+      <ul>
+        <li>When you save a report, the current section order is saved with it</li>
+        <li>When you load a saved report, the sections will be arranged according to the saved order</li>
+        <li>Your last used layout is also saved to your browser's local storage and applied to new reports</li>
+      </ul>
+      
+      <div class="tip">
+        <strong>Tip:</strong> Consider organizing the form with your most frequently used sections at the top for easier access during inspections.
+      </div>
+    </section>
+
+    <section id="tips-tricks" class="section">
+      <h2>Tips & Tricks</h2>
+      <p>Here are some helpful tips to make your experience with the Inspection Report Tool more efficient:</p>
+      
+      <div class="feature-box">
+        <h4>Quick Navigation</h4>
+        <ul>
+          <li>Use Ctrl+F (or Cmd+F on Mac) to quickly find specific fields or sections</li>
+          <li>Tab between fields to move through the form quickly</li>
+          <li>Organize sections with your most frequently used ones at the top</li>
+        </ul>
+      </div>
+      
+      <div class="feature-box">
+        <h4>Data Entry</h4>
+        <ul>
+          <li>Fill out the Basic Information section first to generate the Control Number</li>
+          <li>For Time Breakdown, enter values as you go through the week for accurate tracking</li>
+          <li>When selecting radio buttons in inspection tables, click on the cell not just the radio button for easier selection</li>
+          <li>Use descriptive names when saving reports to make them easier to identify later</li>
+        </ul>
+      </div>
+      
+      <div class="feature-box">
+        <h4>Working with Images</h4>
+        <ul>
+          <li>Resize large images before uploading for better performance</li>
+          <li>Write clear, concise comments for each image</li>
+          <li>Consider organizing images in a logical sequence (e.g., overview first, then details)</li>
+        </ul>
+      </div>
+      
+      <div class="feature-box">
+        <h4>Saving Work</h4>
+        <ul>
+          <li>Save your work frequently to prevent data loss</li>
+          <li>Use "Save as File" for important reports or when work is complete</li>
+          <li>Use descriptive filenames that include date, project, and revision information</li>
+        </ul>
+      </div>
+      
+      <div class="feature-box">
+        <h4>Optimizing for Print</h4>
+        <ul>
+          <li>Preview the print layout before printing to ensure all content fits properly</li>
+          <li>Consider using landscape orientation for better fitting of wide tables</li>
+          <li>If printing doesn't look right, try saving as PDF first, then print from the PDF viewer</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="troubleshooting" class="section">
+      <h2>Troubleshooting</h2>
+      <p>Here are solutions to common issues you might encounter while using the Inspection Report Tool:</p>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Issue</th>
+              <th>Possible Cause</th>
+              <th>Solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Form does not load properly</td>
+              <td>JavaScript disabled or browser compatibility issue</td>
+              <td>
+                <ul>
+                  <li>Ensure JavaScript is enabled in your browser</li>
+                  <li>Try using a different modern browser (Chrome, Firefox, Edge)</li>
+                  <li>Clear your browser cache and reload the page</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Cannot save reports locally</td>
+              <td>Local storage issues or private browsing mode</td>
+              <td>
+                <ul>
+                  <li>Make sure you're not in private/incognito browsing mode</li>
+                  <li>Check if your browser has restrictions on local storage</li>
+                  <li>Try using "Save as File" instead</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Report does not print correctly</td>
+              <td>Complex layout causing print formatting issues</td>
+              <td>
+                <ul>
+                  <li>Try printing to PDF first, then print the PDF</li>
+                  <li>Adjust your printer settings (landscape mode may work better)</li>
+                  <li>Try printing from a different browser</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Cannot load a saved file</td>
+              <td>File format issues or corrupted file</td>
+              <td>
+                <ul>
+                  <li>Ensure you're loading a file that was saved using the "Save as File" option</li>
+                  <li>Check if the file extension is .json</li>
+                  <li>Try loading a different saved report file</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Image upload fails</td>
+              <td>File size or format issues</td>
+              <td>
+                <ul>
+                  <li>Ensure the image is in a supported format (JPEG, PNG, GIF)</li>
+                  <li>Reduce the image size if it's very large</li>
+                  <li>Try uploading a different image to see if the issue persists</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Control Number not generating</td>
+              <td>Missing required fields</td>
+              <td>
+                <ul>
+                  <li>Ensure you've filled out Report Number, Supplier, and IR Revision fields</li>
+                  <li>Verify the IR Date field has a valid date</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Calculations not updating</td>
+              <td>Input format issues</td>
+              <td>
+                <ul>
+                  <li>Ensure time values are entered as numbers</li>
+                  <li>Avoid using text or special characters in numeric fields</li>
+                  <li>Try clicking outside the field after entering a value</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="warning">
+        <strong>If Problems Persist:</strong> If you continue to experience issues that aren't resolved by these troubleshooting steps, try using a different browser or computer. If problems still persist, contact your system administrator for assistance.
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; <script>document.write(new Date().getFullYear())</script> MRC Global. All rights reserved.</p>
+      <p>For additional assistance, please contact your system administrator.</p>
+    </footer>
+  </div>
+  
+  <a href="#" class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Show/hide back to top button
+    window.onscroll = function() {
+      const backToTopButton = document.querySelector('.back-to-top');
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    };
+    
+    // Make back to top button work correctly
+    document.querySelector('.back-to-top').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>
