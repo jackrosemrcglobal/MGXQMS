@@ -181,45 +181,280 @@ function loadLayoutState() {
 // Load report data function (moved to global scope)
 function loadReportFromData(report) {
   const form = document.getElementById('inspection-report');
-  
+
   // Reset form first
   form.reset();
-  
+
+  // Clear dynamically added table rows before loading new data
+  form.querySelectorAll('.add-row-btn').forEach(button => {
+      const table = button.previousElementSibling;
+      if (table && table.tagName === 'TABLE' && !table.classList.contains('item-details-transposed')) {
+          const tbody = table.querySelector('tbody');
+          // Find the template row based on name pattern if exists, otherwise assume last row is template
+          let templateRow = null;
+          const firstInputInLastRow = tbody.lastElementChild?.querySelector('input, textarea, select');
+          if (firstInputInLastRow && firstInputInLastRow.name.match(/-template$/)) {
+              templateRow = tbody.lastElementChild;
+          } else {
+               // Check if any row is explicitly marked as a template or has a template input name pattern
+               templateRow = Array.from(tbody.children).find(row => row.querySelector('input[name$="-template"]'));
+               if (!templateRow && tbody.children.length > 0) {
+                   // Fallback: if no explicit template, assume the *original* rows that were there on load are templates
+                   // This requires a more robust way to identify original rows vs added rows,
+                   // but for this specific form structure, it's simpler to just clear all non-template-pattern rows
+                   // and rely on the load logic to add rows if needed based on data indexes.
+               }
+          }
+
+
+          // Remove all rows except the identified template rows
+          Array.from(tbody.children).forEach(row => {
+              let isTemplate = false;
+              // Check if this row is one of the identified templates
+              if (templateRow && row === templateRow) isTemplate = true;
+               if (!isTemplate && row.querySelector('input[name$="-template"]')) isTemplate = true; // Also check for template names
+
+              if (!isTemplate) {
+                  row.remove();
+              }
+          });
+      }
+  });
+
+   // Clear document references rows (both tables)
+   document.querySelectorAll('.document-references').forEach(table => {
+        const tbody = table.querySelector('tbody');
+        // Find template rows based on name pattern
+        const templateRows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.querySelector('input[name$="-template"]'));
+
+         Array.from(tbody.children).forEach(row => {
+              if (!templateRows.includes(row)) {
+                  row.remove();
+              }
+          });
+   });
+
+
   // Fill form with saved data
   for (let key in report.data) {
     if (key === '_sectionOrder') continue;
-    
-    const input = form.elements[key];
-    if (input) {
-      if (input.type === 'checkbox' || input.type === 'radio') {
-        input.checked = report.data[key] === 'on' || report.data[key] === true;
-      } else {
-        input.value = report.data[key];
-      }
+
+    // Special handling for transposed item details
+    if (key.startsWith('item-')) {
+        // key format is item-{original-header}-{item-index} e.g., item-po-1
+        const keyParts = key.split('-');
+        const originalHeaderName = keyParts.slice(1, -1).join('-');
+        const itemIndex = parseInt(keyParts[keyParts.length - 1]);
+
+        // Find the correct input element in the transposed table
+        // The structure is table > tbody > tr (for header) > td > input/textarea
+        // We need the row that corresponds to the original header name, and the td that corresponds to the item index
+        const table = form.querySelector('.item-details-transposed table');
+        if (table) {
+             const rows = table.querySelectorAll('tbody tr');
+             let targetRow = null;
+             rows.forEach(row => {
+                 const headerCell = row.querySelector('th');
+                 // Clean up header text for comparison (remove placeholder hints etc.)
+                 const headerText = headerCell ? headerCell.textContent.trim().toLowerCase().replace(/[^a-z0-9]/g, '') : '';
+
+                 // Simplify original header name for comparison (e.g. 'po n°' -> 'po')
+                 const simplifiedOriginalHeader = originalHeaderName.replace(/[^a-z0-9]/g, '');
+
+                 if (headerText.includes(simplifiedOriginalHeader) && simplifiedOriginalHeader !== '') { // Simple check, might need refinement
+                     targetRow = row;
+                 }
+             });
+
+             if (targetRow) {
+                  // Find the cell corresponding to the item index (1-based)
+                 const targetCell = targetRow.querySelectorAll('td')[itemIndex - 1];
+                 if (targetCell) {
+                      const input = targetCell.querySelector('input, textarea'); // Look for input or textarea
+                      if (input) {
+                           input.value = report.data[key];
+                      } else {
+                           console.warn(`Input/Textarea element not found in cell for key "${key}". Skipping.`);
+                      }
+                 } else {
+                      console.warn(`Cell not found for item index ${itemIndex} for key "${key}". Skipping.`);
+                 }
+             } else {
+                 console.warn(`Row for original header "${originalHeaderName}" not found in transposed table for key "${key}". Skipping.`);
+             }
+        }
+
+
+    } else {
+        // Handle other inputs (including standard textareas)
+        const input = form.elements[key];
+
+        if (input) {
+          // Handle single inputs
+          if (input.type === 'checkbox' || input.type === 'radio') {
+            input.checked = report.data[key] === 'on' || report.data[key] === true || report.data[key] === input.value; // Added check for value match
+          } else if (input.tagName === 'SELECT' || input.tagName === 'TEXTAREA' || (input.tagName === 'INPUT' && input.type === 'text') || (input.tagName === 'INPUT' && input.type === 'date') || (input.tagName === 'INPUT' && input.type === 'tel')) {
+             // Handle dynamic table inputs by adding rows if needed (excluding transposed table)
+             if (input.name && input.name.match(/-[0-9]+$/) && !input.closest('.item-details-transposed')) {
+                  const nameParts = input.name.split('-');
+                  const baseName = nameParts.slice(0, -1).join('-');
+                  const index = parseInt(nameParts[nameParts.length - 1]);
+
+                  // Find the table this input belongs to
+                  const table = input.closest('table');
+                  if (table) {
+                      const tbody = table.querySelector('tbody');
+                       // Ensure enough rows exist up to the required index
+                       // Need to find the highest existing index to know how many rows we need to add
+                       let currentHighestIndex = 0;
+                       tbody.querySelectorAll('tr').forEach(row => {
+                           const rowInput = row.querySelector(`[name="${key}"]`);
+                            if(rowInput) {
+                                const rowNameParts = rowInput.name.split('-');
+                                if (rowNameParts.length > 1 && !isNaN(rowNameParts[rowNameParts.length - 1])) {
+                                   currentHighestIndex = Math.max(currentHighestIndex, parseInt(rowNameParts[rowNameParts.length - 1]));
+                                }
+                            }
+                       });
+
+                       // Add rows until we have the row for the required index
+                       while (currentHighestIndex < index) {
+                            // Find a template row. Prioritize rows with "-template" in the name.
+                            let templateRow = null;
+                            const firstInputInLastRow = tbody.lastElementChild?.querySelector('input, textarea, select');
+                            if (firstInputInLastRow && firstInputInLastRow.name.match(/-template$/)) {
+                                templateRow = tbody.lastElementChild;
+                            } else {
+                                 // Check if any row is explicitly marked as a template or has a template input name pattern
+                                 templateRow = Array.from(tbody.children).find(row => row.querySelector('input[name$="-template"]'));
+                                 if (!templateRow && tbody.children.length > 0) {
+                                     // Fallback: if no explicit template, assume the last row is the template
+                                     templateRow = tbody.lastElementChild;
+                                 }
+                            }
+
+                            if (templateRow) {
+                                 const newRow = templateRow.cloneNode(true);
+                                 const newRowInputs = newRow.querySelectorAll('input, textarea, select');
+                                 currentHighestIndex++; // Increment for the row we are about to add
+
+                                 newRowInputs.forEach(newInput => {
+                                      // Update the input name with the new index
+                                       const newNameParts = newInput.name.split('-');
+                                       if (newNameParts.length > 1 && newNameParts[newNameParts.length - 1] === 'template') {
+                                            newNameParts[newNameParts.length - 1] = currentHighestIndex.toString();
+                                            newInput.name = newNameParts.join('-');
+                                            newInput.id = newNameParts.join('-'); // Update ID as well
+                                            newInput.value = ''; // Clear value
+                                            if (newInput.type === 'checkbox' || newInput.type === 'radio') newInput.checked = false;
+                                       } else if (newNameParts.length > 1 && !isNaN(newNameParts[newNameParts.length - 1])) {
+                                            // This case handles tables like Calibration where the original rows had numbers
+                                            newNameParts[newNameParts.length - 1] = currentHighestIndex.toString();
+                                            newInput.name = newNameParts.join('-');
+                                            newInput.id = newNameParts.join('-');
+                                            newInput.value = ''; // Clear value
+                                            if (newInput.type === 'checkbox' || newInput.type === 'radio') newInput.checked = false;
+                                       }
+                                 });
+
+                                // Add the new row before any template rows if they exist, otherwise at the end
+                                const templateRowElement = tbody.querySelector('tr input[name$="-template"]')?.closest('tr');
+                                if (templateRowElement) {
+                                    tbody.insertBefore(newRow, templateRowElement);
+                                } else {
+                                     tbody.appendChild(newRow);
+                                }
+
+                            } else {
+                                console.error(`Could not find a template row to add for dynamic table ${tableSelector}`);
+                                break; // Stop adding rows if no template is found
+                            }
+                       }
+
+                       // Now that the row for 'index' exists, find the correct input and set its value
+                       // We need to find the input specifically in the row corresponding to the 'index'
+                       const targetRow = Array.from(tbody.children).find(row => {
+                           const rowInput = row.querySelector(`[name="${key}"]`);
+                           return rowInput !== null;
+                       });
+
+                       if (targetRow) {
+                            const targetInput = targetRow.querySelector(`[name="${key}"]`);
+                            if(targetInput) {
+                                targetInput.value = report.data[key];
+                            }
+                       } else {
+                           console.warn(`Target row not found for key "${key}" after attempting to add rows.`);
+                       }
+
+
+                  } else {
+                    console.warn(`Table not found for input name "${key}" during loading. Skipping.`);
+                  }
+             } else {
+                // Handle static inputs and standard textareas
+                input.value = report.data[key];
+             }
+          }
+        } else {
+            // Handle checkbox/radio groups that are not single inputs
+             if (Array.isArray(form.elements[key])) {
+                 Array.from(form.elements[key]).forEach(groupInput => {
+                     if (groupInput.type === 'checkbox' || groupInput.type === 'radio') {
+                        if (Array.isArray(report.data[key])) {
+                             groupInput.checked = report.data[key].includes(groupInput.value);
+                        } else {
+                             // Handle case where saved data is a single value string (from older saves)
+                             groupInput.checked = report.data[key] === groupInput.value;
+                        }
+                     }
+                 });
+             } else {
+                 console.warn(`Form element with name "${key}" not found during loading. Skipping.`);
+             }
+        }
     }
   }
-  
-  // Restore section order if available
-  if (report.data._sectionOrder) {
-    const container = document.querySelector('form');
-    
-    report.data._sectionOrder.forEach(sectionId => {
-      const section = document.querySelector(`.draggable[data-section-id="${sectionId}"]`);
-      if (section) {
-        container.appendChild(section);
-      }
-    });
-  }
-  
+
+  // Re-add delete buttons to loaded dynamic rows (excluding transposed table and templates)
+  form.querySelectorAll('.add-row-btn').forEach(button => {
+       const table = button.previousElementSibling;
+       if (table && table.tagName === 'TABLE' && !table.classList.contains('item-details-transposed')) {
+            const rows = table.querySelectorAll('tbody tr');
+             rows.forEach(row => {
+                let isTemplate = false;
+                if (row.querySelector('input[name$="-template"]')) isTemplate = true; // Check for template names
+
+                if (!isTemplate) {
+                     // Ensure the cell for the delete button exists
+                     let actionCell = row.querySelector('.action-cell');
+                     if (!actionCell) {
+                          actionCell = document.createElement('td');
+                          actionCell.className = 'action-cell';
+                          row.appendChild(actionCell);
+                     }
+                     addDeleteButton(row); // Add the delete button
+                }
+             });
+       }
+  });
+
+
+   // Restore image data if available
+   if (report.imageData) {
+       localStorage.setItem('reportImages', JSON.stringify(report.imageData));
+       restoreImageData();
+   } else {
+       // If no image data in the report, clear local storage and display placeholder
+       localStorage.removeItem('reportImages');
+       restoreImageData(); // Call to ensure placeholder is shown
+   }
+
+
   // Recalculate totals and control number
   calculateTotals();
   generateControlNumber();
-  
-  // Load image data if available
-  if (report.imageData) {
-    localStorage.setItem('reportImages', JSON.stringify(report.imageData));
-    restoreImageData();
-  }
+
 }
 
 // Function to restore image data
@@ -229,12 +464,12 @@ function restoreImageData() {
   
   const savedImages = localStorage.getItem('reportImages');
   
+  // Clear current images before restoring
+  imagesContainer.innerHTML = '';
+
   if (savedImages) {
     try {
       const imageData = JSON.parse(savedImages);
-      
-      // Clear current images
-      imagesContainer.innerHTML = '';
       
       // Restore each image
       imageData.forEach(imgData => {
@@ -260,7 +495,7 @@ function restoreImageData() {
         removeBtn.addEventListener('click', () => {
           imageItem.remove();
           updateNoImagesPlaceholder();
-          saveImageData(); // Save after removal
+          saveImageData(); 
         });
         
         imageControls.appendChild(removeBtn);
@@ -306,11 +541,13 @@ function restoreImageData() {
         imagesContainer.appendChild(imageItem);
       });
       
-      updateNoImagesPlaceholder();
     } catch (error) {
       console.error('Error restoring image data:', error);
+      // If restoration fails, clear saved data to prevent future errors
+      localStorage.removeItem('reportImages');
     }
   }
+   updateNoImagesPlaceholder(); 
 }
 
 // Function to update no images placeholder
@@ -318,16 +555,24 @@ function updateNoImagesPlaceholder() {
   const imagesContainer = document.querySelector('.images-container');
   if (!imagesContainer) return;
   
-  if (imagesContainer.children.length === 0) {
+  // Remove existing placeholder if present
+   const existingPlaceholder = imagesContainer.querySelector('.no-image-text');
+   if (existingPlaceholder) {
+       existingPlaceholder.remove();
+   }
+
+  // Check for image-item elements (excluding the placeholder itself)
+  const imageItems = imagesContainer.querySelectorAll('.image-item');
+
+  if (imageItems.length === 0) {
     const placeholder = document.createElement('div');
     placeholder.className = 'no-image-text';
     placeholder.textContent = 'No images have been added yet. Click "Add New Image" to upload images.';
     imagesContainer.appendChild(placeholder);
   } else {
+    // Remove any existing placeholder
     const placeholder = imagesContainer.querySelector('.no-image-text');
-    if (placeholder) {
-      placeholder.remove();
-    }
+    if (placeholder) placeholder.remove();
   }
 }
 
@@ -375,6 +620,28 @@ window.onclick = function(event) {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
+  (function(){
+    const input = document.getElementById('itemCountInput');
+    const table = document.querySelector('.item-details-transposed table');
+    if (!input || !table) return;
+    const headers = table.querySelectorAll('thead th');
+    const maxItems = headers.length - 1;
+    input.max = maxItems;
+    input.min = 1;
+    function setColumns(n) {
+      headers.forEach((th,i)=> th.style.display = (i===0||i<=n)?'':'none');
+      table.querySelectorAll('tbody tr').forEach(row=>{
+        row.querySelectorAll('td').forEach((td,i)=> td.style.display = (i<n)?'':'none');
+      });
+    }
+    setColumns(parseInt(input.value)||1);
+    input.addEventListener('input', ()=> {
+      let v = parseInt(input.value)||1;
+      if(v<1)v=1; if(v>maxItems)v=maxItems;
+      input.value=v; setColumns(v);
+    });
+  })();
+
   // Initialize dropdown functionality
   const dropBtn = document.querySelector('.dropbtn');
   if (dropBtn) {
@@ -452,6 +719,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Zip all attachments button
+  const zipBtn = document.getElementById('zipAttachmentsBtn');
+  if (zipBtn) {
+    zipBtn.addEventListener('click', function() {
+      if (uploadedFiles.length === 0) {
+        alert('No attachments to zip.');
+        return;
+      }
+      createZipAndDownload(uploadedFiles);
+    });
+  }
+
   // Export to CSV functionality
   document.querySelector('.export-btn').addEventListener('click', function() {
     // Collect all form data
@@ -572,13 +851,154 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize Save Form to HTML functionality
   initSaveFormToHTML();
   
-  // Make all accordion sections expanded by default
-  document.querySelectorAll('.accordion-header').forEach(header => {
-    header.classList.add('active');
-    const content = header.nextElementSibling;
-    content.classList.add('active');
-    content.style.maxHeight = 'none'; // Override the max-height restriction
+  // Initialize table row management
+  initTableRowManagement();
+  
+  // Expand all accordion sections by default
+  setTimeout(() => {
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.classList.add('active');
+      const content = header.nextElementSibling;
+      if (content && content.classList.contains('accordion-content')) {
+        content.classList.add('active');
+        content.style.maxHeight = 'none'; 
+      }
+    });
+  }, 100);
+  
+  // Delete selected rows in Document References tables
+  const deleteSelectedDocsBtn = document.getElementById('deleteSelectedDocsBtn');
+  if (deleteSelectedDocsBtn) {
+    deleteSelectedDocsBtn.addEventListener('click', function() {
+      let removed = 0;
+      document.querySelectorAll('.document-references tbody tr').forEach(row => {
+        const chk = row.querySelector('input[type="checkbox"]');
+        if (chk && chk.checked) {
+          row.remove();
+          removed++;
+        }
+      });
+      if (!removed) {
+        alert('No documents selected to delete.');
+      }
+    });
+  }
+
+  document.addEventListener('click', function(e) {
+    const td = e.target.closest('td');
+    if (!td) return;
+    // if cell has no input or textarea inside and is not already in edit mode
+    if (!td.querySelector('input, textarea') && !td.isContentEditable) {
+      td.contentEditable = true;
+      td.focus();
+      // when the cell loses focus, turn off editing
+      const onBlur = function() {
+        td.contentEditable = false;
+        td.removeEventListener('blur', onBlur);
+      };
+      td.addEventListener('blur', onBlur);
+    }
   });
+
+  // custom-inspection: inline-edit title, add category & subsection
+  (function(){
+    const customSection = document.querySelector('[data-section-id="custom-inspection"]');
+    if (!customSection) return;
+    const hdr = customSection.querySelector('h3');
+    if (hdr) {
+      hdr.addEventListener('click', () => {
+        hdr.contentEditable = 'true'; hdr.focus();
+        hdr.addEventListener('blur', () => hdr.contentEditable = 'false', {once:true});
+      });
+    }
+    const tbl = customSection.querySelector('table');
+    const btnCat = customSection.querySelector('#addCustomCategoryBtn');
+    const btnRow = customSection.querySelector('#addCustomRowBtn');
+    if (btnCat && tbl) {
+      btnCat.addEventListener('click', () => {
+        const name = prompt('Enter category name:');
+        if (!name) return;
+        const tr = document.createElement('tr');
+        tr.className = 'category-row';
+        const td = document.createElement('td');
+        td.colSpan = 6; td.contentEditable = 'true';
+        td.textContent = name;
+        tr.appendChild(td);
+        tbl.tBodies[0].appendChild(tr);
+      });
+    }
+    if (btnRow && tbl) {
+      btnRow.addEventListener('click', () => {
+        const desc = prompt('Enter subsection title:');
+        if (!desc) return;
+        const guidance = prompt('Enter guidance text (optional):') || '';
+        const id = Date.now();
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td></td>
+          <td contenteditable="true">${desc}</td>
+          <td><input type="radio" name="custom-inspection-${id}" value="pass"></td>
+          <td><input type="radio" name="custom-inspection-${id}" value="fail"></td>
+          <td><input type="radio" name="custom-inspection-${id}" value="na"></td>
+          <td contenteditable="true">${guidance}</td>
+        `;
+        tbl.tBodies[0].appendChild(tr);
+      });
+    }
+  })();
+
+  // Export Custom Inspection to CSV
+  const exportCustomBtn = document.querySelector('.export-custom-csv-btn');
+  if (exportCustomBtn) {
+    exportCustomBtn.addEventListener('click', function() {
+      const section = document.querySelector('[data-section-id="custom-inspection"]');
+      if (!section) return;
+      const table = section.querySelector('table');
+      if (!table) return;
+      const rows = table.querySelectorAll('tbody tr');
+      let csv = 'Category,Description,Result,Guidance\n';
+      rows.forEach(tr => {
+        if (tr.classList.contains('category-row')) {
+          const cat = tr.querySelector('td')?.textContent.trim().replace(/"/g,'""') || '';
+          csv += `"${cat}",,,\n`;
+        } else {
+          const cells = tr.querySelectorAll('td');
+          const desc = cells[1]?.textContent.trim().replace(/"/g,'""') || '';
+          let res = '';
+          if (cells[2]?.querySelector('input')?.checked) res = 'Pass';
+          else if (cells[3]?.querySelector('input')?.checked) res = 'Fail';
+          else if (cells[4]?.querySelector('input')?.checked) res = 'N/A';
+          const guidance = cells[5]?.textContent.trim().replace(/"/g,'""') || '';
+          csv += `"","${desc}","${res}","${guidance}"\n`;
+        }
+      });
+      const blob = new Blob([csv], {type: 'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `custom_inspection_${getCurrentDateString()}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
+
+  // Custom Inspection CSV import
+  const importCustomCsvBtn = document.getElementById('importCustomCsvBtn');
+  const importCustomCsvInput = document.getElementById('importCustomCsvInput');
+  if (importCustomCsvBtn && importCustomCsvInput) {
+    importCustomCsvBtn.addEventListener('click', () => importCustomCsvInput.click());
+    importCustomCsvInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        parseCustomCsv(evt.target.result);
+      };
+      reader.readAsText(file);
+      importCustomCsvInput.value = '';
+    });
+  }
 });
 
 // Function to initialize drag and drop for form sections
@@ -976,7 +1396,7 @@ function initImageDocumentation() {
         removeBtn.addEventListener('click', () => {
           imageItem.remove();
           updateNoImagesPlaceholder();
-          saveImageData(); // Save after removal
+          saveImageData(); 
         });
         
         imageControls.appendChild(removeBtn);
@@ -1042,7 +1462,7 @@ function initSaveFormToHTML() {
     saveHtmlBtn.addEventListener('click', function() {
       // Prompt for filename
       const filename = prompt('Enter a name for the HTML file:', `inspection_report_${getCurrentDateString()}`);
-      if (!filename) return; // User cancelled
+      if (!filename) return; 
       
       // Create a clone of the form to manipulate
       const form = document.getElementById('inspection-report');
@@ -1361,17 +1781,605 @@ function initSaveFormToHTML() {
   }
 }
 
-// Override the accordion initialization to always be open
-document.addEventListener('DOMContentLoaded', function() {
-  // Expand all accordion sections by default (needs to run after they're created)
-  setTimeout(() => {
-    document.querySelectorAll('.accordion-header').forEach(header => {
-      header.classList.add('active');
-      const content = header.nextElementSibling;
-      if (content && content.classList.contains('accordion-content')) {
-        content.classList.add('active');
-        content.style.maxHeight = 'none'; // Override the max-height restriction
-      }
+// Function to initialize table row management
+function initTableRowManagement() {
+  // Add functionality to all tables that should support dynamic rows
+  // Item Details is now transposed, so it doesn't use this standard dynamic table init
+  // initDynamicTable('.item-details', 'Item'); // This is now handled by transpose logic if needed
+
+  // Document References tables are handled by specific add/delete logic
+  // initDynamicTable('.additional-documents', 'Document'); // Use specific add/delete for consistency with Document References
+  initDynamicTable('.contact-table', 'Contact'); // This uses standard dynamic row logic
+  initDynamicTable('.calibration-table', 'Calibration'); // This uses standard dynamic row logic
+
+  // Add delete selected functionality for Document References tables
+  initDeleteSelectedDocuments('.document-references');
+
+  // Add "Add New Document" functionality specifically for document references
+  const addDocumentBtn = document.querySelector('.add-document-btn');
+  if (addDocumentBtn) {
+      // Remove any existing listeners to prevent duplicates if script re-runs
+       const oldBtn = addDocumentBtn.cloneNode(true);
+       addDocumentBtn.parentNode.replaceChild(oldBtn, addDocumentBtn);
+       const newBtn = oldBtn; // Use the newly created element
+
+      newBtn.addEventListener('click', function() {
+          // Find the correct table - assuming it's within the same form section
+          const table = this.closest('.form-section')?.querySelector('.document-references');
+          if (table) {
+              addDocumentReferenceRow(table);
+          } else {
+              console.error('Document References table not found for Add button.');
+          }
+      });
+  }
+
+   // Add delete selected functionality for Additional Documents table
+   initDeleteSelectedDocuments('.additional-documents');
+
+   // Add "Add New Document" functionality specifically for additional documents
+   const addAdditionalDocumentBtn = document.querySelector('.additional-documents + .add-row-btn'); // Assuming the button is immediately after the table
+   if (addAdditionalDocumentBtn) {
+        // Remove any existing listeners
+       const oldBtn = addAdditionalDocumentBtn.cloneNode(true);
+       addAdditionalDocumentBtn.parentNode.replaceChild(oldBtn, addAdditionalDocumentBtn);
+       const newBtn = oldBtn;
+
+       // Update text to be more specific
+        newBtn.innerHTML = `<i class="fas fa-plus-circle"></i> Add Additional Document Row`;
+
+       newBtn.addEventListener('click', function() {
+            const table = this.previousElementSibling; // Assumes button is right after the table
+            if (table && table.classList.contains('additional-documents')) {
+                 addDocumentReferenceRow(table); // Use the same helper function
+            } else {
+                 console.error('Additional Documents table not found for Add button.');
+            }
+       });
+   }
+
+}
+
+// Function to make a specific table support adding/removing rows
+function initDynamicTable(tableSelector, rowType) {
+  const tables = document.querySelectorAll(tableSelector);
+
+  tables.forEach(table => {
+    // Check if a button for this table already exists to avoid duplication
+    const existingButton = table.parentNode.querySelector(`.add-row-btn[data-table-selector="${tableSelector}"]`);
+    if (existingButton) {
+       // Update its text if necessary and ensure it has the data attribute
+        existingButton.innerHTML = `<i class="fas fa-plus-circle"></i> Add ${rowType} Row`;
+        existingButton.setAttribute('data-table-selector', tableSelector);
+        // Remove existing event listener to prevent duplicates
+        const oldButton = existingButton.cloneNode(true);
+        existingButton.parentNode.replaceChild(oldButton, existingButton);
+        const newButton = oldButton; // Use the newly created element
+
+         // Add the click event listener to the existing/replaced button
+        newButton.addEventListener('click', function() {
+            addDynamicTableRow(table, tableSelector);
+        });
+
+    } else {
+         // Create and add the "Add Row" button after the table
+        const addRowBtn = document.createElement('button');
+        addRowBtn.type = 'button';
+        addRowBtn.className = 'add-row-btn';
+        addRowBtn.setAttribute('data-table-selector', tableSelector); // Mark the button for this table
+        addRowBtn.innerHTML = `<i class="fas fa-plus-circle"></i> Add ${rowType} Row`;
+        addRowBtn.style.marginTop = '10px';
+        addRowBtn.style.marginBottom = '20px';
+
+        // Insert the button after the table
+        table.parentNode.insertBefore(addRowBtn, table.nextSibling);
+
+        // Add click event for the "Add Row" button
+        addRowBtn.addEventListener('click', function() {
+            addDynamicTableRow(table, tableSelector);
+        });
+    }
+
+
+    // Add delete buttons to initial rows IF the table is supposed to have an actions column
+     const headerCells = table.querySelectorAll('thead th');
+     let hasActionHeader = false;
+     headerCells.forEach(th => {
+         if (th.textContent.trim().toLowerCase() === 'actions') {
+             hasActionHeader = true;
+         }
+     });
+
+     if (hasActionHeader) {
+         const rows = table.querySelectorAll('tbody tr');
+         // Add delete buttons to all initial rows except the first one (to keep a template if needed)
+         // Or just add to all? Let's add to all, the "Cannot delete last row" handles the template case.
+         rows.forEach(row => {
+             addDeleteButton(row);
+         });
+     }
+  });
+}
+
+// Function to add a row to a dynamic table
+function addDynamicTableRow(table, tableSelector) {
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+
+    // Find a template row. Prioritize rows with "-template" in the name.
+    let templateRow = tbody.querySelector('tr input[name$="-template"]')?.closest('tr');
+
+     // Fallback: if no explicit template, use the last non-empty row as a template
+    if (!templateRow) {
+         const nonTemplateRows = tbody.querySelectorAll('tr');
+         if (nonTemplateRows.length > 0) {
+              templateRow = nonTemplateRows[nonTemplateRows.length - 1];
+         }
+    }
+
+    if (!templateRow) {
+        console.error(`Cannot add row: No template row found for table ${tableSelector}`);
+        return; // Cannot add row without a template
+    }
+
+    const newRow = templateRow.cloneNode(true);
+
+    // Clear input values and update names/ids
+    newRow.querySelectorAll('input, textarea, select').forEach(input => {
+        if (input.type === 'checkbox' || input.type === 'radio') {
+           input.checked = false;
+        } else {
+           input.value = '';
+        }
+
+        // Update the input name with a new index
+        const nameParts = input.name.split('-');
+        // Check if the last part is a number or "template"
+        if (nameParts.length > 1 && (nameParts[nameParts.length - 1] === 'template' || !isNaN(nameParts[nameParts.length - 1]))) {
+          // Find the current highest index for this name root across all rows in all tables with the same selector
+          let highestIndex = 0;
+           // Get the base name without the index/template suffix
+          const baseName = nameParts.slice(0, -1).join('-');
+
+          document.querySelectorAll(tableSelector + ' tbody tr').forEach(existingRow => {
+              // Find the input in the existing row that has the same base name
+              const existingInput = existingRow.querySelector(`[name="${baseName}-"]`);
+              if (existingInput) {
+                   const existingNameParts = existingInput.name.split('-');
+                   if (existingNameParts.length > 1 && !isNaN(existingNameParts[existingNameParts.length - 1])) {
+                       highestIndex = Math.max(highestIndex, parseInt(existingNameParts[existingNameParts.length - 1]));
+                   }
+              }
+          });
+
+          const newIndex = highestIndex + 1;
+          nameParts[nameParts.length - 1] = newIndex.toString();
+          input.name = nameParts.join('-');
+          input.id = nameParts.join('-'); // Update ID as well
+        }
     });
-  }, 100);
-});
+
+    // Add a delete button to the new row (addDeleteButton will handle if table should have one)
+    addDeleteButton(newRow);
+
+     // Append the new row before any template rows if they exist, otherwise at the end
+    const templateRowElement = tbody.querySelector('tr input[name$="-template"]')?.closest('tr');
+    if (templateRowElement) {
+        tbody.insertBefore(newRow, templateRowElement);
+    } else {
+         tbody.appendChild(newRow);
+    }
+}
+
+// Function to add a delete button to a table row
+function addDeleteButton(row) {
+  // Check if the row already has a delete button
+  if (row.querySelector('.delete-row-btn')) {
+    return;
+  }
+
+  const table = row.closest('table');
+  if (!table) return;
+
+  // Check if the table's header has an "Actions" column
+  const headerCells = table.querySelectorAll('thead th');
+  let hasActionHeader = false;
+  headerCells.forEach(th => {
+    if (th.textContent.trim().toLowerCase() === 'actions') {
+      hasActionHeader = true;
+    }
+  });
+
+  // If the original header didn't have an actions column, don't add one here
+  if (!hasActionHeader) {
+      // Check if the row *already* has a cell count that matches the header count
+      // If so, and no action header exists, don't add another cell.
+      const headerCount = table.querySelectorAll('thead th').length;
+      const cellCount = row.querySelectorAll('td').length;
+      if (cellCount >= headerCount) { // Use >= in case some rows were already modified
+          return; // Table doesn't have actions column, don't add a button/cell
+      }
+  }
+
+
+  // Get the last cell or create one if needed (only if the table is supposed to have actions)
+   let actionCell = row.querySelector('.action-cell'); // Try to find an existing action cell
+    if (!actionCell) {
+        // If no existing cell, but table is supposed to have actions, create one
+        if (hasActionHeader) {
+             actionCell = document.createElement('td');
+             actionCell.className = 'action-cell';
+             row.appendChild(actionCell);
+        } else {
+            // If no existing cell and table is NOT supposed to have actions, do nothing
+            return;
+        }
+    }
+
+
+  // Create the delete button
+  const deleteBtn = document.createElement('button');
+  deleteBtn.type = 'button';
+  deleteBtn.className = 'delete-row-btn';
+  deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+  deleteBtn.title = 'Delete Row';
+  deleteBtn.style.background = '#dc3545';
+  deleteBtn.style.color = 'white';
+  deleteBtn.style.border = 'none';
+  deleteBtn.style.borderRadius = '3px';
+  deleteBtn.style.padding = '3px 6px';
+  deleteBtn.style.cursor = 'pointer';
+    deleteBtn.style.display = 'inline-flex'; // Ensure flex display for icon
+    deleteBtn.style.alignItems = 'center';
+
+
+  // Add event listener
+  deleteBtn.addEventListener('click', function() {
+    // Ensure we don't delete the last remaining row if it's needed as a template
+    const tbody = row.closest('tbody');
+    if (tbody) {
+        const rows = tbody.querySelectorAll('tr:not(:has(input[name$="-template"]))'); // Count non-template rows
+        if (rows.length <= 1) {
+            alert("Cannot delete the last row.");
+            return;
+        }
+    }
+
+    if (confirm('Are you sure you want to delete this row?')) {
+      row.remove();
+       // If the table has a "delete selected" button, re-initialize its state if needed (e.g. disable if no rows left)
+       const deleteSelectedBtn = table.closest('.form-section')?.querySelector('.delete-selected-docs-btn');
+        if(deleteSelectedBtn) {
+             // Simple re-initialization, can be more complex if needed
+             initDeleteSelectedDocuments(table.closest('.form-section').querySelector('table').classList[0]); // Pass the table class
+        }
+    }
+  });
+
+  // Clear existing content in the action cell and add the delete button
+  actionCell.innerHTML = '';
+  actionCell.appendChild(deleteBtn);
+}
+
+// Function to initialize delete selected functionality for a specific table selector
+function initDeleteSelectedDocuments(tableSelector) {
+    // Find the delete selected button associated with this table section
+     const deleteButton = document.querySelector(`${tableSelector} + .delete-selected-docs-btn`);
+
+    if (!deleteButton) {
+        // If the button doesn't exist, check if a generic delete selected button is present
+        const genericDeleteButton = document.querySelector('.delete-selected-docs-btn:not([data-table-selector])');
+        if (genericDeleteButton && tableSelector === '.document-references') {
+             // If it's the main document references section and there's a generic button, use that
+              initGenericDeleteSelected(genericDeleteButton, tableSelector);
+             return;
+        }
+        return; // No specific delete button for this table selector
+    }
+
+    // Remove any existing listeners
+    const oldBtn = deleteButton.cloneNode(true);
+    deleteButton.parentNode.replaceChild(oldBtn, deleteButton);
+    const newButton = oldBtn; // Use the newly created element
+
+    // Add a data attribute to link button to table selector
+     newButton.setAttribute('data-table-selector', tableSelector);
+
+
+    newButton.addEventListener('click', function() {
+        const table = this.previousElementSibling; // Assumes the button is right after the table
+        if (!table || !table.matches(tableSelector)) {
+             console.error(`Target table ${tableSelector} not found for delete selected button.`);
+             return;
+        }
+
+        const rows = table.querySelectorAll('tbody tr');
+        let rowsToDelete = [];
+        let deletedCount = 0;
+
+        rows.forEach(row => {
+            const checkbox = row.querySelector('input[type="checkbox"]');
+             // Ensure we don't delete the last non-template row
+            const tbody = row.closest('tbody');
+             const nonTemplateRows = tbody ? tbody.querySelectorAll('tr:not(:has(input[name$="-template"]))') : [];
+
+            if (checkbox && checkbox.checked) {
+                 if (nonTemplateRows.length > 1 || row.querySelector('input[name$="-template"]')) {
+                      rowsToDelete.push(row);
+                 } else {
+                     alert("Cannot delete the last remaining row.");
+                 }
+            }
+        });
+
+        if (rowsToDelete.length === 0 && rows.length > 0) { // Check if rows exist but none selected
+            alert('No documents selected for deletion.');
+            return;
+        } else if (rowsToDelete.length === 0 && rows.length === 0) { // No rows at all
+             alert('No data to delete.');
+             return;
+        }
+
+
+        if (confirm(`Are you sure you want to delete ${rowsToDelete.length} selected documents?`)) {
+            rowsToDelete.forEach(row => {
+                // Ensure it's still a child of the correct table's tbody before removing
+                if (row.closest('tbody') === table.querySelector('tbody')) {
+                     row.remove();
+                     deletedCount++;
+                }
+            });
+            alert(`${deletedCount} documents deleted.`);
+        }
+    });
+
+    // Initial check to enable/disable button
+     checkAnyCheckboxChecked(tableSelector);
+
+     // Add event listeners to checkboxes within this table to toggle button state
+     const checkboxes = document.querySelectorAll(`${tableSelector} input[type="checkbox"]`);
+     checkboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', () => checkAnyCheckboxChecked(tableSelector));
+     });
+
+      // Listen for DOM changes within the table (e.g., rows added/removed)
+    const observer = new MutationObserver(() => {
+         // Re-attach listeners to new checkboxes and update button state
+         const newCheckboxes = document.querySelectorAll(`${tableSelector} input[type="checkbox"]`);
+         newCheckboxes.forEach(checkbox => {
+            // Add listener only if it doesn't have one already
+            if (!checkbox.dataset.hasChangeListener) {
+                checkbox.addEventListener('change', () => checkAnyCheckboxChecked(tableSelector));
+                checkbox.dataset.hasChangeListener = 'true'; // Mark as having listener
+            }
+         });
+         checkAnyCheckboxChecked(tableSelector); // Update button state
+     });
+
+     const tbody = document.querySelector(`${tableSelector} tbody`);
+     if(tbody) {
+         observer.observe(tbody, { childList: true, subtree: true });
+     }
+}
+
+// Helper function to check if any checkbox is checked in a given table selector and enable/disable button
+function checkAnyCheckboxChecked(tableSelector) {
+     const deleteButton = document.querySelector(`.delete-selected-docs-btn[data-table-selector="${tableSelector}"]`);
+     if (!deleteButton) return;
+
+     const checkboxes = document.querySelectorAll(`${tableSelector} input[type="checkbox"]`);
+     let isAnyChecked = false;
+     checkboxes.forEach(checkbox => {
+         if (checkbox.checked) {
+             isAnyChecked = true;
+         }
+     });
+
+     deleteButton.disabled = !isAnyChecked;
+     deleteButton.style.opacity = isAnyChecked ? '1' : '0.5';
+     deleteButton.style.cursor = isAnyChecked ? 'pointer' : 'not-allowed';
+}
+
+// Function to add a row specifically to document reference tables
+function addDocumentReferenceRow(table) {
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+
+    // Find the template row (the one with '-template' in input names)
+    let templateRow = tbody.querySelector('tr input[name$="-template"]')?.closest('tr');
+
+     // Fallback: if no explicit template, use the last non-empty row as a template
+    if (!templateRow) {
+         const nonTemplateRows = tbody.querySelectorAll('tr');
+         if (nonTemplateRows.length > 0) {
+              templateRow = nonTemplateRows[nonTemplateRows.length - 1];
+         }
+    }
+
+
+    if (!templateRow) {
+        console.error(`Cannot add row: No template row found for table ${table.className}`);
+        return; // Cannot add row without a template
+    }
+
+    const newRow = templateRow.cloneNode(true);
+
+    // Clear input values and update names/ids
+    newRow.querySelectorAll('input, textarea, select').forEach(input => {
+        if (input.type === 'checkbox') { // Only checkbox in the first column needs handling
+           input.checked = false;
+           // Update the input name with a new index
+           const nameParts = input.name.split('-');
+            if (nameParts.length > 1 && (nameParts[nameParts.length - 1] === 'template' || !isNaN(nameParts[nameParts.length - 1]))) {
+                // Find the current highest index for the 'select' name across this table
+                 let highestIndex = 0;
+                 table.querySelectorAll('tbody tr').forEach(existingRow => {
+                    const existingInput = existingRow.querySelector(`input[name^="${nameParts.slice(0, -1).join('-')}-"]`);
+                    if (existingInput) {
+                        const existingNameParts = existingInput.name.split('-');
+                         if (existingNameParts.length > 1 && !isNaN(existingNameParts[existingNameParts.length - 1])) {
+                            highestIndex = Math.max(highestIndex, parseInt(existingNameParts[existingNameParts.length - 1]));
+                         }
+                    }
+                 });
+                 const newIndex = highestIndex + 1;
+                 nameParts[nameParts.length - 1] = newIndex.toString();
+                 input.name = nameParts.join('-');
+                 input.id = nameParts.join('-'); // Update ID as well
+            }
+
+
+        } else if (input.type === 'text') { // Handle text inputs for Document N° and Title
+             input.value = '';
+
+             // Update the input name with a new index
+             const nameParts = input.name.split('-');
+              // Get the base name (e.g., 'doc-num' or 'doc-title')
+             const baseName = nameParts.slice(0, -1).join('-');
+
+             if (nameParts.length > 1 && (nameParts[nameParts.length - 1] === 'template' || nameParts[nameParts.length - 1] === 'template-2' || !isNaN(nameParts[nameParts.length - 1]))) {
+                 // Find the highest index for the specific name root (e.g., 'doc-num') across the table
+                 let highestIndex = 0;
+                  table.querySelectorAll('tbody tr').forEach(existingRow => {
+                      const existingInput = existingRow.querySelector(`input[name^="${baseName}-"]`);
+                      if (existingInput) {
+                          const existingNameParts = existingInput.name.split('-');
+                           if (existingNameParts.length > 1 && !isNaN(existingNameParts[existingNameParts.length - 1])) {
+                               highestIndex = Math.max(highestIndex, parseInt(existingNameParts[existingNameParts.length - 1]));
+                           }
+                      }
+                  });
+
+                  const newIndex = highestIndex + 1;
+                   // Rebuild the name with the new index, preserving the original suffix type if it existed (like '-2' for the second table)
+                   let newName = baseName + '-' + newIndex.toString();
+                   // Check if the original template name had a specific table suffix like '-template-2'
+                   if (nameParts.length > 2 && nameParts[nameParts.length - 2] === 'template' && nameParts[nameParts.length - 1] === '2') {
+                       // If the template came from the second table, ensure new names are unique across both
+                        // We already found the highest index across both, so just use the newIndex.
+                        // The name format should be consistent across both tables for uniqueness
+                        newName = baseName + '-' + newIndex.toString(); // doc-num-21, doc-title-21
+                   } else if (nameParts.length > 1 && nameParts[nameParts.length - 1] === 'template') {
+                        // If the template came from the first table
+                         newName = baseName + '-' + newIndex.toString(); // doc-num-21, doc-title-21
+                   }
+
+                  input.name = newName;
+                  input.id = newName; // Update ID as well
+             }
+
+        } else {
+             // Clear other input types if any (like textareas)
+             input.value = '';
+             // Re-index textarea names/ids if applicable
+              const nameParts = input.name.split('-');
+             if (nameParts.length > 1 && (nameParts[nameParts.length - 1] === 'template' || nameParts[nameParts.length - 1] === 'template-2' || !isNaN(nameParts[nameParts.length - 1]))) {
+                 const baseName = nameParts.slice(0, -1).join('-');
+                  let highestIndex = 0;
+                  document.querySelectorAll(table.closest('.form-section').querySelector('table').classList[0] + ' tbody tr').forEach(existingRow => {
+                       const existingInput = existingRow.querySelector(`[name^="${baseName}-"]`);
+                       if (existingInput) {
+                           const existingNameParts = existingInput.name.split('-');
+                            if (existingNameParts.length > 1 && !isNaN(existingNameParts[existingNameParts.length - 1])) {
+                                highestIndex = Math.max(highestIndex, parseInt(existingNameParts[existingNameParts.length - 1]));
+                            }
+                       }
+                  });
+                   const newIndex = highestIndex + 1;
+                    let newName = baseName + '-' + newIndex.toString();
+                    if (nameParts.length > 2 && nameParts[nameParts.length - 2] === 'template' && nameParts[nameParts.length - 1] === '2') {
+                       newName = baseName + '-' + newIndex.toString();
+                    } else if (nameParts.length > 1 && nameParts[nameParts.length - 1] === 'template') {
+                       newName = baseName + '-' + newIndex.toString();
+                    } else if (nameParts.length > 1 && nameParts[nameParts.length - 1] === 'template-2') {
+                        newName = baseName + '-' + newIndex.toString();
+                    }
+                  input.name = newName;
+                  input.id = newName; // Update ID as well
+             }
+        }
+    });
+
+    // Add a delete button to the new row
+    addDeleteButton(newRow);
+
+     // Append the new row before any template rows if they exist, otherwise at the end
+    const templateRowElement = tbody.querySelector('tr input[name$="-template"]')?.closest('tr');
+    if (templateRowElement) {
+        tbody.insertBefore(newRow, templateRowElement);
+    } else {
+         tbody.appendChild(newRow);
+    }
+}
+
+// Function to initialize delete selected functionality for a generic button
+function initGenericDeleteSelected(button, tableSelector) {
+    // Remove any existing listeners
+    const oldBtn = button.cloneNode(true);
+    button.parentNode.replaceChild(oldBtn, button);
+    const newButton = oldBtn;
+
+    newButton.addEventListener('click', function() {
+        const tables = document.querySelectorAll(tableSelector);
+        let rowsToDelete = [];
+        let deletedCount = 0;
+
+        tables.forEach(table => {
+            const rows = table.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const checkbox = row.querySelector('input[type="checkbox"]');
+                if (checkbox && checkbox.checked) {
+                    rowsToDelete.push(row);
+                }
+            });
+        });
+
+        if (rowsToDelete.length === 0) {
+            alert('No documents selected for deletion.');
+            return;
+        }
+
+        if (confirm(`Are you sure you want to delete ${rowsToDelete.length} selected documents?`)) {
+            rowsToDelete.forEach(row => {
+                row.remove();
+                deletedCount++;
+            });
+            alert(`${deletedCount} documents deleted.`);
+        }
+    });
+}
+
+// parse and load Custom Inspection CSV
+function parseCustomCsv(csv) {
+  const section = document.querySelector('[data-section-id="custom-inspection"]');
+  if (!section) return;
+  const tbody = section.querySelector('table tbody');
+  tbody.innerHTML = '';
+  const lines = csv.trim().split('\n').map(l=>l.trim()).filter(l=>l);
+  lines.forEach((line,i) => {
+    const cols = line.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(c=>c.replace(/^"(.*)"$/,'$1').trim());
+    if (i===0 && cols[0].toLowerCase().includes('category')) return;
+    const [category, desc, result, guidance] = cols;
+    if (category && !desc) {
+      const tr = document.createElement('tr');
+      tr.className = 'category-row';
+      const td = document.createElement('td');
+      td.colSpan = 6;
+      td.textContent = category;
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+    } else {
+      const id = 'cust-' + Date.now() + '-' + Math.random().toString(36).substr(2,4);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td></td>
+        <td contenteditable="true">${desc||''}</td>
+        <td><input type="radio" name="${id}" value="pass" ${result==='pass'?'checked':''}></td>
+        <td><input type="radio" name="${id}" value="fail" ${result==='fail'?'checked':''}></td>
+        <td><input type="radio" name="${id}" value="na" ${result==='na'?'checked':''}></td>
+        <td contenteditable="true">${guidance||''}</td>
+      `;
+      tbody.appendChild(tr);
+    }
+  });
+}
