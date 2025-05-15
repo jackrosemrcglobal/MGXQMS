@@ -176,6 +176,26 @@ h1 {
   border-bottom: none;
 }
 
+/* Form Template selector styles */
+.header-actions .template-dropdown {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.template-dropdown label {
+  margin-right: 5px;
+  font-size: 14px;
+  color: #003366;
+}
+
+.template-dropdown select {
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
 /* Form Toolbar */
 .form-toolbar {
   display: none;
@@ -805,6 +825,19 @@ button:hover {
 
 .delete-selected-docs-btn:hover {
   background-color: #c82333;
+}
+
+/* Remove Section Button */
+.remove-section-btn {
+  background: transparent;
+  border: none;
+  color: #c82333;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+.remove-section-btn:hover {
+  color: #721c24;
 }
 
 /* Transposed Item Details table styles */
