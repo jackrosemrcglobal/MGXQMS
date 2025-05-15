@@ -125,20 +125,63 @@
     .context-menu-item:hover {
       background-color: #f0f0f0;
     }
+
+    /* Top Bar Styles */
+    .top-bar {
+      background-color: #003366;
+      color: #000;
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      padding: 10px 0;
+    }
+    .top-bar .container {
+      display: flex;
+      align-items: center;
+    }
+    .top-bar .logo {
+      width: 60px;
+      height: auto;
+      margin-right: 15px;
+    }
+    .top-bar h1 {
+      margin: 0 auto;
+      font-size: 20px;
+      color: #000;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
+  <!-- New header bar with logo and title -->
+  <header class="top-bar">
+    <div class="container">
+ <img src="mrc_logo.png" alt="MRC Global Logo" class="logo">
+       <h1>MRC Global Inspection Report</h1>
+    </div>
+  </header>
+
   <div class="container">
+    <!-- Existing header now only holds actions -->
     <header>
       <div class="header-content">
-        <img src="mrc_logo.png" alt="MRC Global Logo" class="logo">
-        <h1>MRC Global Inspection Report</h1>
         <!-- Navigation links and Actions -->
         <div class="header-actions">
           <a href="index.html" class="home-link"><i class="fas fa-home"></i> Home</a>
           <a href="user_guide.html" class="user-guide-link"><i class="fas fa-question-circle"></i> User Guide</a>
           <!-- Google Translate Placeholder -->
           <div id="google_translate_element"></div>
+          <!-- Form Template selector -->
+          <div class="template-dropdown">
+            <label for="formTemplateSelect">Form Template:</label>
+            <select id="formTemplateSelect">
+              <option value="default" selected>Default</option>
+              <option value="new">Create New Form</option>
+            </select>
+            <button id="deleteTemplateBtn" type="button" class="btn btn-danger" style="display:none; margin-left:5px;">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
           <!-- Moved Form Actions to header area -->
           <div class="dropdown header-dropdown">
             <button type="button" class="dropbtn"><i class="fas fa-cog"></i> Form Actions <i class="fas fa-caret-down"></i></button>
@@ -204,7 +247,7 @@
             <input type="text" id="supplier" name="supplier">
           </div>
           <div class="form-group">
-            <label for="mrc-client">MRC Client</label>
+            <label for="mrc-client">MRC Global Client</label>
             <input type="text" id="mrc-client" name="mrc-client">
           </div>
           <div class="form-group">
@@ -305,15 +348,15 @@
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label for="mrc-po-no">MRC P.O No(s).</label>
-            <textarea id="mrc-po-no" name="mrc-po-no" rows="3" placeholder="Enter MRC PO numbers (one per line)"></textarea>
+            <label for="mrc-po-no">MRC Global P.O No(s).</label>
+            <textarea id="mrc-po-no" name="mrc-po-no" rows="3" placeholder="Enter MRC Global PO numbers (one per line)"></textarea>
           </div>
           <div class="form-group">
             <label for="project-no">Project No./Title</label>
             <input type="text" id="project-no" name="project-no">
           </div>
           <div class="form-group">
-            <label for="mrc-client-order">MRC Client Order No.</label>
+            <label for="mrc-client-order">MRC Global Client Order No.</label>
             <input type="text" id="mrc-client-order" name="mrc-client-order">
           </div>
         </div>
@@ -375,7 +418,7 @@
             <input type="text" id="inspector-name" name="inspector-name">
           </div>
           <div class="form-group">
-            <label for="mrc-eur-stamp">MRC EUR stamp no.</label>
+            <label for="mrc-eur-stamp">MRC Global EUR stamp no.</label>
             <input type="text" id="mrc-eur-stamp" name="mrc-eur-stamp">
           </div>
         </div>
@@ -864,7 +907,7 @@
               <td><input type="radio" name="quantity" value="pass"></td>
               <td><input type="radio" name="quantity" value="fail"></td>
               <td><input type="radio" name="quantity" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -872,7 +915,7 @@
               <td><input type="radio" name="valve-size" value="pass"></td>
               <td><input type="radio" name="valve-size" value="fail"></td>
               <td><input type="radio" name="valve-size" value="na"></td>
-              <td>MESC / MRC PO</td>
+              <td>MESC / MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -880,7 +923,7 @@
               <td><input type="radio" name="valve-class" value="pass"></td>
               <td><input type="radio" name="valve-class" value="fail"></td>
               <td><input type="radio" name="valve-class" value="na"></td>
-              <td>MESC / MRC PO</td>
+              <td>MESC / MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -888,7 +931,7 @@
               <td><input type="radio" name="valve-type" value="pass"></td>
               <td><input type="radio" name="valve-type" value="fail"></td>
               <td><input type="radio" name="valve-type" value="na"></td>
-              <td>MESC / MRC PO</td>
+              <td>MESC / MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -896,7 +939,7 @@
               <td><input type="radio" name="mesc-number" value="pass"></td>
               <td><input type="radio" name="mesc-number" value="fail"></td>
               <td><input type="radio" name="mesc-number" value="na"></td>
-              <td>MESC / MRC PO</td>
+              <td>MESC / MRC Global PO</td>
             </tr>
 
             <!-- Name Plate -->
@@ -925,7 +968,7 @@
               <td><input type="radio" name="part-number" value="pass"></td>
               <td><input type="radio" name="part-number" value="fail"></td>
               <td><input type="radio" name="part-number" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -946,7 +989,7 @@
               <td><input type="radio" name="system-correct" value="pass"></td>
               <td><input type="radio" name="system-correct" value="fail"></td>
               <td><input type="radio" name="system-correct" value="na"></td>
-              <td>MRC PO / 77/310</td>
+              <td>MRC Global PO / 77/310</td>
             </tr>
             <tr>
               <td></td>
@@ -954,7 +997,7 @@
               <td><input type="radio" name="colour-correct" value="pass"></td>
               <td><input type="radio" name="colour-correct" value="fail"></td>
               <td><input type="radio" name="colour-correct" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1004,7 +1047,7 @@
               <td><input type="radio" name="joint-type" value="pass"></td>
               <td><input type="radio" name="joint-type" value="fail"></td>
               <td><input type="radio" name="joint-type" value="na"></td>
-              <td>MESC / MRC PO</td>
+              <td>MESC / MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1012,7 +1055,7 @@
               <td><input type="radio" name="raised-face" value="pass"></td>
               <td><input type="radio" name="raised-face" value="fail"></td>
               <td><input type="radio" name="raised-face" value="na"></td>
-              <td>MESC / MRC PO / Ring (R) gauges</td>
+              <td>MESC / MRC Global PO / Ring (R) gauges</td>
             </tr>
             <tr>
               <td></td>
@@ -1234,7 +1277,7 @@
               <td><input type="radio" name="actuator-quantity" value="pass"></td>
               <td><input type="radio" name="actuator-quantity" value="fail"></td>
               <td><input type="radio" name="actuator-quantity" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1242,7 +1285,7 @@
               <td><input type="radio" name="actuator-model" value="pass"></td>
               <td><input type="radio" name="actuator-model" value="fail"></td>
               <td><input type="radio" name="actuator-model" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1271,7 +1314,7 @@
               <td><input type="radio" name="actuator-system-correct" value="pass"></td>
               <td><input type="radio" name="actuator-system-correct" value="fail"></td>
               <td><input type="radio" name="actuator-system-correct" value="na"></td>
-              <td>MRC PO / DEP</td>
+              <td>MRC Global PO / DEP</td>
             </tr>
             <tr>
               <td></td>
@@ -1279,7 +1322,7 @@
               <td><input type="radio" name="actuator-colour-correct" value="pass"></td>
               <td><input type="radio" name="actuator-colour-correct" value="fail"></td>
               <td><input type="radio" name="actuator-colour-correct" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1381,7 +1424,7 @@
               <td><input type="radio" name="ancillary-quantity" value="pass"></td>
               <td><input type="radio" name="ancillary-quantity" value="fail"></td>
               <td><input type="radio" name="ancillary-quantity" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1389,7 +1432,7 @@
               <td><input type="radio" name="ancillary-model" value="pass"></td>
               <td><input type="radio" name="ancillary-model" value="fail"></td>
               <td><input type="radio" name="ancillary-model" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1397,7 +1440,7 @@
               <td><input type="radio" name="ancillary-voltage" value="pass"></td>
               <td><input type="radio" name="ancillary-voltage" value="fail"></td>
               <td><input type="radio" name="ancillary-voltage" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1405,7 +1448,7 @@
               <td><input type="radio" name="ancillary-atex-class" value="pass"></td>
               <td><input type="radio" name="ancillary-atex-class" value="fail"></td>
               <td><input type="radio" name="ancillary-atex-class" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1413,7 +1456,7 @@
               <td><input type="radio" name="ancillary-set-pressure" value="pass"></td>
               <td><input type="radio" name="ancillary-set-pressure" value="fail"></td>
               <td><input type="radio" name="ancillary-set-pressure" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
 
             <!-- Documentation -->
@@ -1483,7 +1526,7 @@
               <td><input type="radio" name="spool-quantity" value="pass"></td>
               <td><input type="radio" name="spool-quantity" value="fail"></td>
               <td><input type="radio" name="spool-quantity" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1499,7 +1542,7 @@
               <td><input type="radio" name="spool-fasteners-provided" value="pass"></td>
               <td><input type="radio" name="spool-fasteners-provided" value="fail"></td>
               <td><input type="radio" name="spool-fasteners-provided" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1507,7 +1550,7 @@
               <td><input type="radio" name="spool-fastener-grades" value="pass"></td>
               <td><input type="radio" name="spool-fastener-grades" value="fail"></td>
               <td><input type="radio" name="spool-fastener-grades" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1572,7 +1615,7 @@
               <td><input type="radio" name="custom-fastener-grades" value="pass"></td>
               <td><input type="radio" name="custom-fastener-grades" value="fail"></td>
               <td><input type="radio" name="custom-fastener-grades" value="na"></td>
-              <td>MRC PO</td>
+              <td>MRC Global PO</td>
             </tr>
             <tr>
               <td></td>
@@ -1992,6 +2035,26 @@
       <!-- File Input for Loading Reports (hidden) -->
       <input type="file" id="load-report-file" accept=".json" style="display: none;">
     </form>
+  </div>
+
+  <!-- Template Modal -->
+  <div id="templateModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Create New Form Template</h2>
+      <div class="form-group">
+        <label for="newTemplateName">Template Name</label>
+        <input type="text" id="newTemplateName" class="full-width">
+      </div>
+      <div class="form-group">
+        <label>Sections</label>
+        <div id="templateSectionList"></div>
+      </div>
+      <div class="form-actions">
+        <button type="button" id="cancelTemplateBtn" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="saveTemplateBtn" class="btn btn-primary">Save Template</button>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
