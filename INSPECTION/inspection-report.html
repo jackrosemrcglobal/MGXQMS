@@ -52,79 +52,6 @@
     body {
         top: 0px !important; 
     }
-     /* Transposed Item Details table styles */
-    .item-details-transposed table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 10px;
-      font-size: 12px;
-    }
-
-    .item-details-transposed th, 
-    .item-details-transposed td {
-      padding: 5px;
-      border: 1px solid #ddd;
-      text-align: left;
-    }
-
-    .item-details-transposed th {
-      background-color: #f2f2f2;
-      font-weight: bold;
-    }
-    
-    .item-details-transposed th:first-child {
-        width: 150px; /* Adjust width for the transposed header column */
-    }
-
-    .item-details-transposed input {
-        width: 100%;
-        padding: 3px;
-        border: 1px solid #ddd;
-        border-radius: 3px;
-        font-size: 12px;
-    }
-
-    /* Hide action buttons in transposed table */
-    .item-details-transposed .action-cell,
-    .item-details-transposed .add-row-btn {
-        display: none !important;
-    }
-    
-    /* Collapsible Sections */
-    .form-section { position: relative; }
-    .form-section .section-header { cursor: pointer; }
-    .form-section .section-header::after {
-      content: '\25BC';
-      float: right;
-      font-size: 12px;
-      color: #003366;
-      transition: transform 0.3s ease;
-    }
-    .form-section.collapsed .section-header::after {
-      content: '\25B6';
-    }
-    .form-section.collapsed > :not(.section-header) {
-      display: none;
-    }
-
-    /* Context menu for expand/collapse */
-    .context-menu {
-      position: absolute;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 10000;
-      border-radius: 4px;
-      min-width: 150px;
-    }
-    .context-menu-item {
-      padding: 8px 12px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .context-menu-item:hover {
-      background-color: #f0f0f0;
-    }
   </style>
 </head>
 <body>
@@ -306,7 +233,7 @@
         <div class="form-row">
           <div class="form-group">
             <label for="mrc-po-no">MRC P.O No(s).</label>
-            <textarea id="mrc-po-no" name="mrc-po-no" rows="3" placeholder="Enter MRC PO numbers (one per line)"></textarea>
+            <input type="text" id="mrc-po-no" name="mrc-po-no">
           </div>
           <div class="form-group">
             <label for="project-no">Project No./Title</label>
@@ -446,7 +373,7 @@
       <div class="form-section draggable" data-section-id="contact-table">
         <div class="section-header">
           <div class="drag-handle"><i class="fas fa-grip-lines"></i></div>
-          <h3>Contact Information Table</h3>
+          <h3>Contact Information</h3>
         </div>
         <table class="contact-table">
           <thead>
@@ -545,293 +472,246 @@
             <tr>
               <td><input type="checkbox" name="check-1"></td>
               <td>Valve nominal size conforming</td>
-              <td><textarea name="note-1" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-1"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-2"></td>
               <td>Space between valve flange & body, sufficient for nuts of the pipeline flange</td>
-              <td><textarea name="note-2" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-2"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-3"></td>
               <td>Design Spec/Pressure rating conforming</td>
-              <td><textarea name="note-3" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-3"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-4"></td>
               <td>Face to face conforming</td>
-              <td><textarea name="note-4" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-4"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-5"></td>
               <td>Welded bonnet</td>
-              <td><textarea name="note-5" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-5"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-6"></td>
               <td>Bolted bonnet</td>
-              <td><textarea name="note-6" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-6"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-7"></td>
               <td>Top entry ball valve</td>
-              <td><textarea name="note-7" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-7"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-8"></td>
               <td>Side entry ball valve</td>
-              <td><textarea name="note-8" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-8"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-9"></td>
               <td>2-piece ball valve</td>
-              <td><textarea name="note-9" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-9"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-10"></td>
               <td>3-piece ball valve</td>
-              <td><textarea name="note-10" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-10"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-11"></td>
               <td>Cast (cast parts surface visual check)</td>
-              <td><textarea name="note-11" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-11"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-12"></td>
               <td>Forged body (forged parts surface visual check)</td>
-              <td><textarea name="note-12" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-12"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-13"></td>
               <td>Bore type and size(s) conforming</td>
-              <td><textarea name="note-13" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-13"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-14"></td>
               <td>Closure member type(s) conforming</td>
-              <td><textarea name="note-14" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-14"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-15"></td>
               <td>Quantities conforming with notification/PO</td>
-              <td><textarea name="note-15" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-15"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-16"></td>
               <td>Lack of sharp edges (2° roundness on the machined edges)</td>
-              <td><textarea name="note-16" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-16"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-17"></td>
               <td>On unpainted material – general condition of the surfaces</td>
-              <td><textarea name="note-17" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-17"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-18"></td>
               <td>On unpainted material - marking of the heat code(s) and material type</td>
-              <td><textarea name="note-18" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-18"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-19"></td>
               <td>On unpainted material - marking of the size and rating</td>
-              <td><textarea name="note-19" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-19"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-20"></td>
               <td>On painted material final colour</td>
-              <td><textarea name="note-20" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-20"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-21"></td>
               <td>On painted material DFT</td>
-              <td><textarea name="note-21" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-21"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-22"></td>
               <td>Wedge surface condition where visible</td>
-              <td><textarea name="note-22" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-22"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-23"></td>
               <td>For ball valves – bore seats/ball alignment</td>
-              <td><textarea name="note-23" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-23"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-24"></td>
               <td>Valve operator in conformity with requirements</td>
-              <td><textarea name="note-24" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-24"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-25"></td>
               <td>Nameplate</td>
-              <td><textarea name="note-25" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-25"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-26"></td>
               <td>Tag and/or VDS number</td>
-              <td><textarea name="note-26" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-26"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-27"></td>
               <td>Additional nameplate (i.e. for VDS valves Low Temp. or Special Service)</td>
-              <td><textarea name="note-27" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-27"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-28"></td>
               <td>Manual Valves under 2" operate open-close during final inspection</td>
-              <td><textarea name="note-28" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-28"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-29"></td>
               <td>CE in place and conforming</td>
-              <td><textarea name="note-29" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-29"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-30"></td>
               <td>UKCA marking</td>
-              <td><textarea name="note-30" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-30"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-31"></td>
               <td>Atex marking</td>
-              <td><textarea name="note-31" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-31"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-32"></td>
               <td>Valve ends type as per requirements</td>
-              <td><textarea name="note-32" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-32"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-33"></td>
               <td>Valve ends condition with no damage, rust, scratches</td>
-              <td><textarea name="note-33" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-33"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-34"></td>
               <td>Valve/valve unpainted parts protected against corrosion</td>
-              <td><textarea name="note-34" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-34"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-35"></td>
               <td>Valve ends cups/protections appropriate type and size in all openings</td>
-              <td><textarea name="note-35" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-35"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-36"></td>
               <td>Valve bolts/nuts material marked and conforming</td>
-              <td><textarea name="note-36" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-36"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-37"></td>
               <td>Wooden case lined with waterproof paper on top and sides</td>
-              <td><textarea name="note-37" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-37"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-38"></td>
               <td>Wooden case made of fumigated wood, certificate number visible</td>
-              <td><textarea name="note-38" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-38"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-39"></td>
               <td>Welds/seal welds with no spatter, concerning irregularities</td>
-              <td><textarea name="note-39" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-39"></td>
             </tr>
             <tr>
               <td><input type="checkbox" name="check-40"></td>
               <td>Welded components material marked on and in line with body/BOM material</td>
-              <td><textarea name="note-40" rows="2" class="large-text-area"></textarea></td>
+              <td><input type="text" name="note-40"></td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- Item Details Section - TRANSPOSED -->
-      <div class="form-section draggable item-details-transposed" data-section-id="item-details">
-        <div style="display: flex; align-items: center; margin-bottom: 10px;">
-          <label for="itemCountInput" style="font-size:14px; color:#003366; margin-right:8px;">Number of Items:</label>
-          <input type="number" id="itemCountInput" min="1" max="5" value="1"
-                 style="width:60px; padding:4px; border:1px solid #ddd; border-radius:4px;">
-        </div>
+      <!-- Item Details Section - More compact -->
+      <div class="form-section draggable" data-section-id="item-details">
         <div class="section-header">
           <div class="drag-handle"><i class="fas fa-grip-lines"></i></div>
           <h3>Item Details</h3>
         </div>
-        <table class="item-details-transposed">
+        <table class="item-details">
           <thead>
             <tr>
-              <th></th> <!-- Empty cell for transposed headers -->
-              <th>Item 1</th>
-              <th>Item 2</th>
-              <th>Item 3</th>
-              <th>Item 4</th>
-              <th>Item 5</th>
+              <th>PO N°</th>
+              <th>Supplier job</th>
+              <th>Item N°</th>
+              <th>MESC/TAG</th>
+              <th>Description</th>
+              <th>Order Q.ty</th>
+              <th>Insp. Q.ty</th>
+              <th>Heat N°/Code N°</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th>PO N°</th>
-              <td><input type="text" name="item-po-1"></td>
-              <td><input type="text" name="item-po-2"></td>
-              <td><input type="text" name="item-po-3"></td>
-              <td><input type="text" name="item-po-4"></td>
-              <td><input type="text" name="item-po-5"></td>
+              <td><input type="text" name="po-no"></td>
+              <td><input type="text" name="supplier-job"></td>
+              <td><input type="text" name="item-no"></td>
+              <td><input type="text" name="mesc-tag"></td>
+              <td><input type="text" name="description" placeholder="Size, description, material, class..."></td>
+              <td><input type="text" name="order-qty"></td>
+              <td><input type="text" name="insp-qty"></td>
+              <td><input type="text" name="heat-no" placeholder="Body/Bonnet/Closure"></td>
             </tr>
             <tr>
-              <th>Supplier job</th>
-              <td><input type="text" name="item-supplier-job-1"></td>
-              <td><input type="text" name="item-supplier-job-2"></td>
-              <td><input type="text" name="item-supplier-job-3"></td>
-              <td><input type="text" name="item-supplier-job-4"></td>
-              <td><input type="text" name="item-supplier-job-5"></td>
-            </tr>
-            <tr>
-              <th>Item N°</th>
-              <td><input type="text" name="item-item-no-1"></td>
-              <td><input type="text" name="item-item-no-2"></td>
-              <td><input type="text" name="item-item-no-3"></td>
-              <td><input type="text" name="item-item-no-4"></td>
-              <td><input type="text" name="item-item-no-5"></td>
-            </tr>
-            <tr>
-              <th>MESC/TAG</th>
-              <td><input type="text" name="item-mesc-tag-1"></td>
-              <td><input type="text" name="item-mesc-tag-2"></td>
-              <td><input type="text" name="item-mesc-tag-3"></td>
-              <td><input type="text" name="item-mesc-tag-4"></td>
-              <td><input type="text" name="item-mesc-tag-5"></td>
-            </tr>
-            <tr>
-              <th>Description</th>
-              <td><textarea name="item-description-1" rows="3" placeholder="Size, description, material, class..."></textarea></td>
-              <td><textarea name="item-description-2" rows="3"></textarea></td>
-              <td><textarea name="item-description-3" rows="3"></textarea></td>
-              <td><textarea name="item-description-4" rows="3"></textarea></td>
-              <td><textarea name="item-description-5" rows="3"></textarea></td>
-            </tr>
-            <tr>
-              <th>Order Q.ty</th>
-              <td><input type="text" name="item-order-qty-1"></td>
-              <td><input type="text" name="item-order-qty-2"></td>
-              <td><input type="text" name="item-order-qty-3"></td>
-              <td><input type="text" name="item-order-qty-4"></td>
-              <td><input type="text" name="item-order-qty-5"></td>
-            </tr>
-            <tr>
-              <th>Inspt. Q.ty</th>
-              <td><input type="text" name="item-insp-qty-1"></td>
-              <td><input type="text" name="item-insp-qty-2"></td>
-              <td><input type="text" name="item-insp-qty-3"></td>
-              <td><input type="text" name="item-insp-qty-4"></td>
-              <td><input type="text" name="item-insp-qty-5"></td>
-            </tr>
-            <tr>
-              <th>Heat N°/Code N°</th>
-              <td><input type="text" name="item-heat-no-1" placeholder="Body/Bonnet/Closure"></td>
-              <td><input type="text" name="item-heat-no-2"></td>
-              <td><input type="text" name="item-heat-no-3"></td>
-              <td><input type="text" name="item-heat-no-4"></td>
-              <td><input type="text" name="item-heat-no-5"></td>
+              <td><input type="text" name="po-no-2"></td>
+              <td><input type="text" name="supplier-job-2"></td>
+              <td><input type="text" name="item-no-2"></td>
+              <td><input type="text" name="mesc-tag-2"></td>
+              <td><input type="text" name="description-2"></td>
+              <td><input type="text" name="order-qty-2"></td>
+              <td><input type="text" name="insp-qty-2"></td>
+              <td><input type="text" name="heat-no-2"></td>
             </tr>
           </tbody>
         </table>
@@ -1542,58 +1422,6 @@
         </table>
       </div>
 
-      <!-- Custom Inspection Section -->
-      <div class="form-section draggable" data-section-id="custom-inspection">
-        <div class="section-header">
-          <div class="drag-handle"><i class="fas fa-grip-lines"></i></div>
-          <h3 contenteditable="true">Custom Inspection</h3>
-        </div>
-        <div class="section-actions" style="margin-bottom:10px;">
-          <button type="button" id="addCustomCategoryBtn" class="btn btn-secondary"><i class="fas fa-plus"></i> Add Category</button>
-          <button type="button" id="addCustomRowBtn" class="btn btn-secondary"><i class="fas fa-plus-circle"></i> Add Subsection</button>
-          <button type="button" class="btn btn-secondary export-custom-csv-btn"><i class="fas fa-file-csv"></i> Export Custom Inspection to CSV</button>
-          <button type="button" id="importCustomCsvBtn" class="btn btn-secondary"><i class="fas fa-file-import"></i> Import Custom Inspection CSV</button>
-          <input type="file" id="importCustomCsvInput" accept=".csv" style="display:none;">
-        </div>
-        <table class="valves-inspection">
-          <thead>
-            <tr>
-              <th colspan="2" contenteditable="true">Custom Inspection</th>
-              <th>Pass</th>
-              <th>Fail</th>
-              <th>N/A</th>
-              <th>Guidance</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td>Fastener Grades Correct</td>
-              <td><input type="radio" name="custom-fastener-grades" value="pass"></td>
-              <td><input type="radio" name="custom-fastener-grades" value="fail"></td>
-              <td><input type="radio" name="custom-fastener-grades" value="na"></td>
-              <td>MRC PO</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>Machining Details Correct</td>
-              <td><input type="radio" name="custom-machining-details" value="pass"></td>
-              <td><input type="radio" name="custom-machining-details" value="fail"></td>
-              <td><input type="radio" name="custom-machining-details" value="na"></td>
-              <td>Top works drawing (F14, F16 etc) / vs Product / ISO 5211</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>Coating Condition Acceptable</td>
-              <td><input type="radio" name="custom-coating-condition" value="pass"></td>
-              <td><input type="radio" name="custom-coating-condition" value="fail"></td>
-              <td><input type="radio" name="custom-coating-condition" value="na"></td>
-              <td>Visual only</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
       <!-- Other Visual Inspection Notes Section -->
       <div class="form-section draggable" data-section-id="visual-inspection-notes">
         <div class="section-header">
@@ -1663,151 +1491,137 @@
         </div>
       </div>
 
-      <!-- Document References Section - stacked tables -->
+      <!-- Document References Section - Two column layout -->
       <div class="form-section draggable" data-section-id="document-references">
         <div class="section-header">
           <div class="drag-handle"><i class="fas fa-grip-lines"></i></div>
           <h3>Document References</h3>
         </div>
-        <!-- first table -->
-        <div style="margin-bottom:20px;">
-          <table class="document-references">
-            <thead>
-              <tr>
-                <th style="width: 40px;">Select</th>
-                <th>Document N° / Date</th>
-                <th>Title</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox" name="doc-select-1"></td>
-                <td><input type="text" name="doc-num-1" value="77-200 2020"></td>
-                <td><textarea name="doc-title-1" rows="2" class="large-text-area">Valves in Low Temperature and Cryogenic Services</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-2"></td>
-                <td><input type="text" name="doc-num-2" value="77-302 2020"></td>
-                <td><textarea name="doc-title-2" rows="2" class="large-text-area">Valves General Requirements</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-3"></td>
-                <td><input type="text" name="doc-num-3" value="77-303 2020"></td>
-                <td><textarea name="doc-title-3" rows="2" class="large-text-area">Valves in Special Service</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-4"></td>
-                <td><input type="text" name="doc-num-4" value="77-312 2020"></td>
-                <td><textarea name="doc-title-4" rows="2" class="large-text-area">Fugitive Emission Production Testing</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-5"></td>
-                <td><input type="text" name="doc-num-5" value="77-101 2020"></td>
-                <td><textarea name="doc-title-5" rows="2" class="large-text-area">Technical Spec Gate Globe and Check Valves</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-6"></td>
-                <td><input type="text" name="doc-num-6" value="77-110 2019"></td>
-                <td><textarea name="doc-title-6" rows="2" class="large-text-area">Technical Spec Ball Valves</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-7"></td>
-                <td><input type="text" name="doc-num-7" value="API 6D - 2021"></td>
-                <td><textarea name="doc-title-7" rows="2" class="large-text-area">Specification for Pipeline Valves</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-8"></td>
-                <td><input type="text" name="doc-num-8" value="API 6A - 2018"></td>
-                <td><textarea name="doc-title-8" rows="2" class="large-text-area">Specification for Wellhead and Tree Equipment</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-9"></td>
-                <td><input type="text" name="doc-num-9" value="API 602 - 2022"></td>
-                <td><textarea name="doc-title-9" rows="2" class="large-text-area">Gate, Globe & Check Valves Size DN100 (NPS 4) and smaller</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-10"></td>
-                <td><input type="text" name="doc-num-10" value="API 598 - 2023"></td>
-                <td><textarea name="doc-title-10" rows="2" class="large-text-area">Valve Inspection and Testing</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-template"></td>
-                <td><input type="text" name="doc-num-template" placeholder="Enter Document N° / Date"></td>
-                <td><textarea name="doc-title-template" rows="2" class="large-text-area" placeholder="Enter Title"></textarea></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- second table -->
-        <div style="margin-bottom:20px;">
-          <table class="document-references">
-            <thead>
-              <tr>
-                <th style="width: 40px;">Select</th>
-                <th>Document N° / Date</th>
-                <th>Title</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox" name="doc-select-11"></td>
-                <td><input type="text" name="doc-num-11" value="API 607 - 2022"></td>
-                <td><textarea name="doc-title-11" rows="2" class="large-text-area">Fire Test for Quarter-turn Valves and Valves Non-metallic Seats</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-12"></td>
-                <td><input type="text" name="doc-num-12" value="PED 2014-68-UE"></td>
-                <td><textarea name="doc-title-12" rows="2" class="large-text-area">Pressure Equipment Directive UE</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-13"></td>
-                <td><input type="text" name="doc-num-13" value="NACE MR075"></td>
-                <td><textarea name="doc-title-13" rows="2" class="large-text-area">Materials for Valves for Resistance to Sulfide Stress Cracking</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-14"></td>
-                <td><input type="text" name="doc-num-14" value="EN ISO 15761"></td>
-                <td><textarea name="doc-title-14" rows="2" class="large-text-area">Steel Gate, Globe and Check Valves for Sizes DN 100 and Smaller</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-15"></td>
-                <td><input type="text" name="doc-num-15" value="EN ISO 17292"></td>
-                <td><textarea name="doc-title-15" rows="2" class="large-text-area">Metal Ball Valves for Petroleum, Petrochemical and Allied Industries</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-16"></td>
-                <td><input type="text" name="doc-num-16" value="EN ISO 5208"></td>
-                <td><textarea name="doc-title-16" rows="2" class="large-text-area">Industrial Valves - Pressure Testing of Metallic Valves</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-17"></td>
-                <td><input type="text" name="doc-num-17" value="IOGP S-563 12/2021"></td>
-                <td><textarea name="doc-title-17" rows="2" class="large-text-area">MDS</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-18"></td>
-                <td><input type="text" name="doc-num-18" value="ASME B 16.34"></td>
-                <td><textarea name="doc-title-18" rows="2" class="large-text-area">Valves-Flanged, Threaded and Welding End.</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-19"></td>
-                <td><input type="text" name="doc-num-19" value="ASME B 16.5"></td>
-                <td><textarea name="doc-title-19" rows="2" class="large-text-area">Pipe Flanges and Flanged Fittings ½" till 24".</textarea></td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" name="doc-select-template-2"></td>
-                <td><input type="text" name="doc-num-template-2" placeholder="Enter Document N° / Date"></td>
-                <td><textarea name="doc-title-template-2" rows="2" class="large-text-area" placeholder="Enter Title"></textarea></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div style="text-align:right; margin-top:10px;">
-          <button type="button" class="btn btn-primary add-document-btn"><i class="fas fa-plus-circle"></i> Add Document</button>
-          <button type="button" id="deleteSelectedDocsBtn" class="btn btn-danger"><i class="fas fa-trash"></i> Delete Selected Documents</button>
+        <div style="display: flex; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 450px; padding-right: 10px;">
+            <table class="document-references">
+              <thead>
+                <tr>
+                  <th style="width: 40px;">Select</th>
+                  <th>Document N° / Date</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" name="doc-1"></td>
+                  <td>77-200 2020</td>
+                  <td>Valves in Low Temperature and Cryogenic Services</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-2"></td>
+                  <td>77-302 2020</td>
+                  <td>Valves General Requirements</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-3"></td>
+                  <td>77-303 2020</td>
+                  <td>Valves in Special Service</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-4"></td>
+                  <td>77-312 2020</td>
+                  <td>Fugitive Emission Production Testing</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-5"></td>
+                  <td>77-101 2020</td>
+                  <td>Technical Spec Gate Globe and Check Valves</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-6"></td>
+                  <td>77-110 2019</td>
+                  <td>Technical Spec Ball Valves</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-7"></td>
+                  <td>API 6D - 2021</td>
+                  <td>Specification for Pipeline Valves</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-8"></td>
+                  <td>API 6A - 2018</td>
+                  <td>Specification for Wellhead and Tree Equipment</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-9"></td>
+                  <td>API 602 - 2022</td>
+                  <td>Gate, Globe & Check Valves Size DN100 (NPS 4) and smaller</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-10"></td>
+                  <td>API 598 - 2023</td>
+                  <td>Valve Inspection and Testing</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="flex: 1; min-width: 450px;">
+            <table class="document-references">
+              <thead>
+                <tr>
+                  <th style="width: 40px;">Select</th>
+                  <th>Document N° / Date</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" name="doc-11"></td>
+                  <td>API 607 - 2022</td>
+                  <td>Fire Test for Quarter-turn Valves and Valves Non-metallic Seats</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-12"></td>
+                  <td>PED 2014-68-UE</td>
+                  <td>Pressure Equipment Directive UE</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-13"></td>
+                  <td>NACE MR075</td>
+                  <td>Materials for Valves for Resistance to Sulfide Stress Cracking</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-14"></td>
+                  <td>EN ISO 15761</td>
+                  <td>Steel Gate, Globe and Check Valves for Sizes DN 100 and Smaller</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-15"></td>
+                  <td>EN ISO 17292</td>
+                  <td>Metal Ball Valves for Petroleum, Petrochemical and Allied Industries</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-16"></td>
+                  <td>EN ISO 5208</td>
+                  <td>Industrial Valves - Pressure Testing of Metallic Valves</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-17"></td>
+                  <td>IOGP S-563 12/2021</td>
+                  <td>MDS</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-18"></td>
+                  <td>ASME B 16.34</td>
+                  <td>Valves-Flanged, Threaded and Welding End.</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" name="doc-19"></td>
+                  <td>ASME B 16.5</td>
+                  <td>Pipe Flanges and Flanged Fittings ½" till 24".</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-
+      
       <!-- Additional Documents Section -->
       <div class="form-section draggable" data-section-id="additional-documents">
         <div class="section-header">
@@ -1862,10 +1676,10 @@
           <div class="accordion-item">
             <h3 class="accordion-header">Logistics & Transportation</h3>
             <div class="accordion-content">
-              <label for="logistics-information">Logistics Information</label>
+              <label>Logistics Information</label>
               <textarea class="full-width" name="logistics-information" rows="3"></textarea>
               
-              <label for="link-transportation">Link Transportation</label>
+              <label>Link Transportation</label>
               <textarea class="full-width" name="link-transportation" rows="3"></textarea>
             </div>
           </div>
@@ -1873,10 +1687,10 @@
           <div class="accordion-item">
             <h3 class="accordion-header">Preventative/Remedial & Facility</h3>
             <div class="accordion-content">
-              <label for="preventative-remedial">Preventative/Remedial activities summary</label>
+              <label>Preventative/Remedial activities summary</label>
               <textarea class="full-width" name="preventative-remedial" rows="3"></textarea>
               
-              <label for="facility">Facility</label>
+              <label>Facility</label>
               <textarea class="full-width" name="facility" rows="3"></textarea>
             </div>
           </div>
@@ -1884,10 +1698,10 @@
           <div class="accordion-item">
             <h3 class="accordion-header">Safety & Calibration</h3>
             <div class="accordion-content">
-              <label for="safety">Safety</label>
+              <label>Safety</label>
               <textarea class="full-width" name="safety" rows="3"></textarea>
               
-              <label for="calibration">Calibration</label>
+              <label>Calibration</label>
               <p>Description of all measurement method or transfer standards and found value:</p>
               <table class="calibration-table">
                 <thead>
@@ -1945,9 +1759,6 @@
               
               <label>FILE ATTACHMENTS</label>
               <input type="file" id="file-attachments" name="file-attachments" multiple>
-              <button type="button" id="zipAttachmentsBtn" class="btn btn-secondary">
-                <i class="fas fa-file-archive"></i> Zip All Attachments
-              </button>
               <div id="file-list" class="file-list"></div>
             </div>
           </div>
@@ -1995,103 +1806,6 @@
   </div>
 
   <script src="script.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      document.querySelectorAll('.form-section .section-header').forEach(function(header){
-        header.addEventListener('click', function(){
-          const section = header.parentElement;
-          section.classList.toggle('collapsed');
-        });
-      });
-    });
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const itemCountInput = document.getElementById('itemCountInput');
-      const table = document.querySelector('.item-details-transposed table');
-      if (itemCountInput && table) {
-        const headerCells = table.querySelectorAll('thead th');
-        const maxItems = headerCells.length - 1; // exclude the first empty header
-        itemCountInput.max = maxItems;
-        itemCountInput.min = 1;
-        function updateItemDetailsColumns(count) {
-          headerCells.forEach((th, idx) => {
-            th.style.display = (idx === 0 || idx <= count) ? '' : 'none';
-          });
-          table.querySelectorAll('tbody tr').forEach(row => {
-            row.querySelectorAll('td').forEach((td, idx) => {
-              td.style.display = (idx < count) ? '' : 'none';
-            });
-          });
-        }
-        // initialize
-        updateItemDetailsColumns(parseInt(itemCountInput.value) || 1);
-        // listen
-        itemCountInput.addEventListener('input', function() {
-          let n = parseInt(this.value) || 1;
-          if (n < 1) n = 1;
-          if (n > maxItems) n = maxItems;
-          this.value = n;
-          updateItemDetailsColumns(n);
-        });
-      }
-    });
-  </script>
-  <script>
-    (function(){
-      const customSection = document.querySelector('[data-section-id="custom-inspection"]');
-      if (!customSection) return;
-      // existing editable h3
-      const hdr = customSection.querySelector('h3');
-      if (hdr) {
-        hdr.addEventListener('click', () => { hdr.contentEditable = 'true'; hdr.focus(); });
-        hdr.addEventListener('blur', () => hdr.contentEditable = 'false');
-      }
-      // make the table header editable as well
-      const th = customSection.querySelector('table th[colspan="2"]');
-      if (th) {
-        th.addEventListener('click', () => { th.contentEditable = 'true'; th.focus(); });
-        th.addEventListener('blur', () => th.contentEditable = 'false');
-      }
-      // rest of custom-inspection code
-    })();
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function(){
-      let menu;
-      const headers = document.querySelectorAll('.form-section .section-header');
-      headers.forEach(header => {
-        header.addEventListener('contextmenu', function(e){
-          e.preventDefault();
-          if(menu) menu.remove();
-          menu = document.createElement('div');
-          menu.className = 'context-menu';
-          const expandAll = document.createElement('div');
-          expandAll.className = 'context-menu-item';
-          expandAll.textContent = 'Expand All Sections';
-          expandAll.addEventListener('click', () => {
-            document.querySelectorAll('.form-section').forEach(sec => sec.classList.remove('collapsed'));
-            menu.remove();
-          });
-          const collapseAll = document.createElement('div');
-          collapseAll.className = 'context-menu-item';
-          collapseAll.textContent = 'Collapse All Sections';
-          collapseAll.addEventListener('click', () => {
-            document.querySelectorAll('.form-section').forEach(sec => sec.classList.add('collapsed'));
-            menu.remove();
-          });
-          menu.appendChild(expandAll);
-          menu.appendChild(collapseAll);
-          document.body.appendChild(menu);
-          menu.style.left = e.pageX + 'px';
-          menu.style.top = e.pageY + 'px';
-        });
-      });
-      document.addEventListener('click', function(){
-        if(menu) menu.remove();
-      });
-    });
-  </script>
   <!-- Google Translate Script -->
   <script type="text/javascript">
     function googleTranslateElementInit() {
