@@ -16,7 +16,7 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 12px;
+  padding: 24px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -313,7 +313,7 @@ th {
   font-weight: bold;
 }
 
-.time-breakdown input,
+time-breakdown input,
 .item-details input,
 .additional-documents input,
 .contact-table input[type="text"],
@@ -347,7 +347,18 @@ th {
 }
 
 .inspection-results th:last-child {
-  width: 200px;
+  width: auto !important;
+}
+
+.inspection-results textarea {
+  width: 100%;
+  min-width: 250px;
+  padding: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  font-size: 12px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
 }
 
 /* Valves Inspection Styles */
@@ -548,13 +559,12 @@ button:hover {
 /* Large Text Area */
 .large-text-area {
   width: 100%;
-  min-height: 100px;
-  padding: 8px;
-  font-size: 13px;
-  line-height: 1.4;
+  padding: 6px;
   border: 1px solid #ddd;
   border-radius: 3px;
+  font-size: 13px;
   resize: vertical;
+  min-height: 40px;
 }
 
 /* Accordion Styles */
@@ -746,6 +756,126 @@ button:hover {
   display: none;
 }
 
+/* Styles for dynamic table management */
+.add-row-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.add-row-btn i {
+  margin-right: 5px;
+}
+
+.add-row-btn:hover {
+  background-color: #218838;
+}
+
+.action-cell {
+  text-align: center;
+}
+
+.delete-row-btn:hover {
+  background-color: #c82333 !important;
+}
+
+.delete-selected-docs-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.delete-selected-docs-btn i {
+  margin-right: 5px;
+}
+
+.delete-selected-docs-btn:hover {
+  background-color: #c82333;
+}
+
+/* Transposed Item Details table styles */
+.item-details-transposed table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+.item-details-transposed th, 
+.item-details-transposed td {
+  padding: 5px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.item-details-transposed th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.item-details-transposed th:first-child {
+    width: 150px; /* Adjust width for the transposed header column */
+}
+
+.item-details-transposed input,
+.item-details-transposed textarea { 
+    width: 100%;
+    padding: 3px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 12px;
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 20px; /* Ensure a minimum height */
+}
+
+/* Hide action buttons in transposed table */
+.item-details-transposed .action-cell,
+.item-details-transposed .add-row-btn {
+    display: none !important;
+}
+
+.document-references textarea.large-text-area {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 3em;
+  padding: 6px;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  resize: vertical;
+}
+.document-references td {
+  vertical-align: top;
+}
+
+.document-references td input[type="text"],
+.document-references td textarea {
+  width: 100% !important;
+  min-height: 3em;
+  padding: 6px;
+  box-sizing: border-box;
+  font-size: 13px;
+}
+
+.document-references td textarea {
+  height: auto;
+  resize: vertical;
+}
+
 @media print {
   /* Print-specific styles */
   body {
@@ -753,7 +883,7 @@ button:hover {
   }
   
   .container {
-    padding: 5px;
+    padding: 10px;
   }
   
   .form-section {
@@ -767,9 +897,8 @@ button:hover {
   .header-dropdown,
   .dropbtn,
   .dropdown-content,
-  .header-actions > .home-link, /* Hide Home link in print */
-  .header-actions > .user-guide-link /* Hide User Guide link in print */
-   {
+  .header-actions > .home-link, 
+  .header-actions > .user-guide-link {
     display: none !important;
   }
   
@@ -792,5 +921,21 @@ button:hover {
   
   input, textarea, select {
     font-size: 9pt;
+  }
+  
+  .delete-row-btn,
+  .delete-selected-docs-btn {
+    display: none !important;
+  }
+  
+  /* Hide all buttons and interactive controls when printing */
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  .btn,
+  a.btn,
+  .add-row-btn {
+    display: none !important;
   }
 }
