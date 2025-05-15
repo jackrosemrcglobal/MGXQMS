@@ -17,6 +17,46 @@ document.addEventListener('DOMContentLoaded', function() {
     const useContentOverride = document.getElementById('useContentOverride');
     const contentOverride = document.getElementById('contentOverride');
     
+    // Add event listener to restore original page language
+    const restoreOriginalLanguageBtn = document.createElement('button');
+    restoreOriginalLanguageBtn.id = 'restoreLanguageBtn';
+    restoreOriginalLanguageBtn.className = 'btn restore-language-btn';
+    restoreOriginalLanguageBtn.textContent = 'Restore Original Language';
+    restoreOriginalLanguageBtn.style.display = 'none';
+    
+    if (document.getElementById('google_translate_element')) {
+        document.getElementById('google_translate_element').after(restoreOriginalLanguageBtn);
+        
+        restoreOriginalLanguageBtn.addEventListener('click', function() {
+            // Reset to original language
+            var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+            if (iframe) {
+                var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+                var restoreBtn = innerDoc.getElementsByTagName('button')[0];
+                if (restoreBtn) {
+                    restoreBtn.click();
+                }
+            }
+            
+            // Alternative approach
+            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + location.hostname;
+            location.reload();
+        });
+        
+        // Monitor for translations and show restore button when needed
+        const observer = new MutationObserver(function(mutations) {
+            if (document.body.classList.contains('translated-rtl') || 
+                document.body.classList.contains('translated-ltr')) {
+                restoreOriginalLanguageBtn.style.display = 'inline-block';
+            } else {
+                restoreOriginalLanguageBtn.style.display = 'none';
+            }
+        });
+        
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    }
+    
     // Variables to store data
     let csvData = [];
     let columnNames = [];
