@@ -999,6 +999,133 @@ document.addEventListener('DOMContentLoaded', function() {
       importCustomCsvInput.value = '';
     });
   }
+
+  // ADD REMOVE SECTION BUTTONS
+  document.querySelectorAll('.form-section .section-header').forEach(header => {
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'remove-section-btn';
+    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+    removeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (confirm('Remove this section?')) {
+        header.closest('.form-section').remove();
+      }
+    });
+    header.appendChild(removeBtn);
+  });
+
+  // -- Form Template handling --
+  (function(){
+    const templateSelect = document.getElementById('formTemplateSelect');
+    if (!templateSelect) return;
+    const modal = document.getElementById('templateModal');
+    const closeBtn = modal.querySelector('.close');
+    const cancelBtn = document.getElementById('cancelTemplateBtn');
+    const saveBtn = document.getElementById('saveTemplateBtn');
+    const nameInput = document.getElementById('newTemplateName');
+    const sectionList = document.getElementById('templateSectionList');
+    let templates = JSON.parse(localStorage.getItem('formTemplates') || '{}');
+
+    // ensure default template includes all sections
+    if (!templates.default) {
+      templates.default = Array.from(document.querySelectorAll('.form-section'))
+                                .map(sec => sec.getAttribute('data-section-id'));
+      localStorage.setItem('formTemplates', JSON.stringify(templates));
+    }
+    // populate dropdown with saved templates
+    Object.keys(templates).forEach(key => {
+      if (key !== 'default') {
+        const opt = document.createElement('option');
+        opt.value = key; opt.textContent = key;
+        templateSelect.appendChild(opt);
+      }
+    });
+
+    // when selection changes
+    templateSelect.addEventListener('change', () => {
+      const val = templateSelect.value;
+      if (val === 'new') {
+        // open modal with section list
+        sectionList.innerHTML = '';
+        document.querySelectorAll('.form-section').forEach(sec => {
+          const id = sec.getAttribute('data-section-id');
+          const title = sec.querySelector('h3')?.textContent.trim() || id;
+          const div = document.createElement('div');
+          div.className = 'form-group';
+          const cb = document.createElement('input');
+          cb.type = 'checkbox'; cb.id = 'tmpl-'+id; cb.value = id; cb.checked = true;
+          const lbl = document.createElement('label');
+          lbl.htmlFor = cb.id; lbl.textContent = title;
+          div.appendChild(cb); div.appendChild(lbl);
+          sectionList.appendChild(div);
+        });
+        nameInput.value = '';
+        modal.style.display = 'block';
+      } else {
+        // apply a template
+        const sel = templates[val] || [];
+        document.querySelectorAll('.form-section').forEach(sec => {
+          const id = sec.getAttribute('data-section-id');
+          sec.style.display = (val === 'default' || sel.includes(id)) ? '' : 'none';
+        });
+      }
+    });
+
+    function closeModal(){
+      modal.style.display = 'none';
+      templateSelect.value = 'default';
+      templateSelect.dispatchEvent(new Event('change'));
+    }
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+
+    saveBtn.addEventListener('click', () => {
+      const tname = nameInput.value.trim();
+      if (!tname) { alert('Enter a template name'); return; }
+      const sel = Array.from(sectionList.querySelectorAll('input[type="checkbox"]:checked'))
+                         .map(cb => cb.value);
+      templates[tname] = sel;
+      localStorage.setItem('formTemplates', JSON.stringify(templates));
+      const opt = document.createElement('option');
+      opt.value = tname; opt.textContent = tname;
+      templateSelect.appendChild(opt);
+      templateSelect.value = tname;
+      templateSelect.dispatchEvent(new Event('change'));
+      closeModal();
+    });
+
+    const deleteTemplateBtn = document.getElementById('deleteTemplateBtn');
+    if (deleteTemplateBtn) {
+      function updateDeleteBtnDisplay() {
+        const val = templateSelect.value;
+        deleteTemplateBtn.style.display = (val !== 'default' && val !== 'new') ? 'inline-block' : 'none';
+      }
+      updateDeleteBtnDisplay();
+      templateSelect.addEventListener('change', updateDeleteBtnDisplay);
+
+      deleteTemplateBtn.addEventListener('click', function() {
+        const current = templateSelect.value;
+        if (current === 'default' || current === 'new') {
+          alert('Cannot delete this template.');
+          return;
+        }
+        if (confirm(`Delete template "${current}"? This action cannot be undone.`)) {
+          delete templates[current];
+          localStorage.setItem('formTemplates', JSON.stringify(templates));
+          const opt = templateSelect.querySelector(`option[value="${current}"]`);
+          if (opt) opt.remove();
+          templateSelect.value = 'default';
+          templateSelect.dispatchEvent(new Event('change'));
+          alert(`Template "${current}" has been deleted.`);
+        }
+      });
+    }
+
+    window.addEventListener('click', e => {
+      if (e.target === modal) closeModal();
+    });
+  })();
 });
 
 // Function to initialize drag and drop for form sections
@@ -2132,52 +2259,6 @@ function initDeleteSelectedDocuments(tableSelector) {
             alert(`${deletedCount} documents deleted.`);
         }
     });
-
-    // Initial check to enable/disable button
-     checkAnyCheckboxChecked(tableSelector);
-
-     // Add event listeners to checkboxes within this table to toggle button state
-     const checkboxes = document.querySelectorAll(`${tableSelector} input[type="checkbox"]`);
-     checkboxes.forEach(checkbox => {
-          checkbox.addEventListener('change', () => checkAnyCheckboxChecked(tableSelector));
-     });
-
-      // Listen for DOM changes within the table (e.g., rows added/removed)
-    const observer = new MutationObserver(() => {
-         // Re-attach listeners to new checkboxes and update button state
-         const newCheckboxes = document.querySelectorAll(`${tableSelector} input[type="checkbox"]`);
-         newCheckboxes.forEach(checkbox => {
-            // Add listener only if it doesn't have one already
-            if (!checkbox.dataset.hasChangeListener) {
-                checkbox.addEventListener('change', () => checkAnyCheckboxChecked(tableSelector));
-                checkbox.dataset.hasChangeListener = 'true'; // Mark as having listener
-            }
-         });
-         checkAnyCheckboxChecked(tableSelector); // Update button state
-     });
-
-     const tbody = document.querySelector(`${tableSelector} tbody`);
-     if(tbody) {
-         observer.observe(tbody, { childList: true, subtree: true });
-     }
-}
-
-// Helper function to check if any checkbox is checked in a given table selector and enable/disable button
-function checkAnyCheckboxChecked(tableSelector) {
-     const deleteButton = document.querySelector(`.delete-selected-docs-btn[data-table-selector="${tableSelector}"]`);
-     if (!deleteButton) return;
-
-     const checkboxes = document.querySelectorAll(`${tableSelector} input[type="checkbox"]`);
-     let isAnyChecked = false;
-     checkboxes.forEach(checkbox => {
-         if (checkbox.checked) {
-             isAnyChecked = true;
-         }
-     });
-
-     deleteButton.disabled = !isAnyChecked;
-     deleteButton.style.opacity = isAnyChecked ? '1' : '0.5';
-     deleteButton.style.cursor = isAnyChecked ? 'pointer' : 'not-allowed';
 }
 
 // Function to add a row specifically to document reference tables
@@ -2277,7 +2358,7 @@ function addDocumentReferenceRow(table) {
                  const baseName = nameParts.slice(0, -1).join('-');
                   let highestIndex = 0;
                   document.querySelectorAll(table.closest('.form-section').querySelector('table').classList[0] + ' tbody tr').forEach(existingRow => {
-                       const existingInput = existingRow.querySelector(`[name^="${baseName}-"]`);
+                       const existingInput = existingRow.querySelector(`[name="${baseName}-"]`);
                        if (existingInput) {
                            const existingNameParts = existingInput.name.split('-');
                             if (existingNameParts.length > 1 && !isNaN(existingNameParts[existingNameParts.length - 1])) {
@@ -2347,6 +2428,24 @@ function initGenericDeleteSelected(button, tableSelector) {
             alert(`${deletedCount} documents deleted.`);
         }
     });
+}
+
+// Function to check if any checkbox is checked in a given table selector and enable/disable button
+function checkAnyCheckboxChecked(tableSelector) {
+     const deleteButton = document.querySelector(`.delete-selected-docs-btn[data-table-selector="${tableSelector}"]`);
+     if (!deleteButton) return;
+
+     const checkboxes = document.querySelectorAll(`${tableSelector} input[type="checkbox"]`);
+     let isAnyChecked = false;
+     checkboxes.forEach(checkbox => {
+         if (checkbox.checked) {
+             isAnyChecked = true;
+         }
+     });
+
+     deleteButton.disabled = !isAnyChecked;
+     deleteButton.style.opacity = isAnyChecked ? '1' : '0.5';
+     deleteButton.style.cursor = isAnyChecked ? 'pointer' : 'not-allowed';
 }
 
 // parse and load Custom Inspection CSV
