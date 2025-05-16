@@ -245,6 +245,7 @@ textarea {
 
 .letter-content p {
     margin-bottom: 15px;
+    white-space: pre-wrap;
 }
 
 .letter-table {
@@ -393,6 +394,19 @@ textarea {
     padding: 0;
 }
 
+.override-content p {
+    margin-bottom: 15px;
+}
+
+.override-content ul, .override-content ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.override-content ul li, .override-content ol li {
+    margin-bottom: 5px;
+}
+
 .translate-container {
     flex: 0 0 auto;
     padding: 8px 12px;
@@ -491,6 +505,77 @@ textarea {
     background-color: #125a91;
 }
 
+.color-btn {
+    position: relative;
+    font-weight: bold;
+}
+
+.color-indicator {
+    position: absolute;
+    bottom: 2px;
+    left: 6px;
+    right: 6px;
+    height: 3px;
+    border-radius: 1px;
+}
+
+.color-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    width: 180px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 10;
+    border-radius: 4px;
+    padding: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.format-dropdown:hover .color-dropdown {
+    display: flex;
+}
+
+.color-option {
+    width: 24px;
+    height: 24px;
+    margin: 3px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.color-option:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+.custom-color-container {
+    width: 100%;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+}
+
+.custom-color-input {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background: none;
+}
+
+.custom-color-label {
+    margin-left: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
 /* Editable content styling */
 .editable {
     cursor: text;
@@ -578,6 +663,125 @@ textarea {
     font-size: 11px;
     font-weight: bold;
     z-index: 2;
+}
+
+/* Formatting toolbar styles */
+.formatting-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 8px;
+    padding: 5px;
+    background-color: #f2f6f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.format-btn {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.format-btn:hover {
+    background-color: #e9ecef;
+}
+
+.format-btn.active {
+    background-color: #00447c;
+    color: white;
+    border-color: #00447c;
+}
+
+.format-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.format-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 10;
+    border-radius: 4px;
+}
+
+.format-dropdown-content button {
+    width: 100%;
+    text-align: left;
+    padding: 8px 12px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.format-dropdown-content button:hover {
+    background-color: #f2f6f9;
+}
+
+.format-dropdown:hover .format-dropdown-content {
+    display: block;
+}
+
+.format-separator {
+    width: 1px;
+    height: 24px;
+    background-color: #ccc;
+    margin: 0 5px;
+}
+
+/* Rich text content styling */
+.letter-content ul, .letter-content ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.letter-content ul li, .letter-content ol li {
+    margin-bottom: 5px;
+}
+
+/* Paragraph textarea with rich text support */
+.rich-text-area {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-height: 80px;
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 15px;
+}
+
+.rich-text-area:focus {
+    outline: none;
+    border-color: #00447c;
+    box-shadow: 0 0 0 3px rgba(0, 68, 124, 0.1);
+}
+
+/* Make content editable areas look like textareas */
+[contenteditable="true"].form-control {
+    min-height: 80px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+[contenteditable="true"].form-control:focus {
+    border-color: #00447c;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 68, 124, 0.1);
 }
 
 /* Responsive adjustments */
