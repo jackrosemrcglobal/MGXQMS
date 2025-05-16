@@ -308,98 +308,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const separator1 = document.createElement('div');
         separator1.className = 'format-separator';
         
-        // Font color button and dropdown
-        const colorContainer = document.createElement('div');
-        colorContainer.className = 'format-dropdown';
-        
-        const colorBtn = document.createElement('button');
-        colorBtn.type = 'button';
-        colorBtn.className = 'format-btn color-btn';
-        colorBtn.innerHTML = 'A';
-        colorBtn.title = 'Text Color';
-        colorBtn.style.color = '#000000';
-        colorBtn.style.position = 'relative';
-
-        // Add color indicator underline
-        const colorIndicator = document.createElement('div');
-        colorIndicator.className = 'color-indicator';
-        colorIndicator.style.backgroundColor = '#000000';
-        colorBtn.appendChild(colorIndicator);
-        
-        const colorDropdown = document.createElement('div');
-        colorDropdown.className = 'format-dropdown-content color-dropdown';
-        
-        // Add common colors
-        const colors = [
-            {name: 'Black', value: '#000000'},
-            {name: 'Dark Gray', value: '#444444'},
-            {name: 'Gray', value: '#888888'},
-            {name: 'Silver', value: '#CCCCCC'},
-            {name: 'White', value: '#FFFFFF'},
-            {name: 'Dark Red', value: '#AA0000'},
-            {name: 'Red', value: '#FF0000'},
-            {name: 'Orange', value: '#FF8800'},
-            {name: 'Yellow', value: '#FFCC00'},
-            {name: 'Dark Green', value: '#008800'},
-            {name: 'Green', value: '#00CC00'},
-            {name: 'Teal', value: '#00CCCC'},
-            {name: 'Blue', value: '#0000FF'},
-            {name: 'Navy', value: '#000088'},
-            {name: 'Purple', value: '#8800CC'},
-            {name: 'MRC Blue', value: '#00447c'}
-        ];
-        
-        colors.forEach(color => {
-            const colorOption = document.createElement('button');
-            colorOption.type = 'button';
-            colorOption.className = 'color-option';
-            colorOption.style.backgroundColor = color.value;
-            colorOption.setAttribute('data-color', color.value);
-            colorOption.title = color.name;
-            
-            // For white color, add a border so it's visible
-            if (color.value === '#FFFFFF') {
-                colorOption.style.border = '1px solid #ccc';
-            }
-            
-            colorOption.addEventListener('click', function() {
-                document.execCommand('foreColor', false, color.value);
-                colorBtn.style.color = color.value;
-                colorIndicator.style.backgroundColor = color.value;
-                document.getElementById(`${targetId}-rich`).focus();
-            });
-            
-            colorDropdown.appendChild(colorOption);
-        });
-        
-        // Custom color picker
-        const customColorContainer = document.createElement('div');
-        customColorContainer.className = 'custom-color-container';
-        
-        const customColorInput = document.createElement('input');
-        customColorInput.type = 'color';
-        customColorInput.className = 'custom-color-input';
-        customColorInput.title = 'Custom Color';
-        
-        customColorInput.addEventListener('input', function() {
-            const selectedColor = this.value;
-            document.execCommand('foreColor', false, selectedColor);
-            colorBtn.style.color = selectedColor;
-            colorIndicator.style.backgroundColor = selectedColor;
-            document.getElementById(`${targetId}-rich`).focus();
-        });
-        
-        const customColorLabel = document.createElement('span');
-        customColorLabel.className = 'custom-color-label';
-        customColorLabel.textContent = 'Custom';
-        
-        customColorContainer.appendChild(customColorInput);
-        customColorContainer.appendChild(customColorLabel);
-        colorDropdown.appendChild(customColorContainer);
-        
-        colorContainer.appendChild(colorBtn);
-        colorContainer.appendChild(colorDropdown);
-        
         // Bullet list button
         const bulletListBtn = document.createElement('button');
         bulletListBtn.type = 'button';
@@ -481,11 +389,9 @@ document.addEventListener('DOMContentLoaded', function() {
         toolbar.appendChild(italicBtn);
         toolbar.appendChild(underlineBtn);
         toolbar.appendChild(separator1);
-        toolbar.appendChild(colorContainer); 
-        toolbar.appendChild(separator2);
         toolbar.appendChild(bulletListBtn);
         toolbar.appendChild(numberedListBtn);
-        toolbar.appendChild(separator3);
+        toolbar.appendChild(separator2);
         toolbar.appendChild(alignLeftBtn);
         toolbar.appendChild(alignCenterBtn);
         toolbar.appendChild(alignRightBtn);
