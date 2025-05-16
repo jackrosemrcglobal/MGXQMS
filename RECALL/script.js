@@ -63,6 +63,14 @@ document.addEventListener('DOMContentLoaded', function() {
     let logo = 'placeholder.jpg';
     let generatedLetters = []; // Store letter data for export
     
+    // Initialize rich text editors for all paragraph inputs
+    initializeRichTextEditors();
+    
+    // Initialize rich text for content override
+    if (document.getElementById('contentOverride')) {
+        convertToRichText('contentOverride');
+    }
+    
     // Event listeners - only add if elements exist
     if (csvUpload) csvUpload.addEventListener('change', handleCSVUpload);
     if (logoUpload) logoUpload.addEventListener('change', handleLogoUpload);
@@ -191,6 +199,311 @@ document.addEventListener('DOMContentLoaded', function() {
         reader.readAsDataURL(file);
     }
     
+    // Initialize rich text editors for all paragraph fields
+    function initializeRichTextEditors() {
+        const paragraphFields = ['paragraph1', 'paragraph2', 'paragraph3', 'paragraph4', 'paragraph5', 'contactInfo'];
+        
+        paragraphFields.forEach(fieldId => {
+            const textArea = document.getElementById(fieldId);
+            if (textArea) {
+                convertToRichText(fieldId);
+            }
+        });
+    }
+
+    // Convert a textarea to a rich text editor
+    function convertToRichText(textareaId) {
+        const textarea = document.getElementById(textareaId);
+        if (!textarea) return;
+        
+        // Create container
+        const container = document.createElement('div');
+        container.className = 'rich-text-container';
+        
+        // Create toolbar
+        const toolbar = createFormattingToolbar(textareaId);
+        
+        // Create rich text area
+        const richTextArea = document.createElement('div');
+        richTextArea.id = `${textareaId}-rich`;
+        richTextArea.className = 'rich-text-area form-control';
+        richTextArea.contentEditable = true;
+        richTextArea.innerHTML = textarea.value.replace(/\n/g, '<br>');
+        
+        // Add event listener to update original textarea when rich text changes
+        richTextArea.addEventListener('input', function() {
+            textarea.value = richTextArea.innerHTML.replace(/<br>/g, '\n');
+        });
+        
+        // Hide original textarea
+        textarea.style.display = 'none';
+        
+        // Add elements to container
+        container.appendChild(toolbar);
+        container.appendChild(richTextArea);
+        
+        // Insert container after textarea
+        textarea.parentNode.insertBefore(container, textarea.nextSibling);
+        
+        // Add event listeners for keyboard shortcuts
+        richTextArea.addEventListener('keydown', function(e) {
+            if (e.ctrlKey) {
+                switch (e.key) {
+                    case 'b':
+                        e.preventDefault();
+                        document.execCommand('bold');
+                        break;
+                    case 'i':
+                        e.preventDefault();
+                        document.execCommand('italic');
+                        break;
+                    case 'u':
+                        e.preventDefault();
+                        document.execCommand('underline');
+                        break;
+                }
+            }
+        });
+    }
+
+    // Create the formatting toolbar for a rich text editor
+    function createFormattingToolbar(targetId) {
+        const toolbar = document.createElement('div');
+        toolbar.className = 'formatting-toolbar';
+        
+        // Bold button
+        const boldBtn = document.createElement('button');
+        boldBtn.type = 'button';
+        boldBtn.className = 'format-btn';
+        boldBtn.innerHTML = '<b>B</b>';
+        boldBtn.title = 'Bold (Ctrl+B)';
+        boldBtn.addEventListener('click', function() {
+            document.execCommand('bold');
+            document.getElementById(`${targetId}-rich`).focus();
+        });
+        
+        // Italic button
+        const italicBtn = document.createElement('button');
+        italicBtn.type = 'button';
+        italicBtn.className = 'format-btn';
+        italicBtn.innerHTML = '<i>I</i>';
+        italicBtn.title = 'Italic (Ctrl+I)';
+        italicBtn.addEventListener('click', function() {
+            document.execCommand('italic');
+            document.getElementById(`${targetId}-rich`).focus();
+        });
+        
+        // Underline button
+        const underlineBtn = document.createElement('button');
+        underlineBtn.type = 'button';
+        underlineBtn.className = 'format-btn';
+        underlineBtn.innerHTML = '<u>U</u>';
+        underlineBtn.title = 'Underline (Ctrl+U)';
+        underlineBtn.addEventListener('click', function() {
+            document.execCommand('underline');
+            document.getElementById(`${targetId}-rich`).focus();
+        });
+        
+        // Separator
+        const separator1 = document.createElement('div');
+        separator1.className = 'format-separator';
+        
+        // Font color button and dropdown
+        const colorContainer = document.createElement('div');
+        colorContainer.className = 'format-dropdown';
+        
+        const colorBtn = document.createElement('button');
+        colorBtn.type = 'button';
+        colorBtn.className = 'format-btn color-btn';
+        colorBtn.innerHTML = 'A';
+        colorBtn.title = 'Text Color';
+        colorBtn.style.color = '#000000';
+        colorBtn.style.position = 'relative';
+
+        // Add color indicator underline
+        const colorIndicator = document.createElement('div');
+        colorIndicator.className = 'color-indicator';
+        colorIndicator.style.backgroundColor = '#000000';
+        colorBtn.appendChild(colorIndicator);
+        
+        const colorDropdown = document.createElement('div');
+        colorDropdown.className = 'format-dropdown-content color-dropdown';
+        
+        // Add common colors
+        const colors = [
+            {name: 'Black', value: '#000000'},
+            {name: 'Dark Gray', value: '#444444'},
+            {name: 'Gray', value: '#888888'},
+            {name: 'Silver', value: '#CCCCCC'},
+            {name: 'White', value: '#FFFFFF'},
+            {name: 'Dark Red', value: '#AA0000'},
+            {name: 'Red', value: '#FF0000'},
+            {name: 'Orange', value: '#FF8800'},
+            {name: 'Yellow', value: '#FFCC00'},
+            {name: 'Dark Green', value: '#008800'},
+            {name: 'Green', value: '#00CC00'},
+            {name: 'Teal', value: '#00CCCC'},
+            {name: 'Blue', value: '#0000FF'},
+            {name: 'Navy', value: '#000088'},
+            {name: 'Purple', value: '#8800CC'},
+            {name: 'MRC Blue', value: '#00447c'}
+        ];
+        
+        colors.forEach(color => {
+            const colorOption = document.createElement('button');
+            colorOption.type = 'button';
+            colorOption.className = 'color-option';
+            colorOption.style.backgroundColor = color.value;
+            colorOption.setAttribute('data-color', color.value);
+            colorOption.title = color.name;
+            
+            // For white color, add a border so it's visible
+            if (color.value === '#FFFFFF') {
+                colorOption.style.border = '1px solid #ccc';
+            }
+            
+            colorOption.addEventListener('click', function() {
+                document.execCommand('foreColor', false, color.value);
+                colorBtn.style.color = color.value;
+                colorIndicator.style.backgroundColor = color.value;
+                document.getElementById(`${targetId}-rich`).focus();
+            });
+            
+            colorDropdown.appendChild(colorOption);
+        });
+        
+        // Custom color picker
+        const customColorContainer = document.createElement('div');
+        customColorContainer.className = 'custom-color-container';
+        
+        const customColorInput = document.createElement('input');
+        customColorInput.type = 'color';
+        customColorInput.className = 'custom-color-input';
+        customColorInput.title = 'Custom Color';
+        
+        customColorInput.addEventListener('input', function() {
+            const selectedColor = this.value;
+            document.execCommand('foreColor', false, selectedColor);
+            colorBtn.style.color = selectedColor;
+            colorIndicator.style.backgroundColor = selectedColor;
+            document.getElementById(`${targetId}-rich`).focus();
+        });
+        
+        const customColorLabel = document.createElement('span');
+        customColorLabel.className = 'custom-color-label';
+        customColorLabel.textContent = 'Custom';
+        
+        customColorContainer.appendChild(customColorInput);
+        customColorContainer.appendChild(customColorLabel);
+        colorDropdown.appendChild(customColorContainer);
+        
+        colorContainer.appendChild(colorBtn);
+        colorContainer.appendChild(colorDropdown);
+        
+        // Bullet list button
+        const bulletListBtn = document.createElement('button');
+        bulletListBtn.type = 'button';
+        bulletListBtn.className = 'format-btn';
+        bulletListBtn.innerHTML = '•';
+        bulletListBtn.title = 'Bullet List';
+        bulletListBtn.addEventListener('click', function() {
+            document.execCommand('insertUnorderedList');
+            document.getElementById(`${targetId}-rich`).focus();
+        });
+        
+        // Numbered list button
+        const numberedListBtn = document.createElement('button');
+        numberedListBtn.type = 'button';
+        numberedListBtn.className = 'format-btn';
+        numberedListBtn.innerHTML = '1.';
+        numberedListBtn.title = 'Numbered List';
+        numberedListBtn.addEventListener('click', function() {
+            document.execCommand('insertOrderedList');
+            document.getElementById(`${targetId}-rich`).focus();
+        });
+        
+        // Separator
+        const separator2 = document.createElement('div');
+        separator2.className = 'format-separator';
+        
+        // Align left button
+        const alignLeftBtn = document.createElement('button');
+        alignLeftBtn.type = 'button';
+        alignLeftBtn.className = 'format-btn';
+        alignLeftBtn.innerHTML = '≡';
+        alignLeftBtn.title = 'Align Left';
+        alignLeftBtn.addEventListener('click', function() {
+            document.execCommand('justifyLeft');
+            document.getElementById(`${targetId}-rich`).focus();
+        });
+        
+        // Align center button
+        const alignCenterBtn = document.createElement('button');
+        alignCenterBtn.type = 'button';
+        alignCenterBtn.className = 'format-btn';
+        alignCenterBtn.innerHTML = '≡';
+        alignCenterBtn.style.textAlign = 'center';
+        alignCenterBtn.title = 'Align Center';
+        alignCenterBtn.addEventListener('click', function() {
+            document.execCommand('justifyCenter');
+            document.getElementById(`${targetId}-rich`).focus();
+        });
+        
+        // Align right button
+        const alignRightBtn = document.createElement('button');
+        alignRightBtn.type = 'button';
+        alignRightBtn.className = 'format-btn';
+        alignRightBtn.innerHTML = '≡';
+        alignRightBtn.style.textAlign = 'right';
+        alignRightBtn.title = 'Align Right';
+        alignRightBtn.addEventListener('click', function() {
+            document.execCommand('justifyRight');
+            document.getElementById(`${targetId}-rich`).focus();
+        });
+        
+        // Separator
+        const separator3 = document.createElement('div');
+        separator3.className = 'format-separator';
+        
+        // Clear formatting button
+        const clearFormattingBtn = document.createElement('button');
+        clearFormattingBtn.type = 'button';
+        clearFormattingBtn.className = 'format-btn';
+        clearFormattingBtn.innerHTML = 'Clear';
+        clearFormattingBtn.title = 'Clear Formatting';
+        clearFormattingBtn.addEventListener('click', function() {
+            document.execCommand('removeFormat');
+            document.getElementById(`${targetId}-rich`).focus();
+        });
+        
+        // Add buttons to toolbar
+        toolbar.appendChild(boldBtn);
+        toolbar.appendChild(italicBtn);
+        toolbar.appendChild(underlineBtn);
+        toolbar.appendChild(separator1);
+        toolbar.appendChild(colorContainer); 
+        toolbar.appendChild(separator2);
+        toolbar.appendChild(bulletListBtn);
+        toolbar.appendChild(numberedListBtn);
+        toolbar.appendChild(separator3);
+        toolbar.appendChild(alignLeftBtn);
+        toolbar.appendChild(alignCenterBtn);
+        toolbar.appendChild(alignRightBtn);
+        toolbar.appendChild(separator3);
+        toolbar.appendChild(clearFormattingBtn);
+        
+        return toolbar;
+    }
+
+    // Function to get formatted content from rich text editor for letter generation
+    function getFormattedContent(fieldId) {
+        const richTextArea = document.getElementById(`${fieldId}-rich`);
+        if (richTextArea) {
+            return richTextArea.innerHTML;
+        }
+        return document.getElementById(fieldId).value.replace(/\n/g, '<br>');
+    }
+
     // Generate letters
     function generateLetters() {
         const recallDate = document.getElementById('recallDate').value;
@@ -209,16 +522,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Get content override checkbox and text
         const isContentOverride = useContentOverride && useContentOverride.checked;
-        const overrideText = contentOverride && contentOverride.value ? contentOverride.value : '';
+        const overrideText = contentOverride && contentOverride.value ? 
+                            getFormattedContent('contentOverride') : '';
         
-        // Get letter content from form
+        // Get formatted letter content from rich text editors
         const letterTitle = document.getElementById('letterTitle').value;
-        const paragraph1 = document.getElementById('paragraph1').value;
-        const paragraph2 = document.getElementById('paragraph2').value;
-        const paragraph3 = document.getElementById('paragraph3').value;
-        const paragraph4 = document.getElementById('paragraph4').value;
-        const paragraph5 = document.getElementById('paragraph5').value;
-        const contactInfo = document.getElementById('contactInfo').value;
+        const paragraph1 = getFormattedContent('paragraph1');
+        const paragraph2 = getFormattedContent('paragraph2');
+        const paragraph3 = getFormattedContent('paragraph3');
+        const paragraph4 = getFormattedContent('paragraph4');
+        const paragraph5 = getFormattedContent('paragraph5');
+        const contactInfo = getFormattedContent('contactInfo');
         
         // Validate required fields
         if (!recallDate || !manufacturer || !ncr || !materialCategory || !issue) {
@@ -329,7 +643,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update UI after letters are generated
         updateLettersUI();
     }
-    
+
     // Group data by specified criteria
     function groupDataBy(data, groupBy) {
         const groupedData = {};
@@ -396,7 +710,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         return groupedData;
     }
-    
+
     // Create a letter element
     function createLetter(records, recallDate, manufacturer, ncr, materialCategory, issue, selectedFields, heatNumber, 
                           letterTitle, paragraph1, paragraph2, paragraph3, paragraph4, paragraph5, contactInfo, customFields,
@@ -495,34 +809,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isContentOverride && overrideText) {
             // Use override text instead of individual paragraphs
             let formattedOverrideText = overrideText
-                .replace('[MANUFACTURER]', manufacturer)
-                .replace('[MATERIAL_CATEGORY]', materialCategory)
-                .replace('[ISSUE]', issue)
-                .replace('[HEAT_NUMBER]', heatNumber)
-                .replace('[FIELD1]', customFields.field1)
-                .replace('[FIELD2]', customFields.field2)
-                .replace('[FIELD3]', customFields.field3)
-                .replace('[FIELD4]', customFields.field4)
-                .replace('[FIELD5]', customFields.field5);
+                .replace(/\[MANUFACTURER\]/g, manufacturer)
+                .replace(/\[MATERIAL_CATEGORY\]/g, materialCategory)
+                .replace(/\[ISSUE\]/g, issue)
+                .replace(/\[HEAT_NUMBER\]/g, heatNumber)
+                .replace(/\[FIELD1\]/g, customFields.field1)
+                .replace(/\[FIELD2\]/g, customFields.field2)
+                .replace(/\[FIELD3\]/g, customFields.field3)
+                .replace(/\[FIELD4\]/g, customFields.field4)
+                .replace(/\[FIELD5\]/g, customFields.field5);
             
             // Create a single content element with the override text
             const overrideContentElem = document.createElement('div');
             overrideContentElem.className = 'editable override-content';
-            
-            // Split by lines and create paragraph elements
-            const lines = formattedOverrideText.split('\n');
-            
-            lines.forEach((line, index) => {
-                if (line.trim() === '') {
-                    // Empty line, add a line break
-                    overrideContentElem.appendChild(document.createElement('br'));
-                } else {
-                    // Create paragraph for non-empty lines
-                    const p = document.createElement('p');
-                    p.textContent = line;
-                    overrideContentElem.appendChild(p);
-                }
-            });
+            overrideContentElem.innerHTML = formattedOverrideText;
             
             overrideContentElem.setAttribute('data-original', formattedOverrideText);
             overrideContentElem.setAttribute('data-field', 'overrideContent');
@@ -530,90 +830,90 @@ document.addEventListener('DOMContentLoaded', function() {
             
             contentDiv.appendChild(overrideContentElem);
         } else {
-            // Use standard paragraphs
+            // Use standard paragraphs with formatting
             // Replace placeholders in paragraph text
             let formattedParagraph1 = paragraph1
-                .replace('[MANUFACTURER]', manufacturer)
-                .replace('[MATERIAL_CATEGORY]', materialCategory)
-                .replace('[ISSUE]', issue)
-                .replace('[FIELD1]', customFields.field1)
-                .replace('[FIELD2]', customFields.field2)
-                .replace('[FIELD3]', customFields.field3)
-                .replace('[FIELD4]', customFields.field4)
-                .replace('[FIELD5]', customFields.field5);
+                .replace(/\[MANUFACTURER\]/g, manufacturer)
+                .replace(/\[MATERIAL_CATEGORY\]/g, materialCategory)
+                .replace(/\[ISSUE\]/g, issue)
+                .replace(/\[FIELD1\]/g, customFields.field1)
+                .replace(/\[FIELD2\]/g, customFields.field2)
+                .replace(/\[FIELD3\]/g, customFields.field3)
+                .replace(/\[FIELD4\]/g, customFields.field4)
+                .replace(/\[FIELD5\]/g, customFields.field5);
                 
             let formattedParagraph2 = paragraph2
-                .replace('[FIELD1]', customFields.field1)
-                .replace('[FIELD2]', customFields.field2)
-                .replace('[FIELD3]', customFields.field3)
-                .replace('[FIELD4]', customFields.field4)
-                .replace('[FIELD5]', customFields.field5);
+                .replace(/\[FIELD1\]/g, customFields.field1)
+                .replace(/\[FIELD2\]/g, customFields.field2)
+                .replace(/\[FIELD3\]/g, customFields.field3)
+                .replace(/\[FIELD4\]/g, customFields.field4)
+                .replace(/\[FIELD5\]/g, customFields.field5);
                 
             let formattedParagraph3 = paragraph3
-                .replace('[MATERIAL_CATEGORY]', materialCategory)
-                .replace('[FIELD1]', customFields.field1)
-                .replace('[FIELD2]', customFields.field2)
-                .replace('[FIELD3]', customFields.field3)
-                .replace('[FIELD4]', customFields.field4)
-                .replace('[FIELD5]', customFields.field5);
+                .replace(/\[MATERIAL_CATEGORY\]/g, materialCategory)
+                .replace(/\[FIELD1\]/g, customFields.field1)
+                .replace(/\[FIELD2\]/g, customFields.field2)
+                .replace(/\[FIELD3\]/g, customFields.field3)
+                .replace(/\[FIELD4\]/g, customFields.field4)
+                .replace(/\[FIELD5\]/g, customFields.field5);
                 
             let formattedParagraph4 = paragraph4
-                .replace('[FIELD1]', customFields.field1)
-                .replace('[FIELD2]', customFields.field2)
-                .replace('[FIELD3]', customFields.field3)
-                .replace('[FIELD4]', customFields.field4)
-                .replace('[FIELD5]', customFields.field5);
+                .replace(/\[FIELD1\]/g, customFields.field1)
+                .replace(/\[FIELD2\]/g, customFields.field2)
+                .replace(/\[FIELD3\]/g, customFields.field3)
+                .replace(/\[FIELD4\]/g, customFields.field4)
+                .replace(/\[FIELD5\]/g, customFields.field5);
                 
             let formattedParagraph5 = paragraph5
-                .replace('[FIELD1]', customFields.field1)
-                .replace('[FIELD2]', customFields.field2)
-                .replace('[FIELD3]', customFields.field3)
-                .replace('[FIELD4]', customFields.field4)
-                .replace('[FIELD5]', customFields.field5);
+                .replace(/\[FIELD1\]/g, customFields.field1)
+                .replace(/\[FIELD2\]/g, customFields.field2)
+                .replace(/\[FIELD3\]/g, customFields.field3)
+                .replace(/\[FIELD4\]/g, customFields.field4)
+                .replace(/\[FIELD5\]/g, customFields.field5);
                 
             let formattedContactInfo = contactInfo
-                .replace('[FIELD1]', customFields.field1)
-                .replace('[FIELD2]', customFields.field2)
-                .replace('[FIELD3]', customFields.field3)
-                .replace('[FIELD4]', customFields.field4)
-                .replace('[FIELD5]', customFields.field5);
-            
-            const paragraph1Elem = document.createElement('p');
+                .replace(/\[FIELD1\]/g, customFields.field1)
+                .replace(/\[FIELD2\]/g, customFields.field2)
+                .replace(/\[FIELD3\]/g, customFields.field3)
+                .replace(/\[FIELD4\]/g, customFields.field4)
+                .replace(/\[FIELD5\]/g, customFields.field5);
+        
+            const paragraph1Elem = document.createElement('div');
             paragraph1Elem.className = 'editable';
-            paragraph1Elem.textContent = formattedParagraph1;
+            paragraph1Elem.innerHTML = formattedParagraph1;
             paragraph1Elem.setAttribute('data-original', formattedParagraph1);
             paragraph1Elem.setAttribute('data-field', 'paragraph1');
             makeEditable(paragraph1Elem);
             
-            const paragraph2Elem = document.createElement('p');
+            const paragraph2Elem = document.createElement('div');
             paragraph2Elem.className = 'editable';
-            paragraph2Elem.textContent = formattedParagraph2;
+            paragraph2Elem.innerHTML = formattedParagraph2;
             paragraph2Elem.setAttribute('data-original', formattedParagraph2);
             paragraph2Elem.setAttribute('data-field', 'paragraph2');
             makeEditable(paragraph2Elem);
             
-            const paragraph3Elem = document.createElement('p');
+            const paragraph3Elem = document.createElement('div');
             paragraph3Elem.className = 'editable';
-            paragraph3Elem.textContent = formattedParagraph3;
+            paragraph3Elem.innerHTML = formattedParagraph3;
             paragraph3Elem.setAttribute('data-original', formattedParagraph3);
             paragraph3Elem.setAttribute('data-field', 'paragraph3');
             makeEditable(paragraph3Elem);
             
-            const paragraph4Elem = document.createElement('p');
+            const paragraph4Elem = document.createElement('div');
             paragraph4Elem.className = 'editable';
-            paragraph4Elem.textContent = formattedParagraph4;
+            paragraph4Elem.innerHTML = formattedParagraph4;
             paragraph4Elem.setAttribute('data-original', formattedParagraph4);
             paragraph4Elem.setAttribute('data-field', 'paragraph4');
             makeEditable(paragraph4Elem);
             
-            const paragraph5Elem = document.createElement('p');
+            const paragraph5Elem = document.createElement('div');
             paragraph5Elem.className = 'editable';
-            paragraph5Elem.textContent = formattedParagraph5;
+            paragraph5Elem.innerHTML = formattedParagraph5;
             paragraph5Elem.setAttribute('data-original', formattedParagraph5);
             paragraph5Elem.setAttribute('data-field', 'paragraph5');
             makeEditable(paragraph5Elem);
             
-            const contactInfoElem = document.createElement('p');
+            const contactInfoElem = document.createElement('div');
             contactInfoElem.className = 'editable';
             contactInfoElem.innerHTML = formattedContactInfo;
             contactInfoElem.setAttribute('data-original', formattedContactInfo);
@@ -621,7 +921,7 @@ document.addEventListener('DOMContentLoaded', function() {
             contactInfoElem.style.marginTop = '20px';
             makeEditable(contactInfoElem);
             
-            // Add all paragraphs to the content div first
+            // Add all paragraphs to the content div
             contentDiv.appendChild(paragraph1Elem);
             contentDiv.appendChild(paragraph2Elem);
             contentDiv.appendChild(paragraph3Elem);
@@ -710,7 +1010,7 @@ document.addEventListener('DOMContentLoaded', function() {
             element.classList.add('editing');
             
             // Store original content
-            const originalContent = element.textContent;
+            const originalContent = element.innerHTML;
             
             // Make element editable
             element.contentEditable = true;
@@ -762,18 +1062,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.removeEventListener('keydown', handleEscape);
                 
                 if (save) {
-                    // Get the modified content
-                    const newContent = element.textContent.replace('Editing', '').trim();
+                    // Get the modified content - preserve HTML
+                    const newContent = element.innerHTML.replace(/<div class="edit-indicator">.*?<\/div>/g, '').trim();
                     
-                    // Update the element
-                    element.textContent = newContent;
+                    // Update the element - preserve HTML
+                    element.innerHTML = newContent;
                     
                     // Update the generatedLetters array
                     const letterIndex = Array.from(letters.children).indexOf(letterContainer);
                     if (letterIndex !== -1 && element.hasAttribute('data-field')) {
                         const field = element.getAttribute('data-field');
                         
-                        // Update the relevant field in the stored data
+                        // Update the relevant field in the stored data - preserve HTML
                         switch (field) {
                             case 'address':
                                 generatedLetters[letterIndex].address = newContent;
@@ -815,8 +1115,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 } else {
-                    // Reset to original content
-                    element.textContent = originalContent;
+                    // Reset to original content - preserve HTML
+                    element.innerHTML = originalContent;
                 }
                 
                 // Clean up
@@ -884,25 +1184,25 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update address if edited
         const addressElem = letterElement.querySelector('.letter-address');
         if (addressElem) {
-            addressElem.textContent = letterData.address;
+            addressElem.innerHTML = letterData.address;
         }
         
         // Update title if edited
         const titleElem = letterElement.querySelector('.letter-title');
         if (titleElem) {
-            titleElem.textContent = letterData.letterTitle;
+            titleElem.innerHTML = letterData.letterTitle;
         }
         
         // Update manufacturer if edited
         const manufacturerElem = letterElement.querySelector('.letter-manufacturer');
         if (manufacturerElem) {
-            manufacturerElem.textContent = `Manufacturer: ${letterData.manufacturer}`;
+            manufacturerElem.innerHTML = `Manufacturer: ${letterData.manufacturer}`;
         }
         
         // Update NCR if edited
         const ncrElem = letterElement.querySelector('.letter-ncr');
         if (ncrElem) {
-            ncrElem.textContent = `NCR: ${letterData.ncr}`;
+            ncrElem.innerHTML = `NCR: ${letterData.ncr}`;
         }
         
         // Update control number if edited
@@ -912,7 +1212,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (letterData.heatNumber) {
                 heatNumberText = ` | Heat Number: ${letterData.heatNumber}`;
             }
-            controlElem.textContent = `Control #: ${letterData.control}${heatNumberText}`;
+            controlElem.innerHTML = `Control #: ${letterData.control}${heatNumberText}`;
         }
         
         // Check if using content override or standard paragraphs
@@ -924,15 +1224,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Format override text
                 let formattedOverrideText = letterData.overrideText
-                    .replace('[MANUFACTURER]', letterData.manufacturer)
-                    .replace('[MATERIAL_CATEGORY]', letterData.materialCategory)
-                    .replace('[ISSUE]', letterData.issue)
-                    .replace('[HEAT_NUMBER]', letterData.heatNumber || '')
-                    .replace('[FIELD1]', letterData.customFields.field1 || '')
-                    .replace('[FIELD2]', letterData.customFields.field2 || '')
-                    .replace('[FIELD3]', letterData.customFields.field3 || '')
-                    .replace('[FIELD4]', letterData.customFields.field4 || '')
-                    .replace('[FIELD5]', letterData.customFields.field5 || '');
+                    .replace(/\[MANUFACTURER\]/g, letterData.manufacturer)
+                    .replace(/\[MATERIAL_CATEGORY\]/g, letterData.materialCategory)
+                    .replace(/\[ISSUE\]/g, letterData.issue)
+                    .replace(/\[HEAT_NUMBER\]/g, letterData.heatNumber || '')
+                    .replace(/\[FIELD1\]/g, letterData.customFields.field1 || '')
+                    .replace(/\[FIELD2\]/g, letterData.customFields.field2 || '')
+                    .replace(/\[FIELD3\]/g, letterData.customFields.field3 || '')
+                    .replace(/\[FIELD4\]/g, letterData.customFields.field4 || '')
+                    .replace(/\[FIELD5\]/g, letterData.customFields.field5 || '');
                 
                 // Create content element with formatted text
                 const overrideContentElem = document.createElement('div');
@@ -957,55 +1257,55 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else {
             // Update standard paragraphs if edited
-            const paragraphs = letterElement.querySelectorAll('.letter-content p');
+            const paragraphs = letterElement.querySelectorAll('.letter-content div');
             if (paragraphs.length >= 6) {
                 // Process all placeholders in paragraphs
-                paragraphs[0].textContent = letterData.paragraph1
-                    .replace('[MANUFACTURER]', letterData.manufacturer)
-                    .replace('[MATERIAL_CATEGORY]', letterData.materialCategory)
-                    .replace('[ISSUE]', letterData.issue)
-                    .replace('[FIELD1]', letterData.customFields.field1 || '')
-                    .replace('[FIELD2]', letterData.customFields.field2 || '')
-                    .replace('[FIELD3]', letterData.customFields.field3 || '')
-                    .replace('[FIELD4]', letterData.customFields.field4 || '')
-                    .replace('[FIELD5]', letterData.customFields.field5 || '');
+                paragraphs[0].innerHTML = letterData.paragraph1
+                    .replace(/\[MANUFACTURER\]/g, letterData.manufacturer)
+                    .replace(/\[MATERIAL_CATEGORY\]/g, letterData.materialCategory)
+                    .replace(/\[ISSUE\]/g, letterData.issue)
+                    .replace(/\[FIELD1\]/g, letterData.customFields.field1 || '')
+                    .replace(/\[FIELD2\]/g, letterData.customFields.field2 || '')
+                    .replace(/\[FIELD3\]/g, letterData.customFields.field3 || '')
+                    .replace(/\[FIELD4\]/g, letterData.customFields.field4 || '')
+                    .replace(/\[FIELD5\]/g, letterData.customFields.field5 || '');
                     
-                paragraphs[1].textContent = letterData.paragraph2
-                    .replace('[MATERIAL_CATEGORY]', letterData.materialCategory)
-                    .replace('[FIELD1]', letterData.customFields.field1 || '')
-                    .replace('[FIELD2]', letterData.customFields.field2 || '')
-                    .replace('[FIELD3]', letterData.customFields.field3 || '')
-                    .replace('[FIELD4]', letterData.customFields.field4 || '')
-                    .replace('[FIELD5]', letterData.customFields.field5 || '');
+                paragraphs[1].innerHTML = letterData.paragraph2
+                    .replace(/\[MATERIAL_CATEGORY\]/g, letterData.materialCategory)
+                    .replace(/\[FIELD1\]/g, letterData.customFields.field1 || '')
+                    .replace(/\[FIELD2\]/g, letterData.customFields.field2 || '')
+                    .replace(/\[FIELD3\]/g, letterData.customFields.field3 || '')
+                    .replace(/\[FIELD4\]/g, letterData.customFields.field4 || '')
+                    .replace(/\[FIELD5\]/g, letterData.customFields.field5 || '');
                     
-                paragraphs[2].textContent = letterData.paragraph3
-                    .replace('[MATERIAL_CATEGORY]', letterData.materialCategory)
-                    .replace('[FIELD1]', letterData.customFields.field1 || '')
-                    .replace('[FIELD2]', letterData.customFields.field2 || '')
-                    .replace('[FIELD3]', letterData.customFields.field3 || '')
-                    .replace('[FIELD4]', letterData.customFields.field4 || '')
-                    .replace('[FIELD5]', letterData.customFields.field5 || '');
+                paragraphs[2].innerHTML = letterData.paragraph3
+                    .replace(/\[MATERIAL_CATEGORY\]/g, letterData.materialCategory)
+                    .replace(/\[FIELD1\]/g, letterData.customFields.field1 || '')
+                    .replace(/\[FIELD2\]/g, letterData.customFields.field2 || '')
+                    .replace(/\[FIELD3\]/g, letterData.customFields.field3 || '')
+                    .replace(/\[FIELD4\]/g, letterData.customFields.field4 || '')
+                    .replace(/\[FIELD5\]/g, letterData.customFields.field5 || '');
                     
-                paragraphs[3].textContent = letterData.paragraph4
-                    .replace('[FIELD1]', letterData.customFields.field1 || '')
-                    .replace('[FIELD2]', letterData.customFields.field2 || '')
-                    .replace('[FIELD3]', letterData.customFields.field3 || '')
-                    .replace('[FIELD4]', letterData.customFields.field4 || '')
-                    .replace('[FIELD5]', letterData.customFields.field5 || '');
+                paragraphs[3].innerHTML = letterData.paragraph4
+                    .replace(/\[FIELD1\]/g, letterData.customFields.field1 || '')
+                    .replace(/\[FIELD2\]/g, letterData.customFields.field2 || '')
+                    .replace(/\[FIELD3\]/g, letterData.customFields.field3 || '')
+                    .replace(/\[FIELD4\]/g, letterData.customFields.field4 || '')
+                    .replace(/\[FIELD5\]/g, letterData.customFields.field5 || '');
                     
-                paragraphs[4].textContent = letterData.paragraph5
-                    .replace('[FIELD1]', letterData.customFields.field1 || '')
-                    .replace('[FIELD2]', letterData.customFields.field2 || '')
-                    .replace('[FIELD3]', letterData.customFields.field3 || '')
-                    .replace('[FIELD4]', letterData.customFields.field4 || '')
-                    .replace('[FIELD5]', letterData.customFields.field5 || '');
+                paragraphs[4].innerHTML = letterData.paragraph5
+                    .replace(/\[FIELD1\]/g, letterData.customFields.field1 || '')
+                    .replace(/\[FIELD2\]/g, letterData.customFields.field2 || '')
+                    .replace(/\[FIELD3\]/g, letterData.customFields.field3 || '')
+                    .replace(/\[FIELD4\]/g, letterData.customFields.field4 || '')
+                    .replace(/\[FIELD5\]/g, letterData.customFields.field5 || '');
                     
-                paragraphs[5].textContent = letterData.contactInfo
-                    .replace('[FIELD1]', letterData.customFields.field1 || '')
-                    .replace('[FIELD2]', letterData.customFields.field2 || '')
-                    .replace('[FIELD3]', letterData.customFields.field3 || '')
-                    .replace('[FIELD4]', letterData.customFields.field4 || '')
-                    .replace('[FIELD5]', letterData.customFields.field5 || '');
+                paragraphs[5].innerHTML = letterData.contactInfo
+                    .replace(/\[FIELD1\]/g, letterData.customFields.field1 || '')
+                    .replace(/\[FIELD2\]/g, letterData.customFields.field2 || '')
+                    .replace(/\[FIELD3\]/g, letterData.customFields.field3 || '')
+                    .replace(/\[FIELD4\]/g, letterData.customFields.field4 || '')
+                    .replace(/\[FIELD5\]/g, letterData.customFields.field5 || '');
             }
         }
         
@@ -1298,65 +1598,64 @@ document.addEventListener('DOMContentLoaded', function() {
         if (letterData.isContentOverride && letterData.overrideText) {
             // Format and add override text
             let formattedOverrideText = letterData.overrideText
-                .replace('[MANUFACTURER]', letterData.manufacturer)
-                .replace('[MATERIAL_CATEGORY]', letterData.materialCategory)
-                .replace('[ISSUE]', letterData.issue)
-                .replace('[HEAT_NUMBER]', letterData.heatNumber || '')
-                .replace('[FIELD1]', letterData.customFields.field1 || '')
-                .replace('[FIELD2]', letterData.customFields.field2 || '')
-                .replace('[FIELD3]', letterData.customFields.field3 || '')
-                .replace('[FIELD4]', letterData.customFields.field4 || '')
-                .replace('[FIELD5]', letterData.customFields.field5 || '');
+                .replace(/\[MANUFACTURER\]/g, letterData.manufacturer)
+                .replace(/\[MATERIAL_CATEGORY\]/g, letterData.materialCategory)
+                .replace(/\[ISSUE\]/g, letterData.issue)
+                .replace(/\[HEAT_NUMBER\]/g, letterData.heatNumber || '')
+                .replace(/\[FIELD1\]/g, letterData.customFields.field1 || '')
+                .replace(/\[FIELD2\]/g, letterData.customFields.field2 || '')
+                .replace(/\[FIELD3\]/g, letterData.customFields.field3 || '')
+                .replace(/\[FIELD4\]/g, letterData.customFields.field4 || '')
+                .replace(/\[FIELD5\]/g, letterData.customFields.field5 || '');
                 
             text += `${formattedOverrideText}\n\n`;
         } else {
             // Add standard body paragraphs
             let formattedParagraph1 = letterData.paragraph1
-                .replace('[MANUFACTURER]', letterData.manufacturer)
-                .replace('[MATERIAL_CATEGORY]', letterData.materialCategory)
-                .replace('[ISSUE]', letterData.issue)
-                .replace('[FIELD1]', letterData.customFields.field1)
-                .replace('[FIELD2]', letterData.customFields.field2)
-                .replace('[FIELD3]', letterData.customFields.field3)
-                .replace('[FIELD4]', letterData.customFields.field4)
-                .replace('[FIELD5]', letterData.customFields.field5);
+                .replace(/\[MANUFACTURER\]/g, letterData.manufacturer)
+                .replace(/\[MATERIAL_CATEGORY\]/g, letterData.materialCategory)
+                .replace(/\[ISSUE\]/g, letterData.issue)
+                .replace(/\[FIELD1\]/g, letterData.customFields.field1)
+                .replace(/\[FIELD2\]/g, letterData.customFields.field2)
+                .replace(/\[FIELD3\]/g, letterData.customFields.field3)
+                .replace(/\[FIELD4\]/g, letterData.customFields.field4)
+                .replace(/\[FIELD5\]/g, letterData.customFields.field5);
                 
             let formattedParagraph2 = letterData.paragraph2
-                .replace('[MATERIAL_CATEGORY]', letterData.materialCategory)
-                .replace('[FIELD1]', letterData.customFields.field1)
-                .replace('[FIELD2]', letterData.customFields.field2)
-                .replace('[FIELD3]', letterData.customFields.field3)
-                .replace('[FIELD4]', letterData.customFields.field4)
-                .replace('[FIELD5]', letterData.customFields.field5);
+                .replace(/\[FIELD1\]/g, letterData.customFields.field1)
+                .replace(/\[FIELD2\]/g, letterData.customFields.field2)
+                .replace(/\[FIELD3\]/g, letterData.customFields.field3)
+                .replace(/\[FIELD4\]/g, letterData.customFields.field4)
+                .replace(/\[FIELD5\]/g, letterData.customFields.field5);
                 
             let formattedParagraph3 = letterData.paragraph3
-                .replace('[MATERIAL_CATEGORY]', letterData.materialCategory)
-                .replace('[FIELD1]', letterData.customFields.field1)
-                .replace('[FIELD2]', letterData.customFields.field2)
-                .replace('[FIELD3]', letterData.customFields.field3)
-                .replace('[FIELD4]', letterData.customFields.field4)
-                .replace('[FIELD5]', letterData.customFields.field5);
+                .replace(/\[MATERIAL_CATEGORY\]/g, letterData.materialCategory)
+                .replace(/\[FIELD1\]/g, letterData.customFields.field1)
+                .replace(/\[FIELD2\]/g, letterData.customFields.field2)
+                .replace(/\[FIELD3\]/g, letterData.customFields.field3)
+                .replace(/\[FIELD4\]/g, letterData.customFields.field4)
+                .replace(/\[FIELD5\]/g, letterData.customFields.field5);
                 
             let formattedParagraph4 = letterData.paragraph4
-                .replace('[FIELD1]', letterData.customFields.field1)
-                .replace('[FIELD2]', letterData.customFields.field2)
-                .replace('[FIELD3]', letterData.customFields.field3)
-                .replace('[FIELD4]', letterData.customFields.field4)
-                .replace('[FIELD5]', letterData.customFields.field5);
+                .replace(/\[FIELD1\]/g, letterData.customFields.field1)
+                .replace(/\[FIELD2\]/g, letterData.customFields.field2)
+                .replace(/\[FIELD3\]/g, letterData.customFields.field3)
+                .replace(/\[FIELD4\]/g, letterData.customFields.field4)
+                .replace(/\[FIELD5\]/g, letterData.customFields.field5);
                 
             let formattedParagraph5 = letterData.paragraph5
-                .replace('[FIELD1]', letterData.customFields.field1)
-                .replace('[FIELD2]', letterData.customFields.field2)
-                .replace('[FIELD3]', letterData.customFields.field3)
-                .replace('[FIELD4]', letterData.customFields.field4)
-                .replace('[FIELD5]', letterData.customFields.field5);
+                .replace(/\[FIELD1\]/g, letterData.customFields.field1)
+                .replace(/\[FIELD2\]/g, letterData.customFields.field2)
+                .replace(/\[FIELD3\]/g, letterData.customFields.field3)
+                .replace(/\[FIELD4\]/g, letterData.customFields.field4)
+                .replace(/\[FIELD5\]/g, letterData.customFields.field5);
                 
             let formattedContactInfo = letterData.contactInfo
-                .replace('[FIELD1]', letterData.customFields.field1)
-                .replace('[FIELD2]', letterData.customFields.field2)
-                .replace('[FIELD3]', letterData.customFields.field3)
-                .replace('[FIELD4]', letterData.customFields.field4)
-                .replace('[FIELD5]', letterData.customFields.field5);
+                .replace(/\[FIELD1\]/g, letterData.customFields.field1)
+                .replace(/\[FIELD2\]/g, letterData.customFields.field2)
+                .replace(/\[FIELD3\]/g, letterData.customFields.field3)
+                .replace(/\[FIELD4\]/g, letterData.customFields.field4)
+                .replace(/\[FIELD5\]/g, letterData.customFields.field5);
             
             text += `${formattedParagraph1}\n\n`;
             text += `${formattedParagraph2}\n\n`;
@@ -1392,6 +1691,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         return text;
+    }
+
+    // Helper function to strip HTML but preserve line breaks
+    function stripHtml(html) {
+        // Create temporary element
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        
+        // Replace <br>, <p>, <div> with line breaks
+        const content = temp.innerHTML
+            .replace(/<br\s*\/?>/gi, '\n')
+            .replace(/<\/p><p>/gi, '\n\n')
+            .replace(/<\/div><div>/gi, '\n')
+            .replace(/<li>/gi, '• ')
+            .replace(/<\/li>/gi, '\n');
+            
+        // Strip all remaining HTML tags
+        const stripped = temp.textContent || temp.innerText || '';
+        
+        // Clean up excessive line breaks
+        return stripped.replace(/\n{3,}/g, '\n\n');
     }
 
     // Function to print a single letter
