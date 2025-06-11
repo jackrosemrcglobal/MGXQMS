@@ -398,8 +398,10 @@ function loadReportFromData(report) {
           }
         } else {
             // Handle checkbox/radio groups that are not single inputs
-             if (Array.isArray(form.elements[key])) {
-                 Array.from(form.elements[key]).forEach(groupInput => {
+           //  if (Array.isArray(form.elements[key])) {
+          if (form.elements[key] instanceof RadioNodeList) {
+  
+          Array.from(form.elements[key]).forEach(groupInput => {
                      if (groupInput.type === 'checkbox' || groupInput.type === 'radio') {
                         if (Array.isArray(report.data[key])) {
                              groupInput.checked = report.data[key].includes(groupInput.value);
