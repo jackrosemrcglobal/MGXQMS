@@ -398,10 +398,8 @@ function loadReportFromData(report) {
           }
         } else {
             // Handle checkbox/radio groups that are not single inputs
-           //  if (form.elements[key] instanceof RadioNodeList) {
-  if (Array.isArray(form.elements[key])) {
-          
-          Array.from(form.elements[key]).forEach(groupInput => {
+             if (Array.isArray(form.elements[key])) {
+                 Array.from(form.elements[key]).forEach(groupInput => {
                      if (groupInput.type === 'checkbox' || groupInput.type === 'radio') {
                         if (Array.isArray(report.data[key])) {
                              groupInput.checked = report.data[key].includes(groupInput.value);
@@ -1324,103 +1322,15 @@ function initSimpleSaveAndLoad() {
     for (let key in report.data) {
       if (key === '_sectionOrder') continue;
       
-//      const input = form.elements[key];
-//      if (input) {
-//        if (input.type === 'checkbox' || input.type === 'radio') {
-//          input.checked = report.data[key] === 'on' || report.data[key] === true;
-//        } else {
-//          input.value = report.data[key];
-//        }
-//      }
-//    }
-
-
-
-const inputs = form.querySelectorAll(`[name="${key}"]`);
-
-if (inputs.length > 0) {
-  inputs.forEach(input => {
-    if (input.type === 'checkbox') {
-      if (Array.isArray(report.data[key])) {
-        input.checked = report.data[key].includes(input.value);
-      } else {
-        input.checked = report.data[key] === 'on' || report.data[key] === true || report.data[key] === input.value;
-      }
-    } else if (input.type === 'radio') {
-      input.checked = report.data[key] === input.value;
-    } else {
-      input.value = report.data[key];
-    }
-  });
-} else {
-  // Handle dynamic table inputs
-  const dynamicInput = form.querySelector(`[name="${key}"]`);
-  if (dynamicInput && dynamicInput.name.match(/-[0-9]+$/) && !dynamicInput.closest('.item-details-transposed')) {
-    const nameParts = dynamicInput.name.split('-');
-    const baseName = nameParts.slice(0, -1).join('-');
-    const index = parseInt(nameParts[nameParts.length - 1]);
-
-    const table = dynamicInput.closest('table');
-    if (table) {
-      const tbody = table.querySelector('tbody');
-      let currentHighestIndex = 0;
-
-      tbody.querySelectorAll('tr').forEach(row => {
-        const rowInput = row.querySelector(`[name^="${baseName}-"]`);
-        if (rowInput) {
-          const rowIndex = parseInt(rowInput.name.split('-').pop());
-          if (!isNaN(rowIndex)) currentHighestIndex = Math.max(currentHighestIndex, rowIndex);
-        }
-      });
-
-      while (currentHighestIndex < index) {
-        let templateRow = Array.from(tbody.children).find(row =>
-          row.querySelector('input[name$="-template"], textarea[name$="-template"], select[name$="-template"]')
-        ) || tbody.lastElementChild;
-
-        if (templateRow) {
-          const newRow = templateRow.cloneNode(true);
-          currentHighestIndex++;
-
-          newRow.querySelectorAll('input, textarea, select').forEach(newInput => {
-            const newNameParts = newInput.name.split('-');
-            if (newNameParts[newNameParts.length - 1] === 'template' || !isNaN(newNameParts[newNameParts.length - 1])) {
-              newNameParts[newNameParts.length - 1] = currentHighestIndex.toString();
-              newInput.name = newNameParts.join('-');
-              newInput.id = newNameParts.join('-');
-              newInput.value = '';
-              if (newInput.type === 'checkbox' || newInput.type === 'radio') newInput.checked = false;
-            }
-          });
-
-          const templateRowElement = tbody.querySelector('tr input[name$="-template"]')?.closest('tr');
-          if (templateRowElement) {
-            tbody.insertBefore(newRow, templateRowElement);
-          } else {
-            tbody.appendChild(newRow);
-          }
+      const input = form.elements[key];
+      if (input) {
+        if (input.type === 'checkbox' || input.type === 'radio') {
+          input.checked = report.data[key] === 'on' || report.data[key] === true;
         } else {
-          console.error(`Could not find a template row to add for dynamic table input: ${key}`);
-          break;
+          input.value = report.data[key];
         }
       }
-
-      // Finally set the value
-      const targetInput = form.querySelector(`[name="${key}"]`);
-      if (targetInput) {
-        targetInput.value = report.data[key];
-      }
     }
-  } else {
-    console.warn(`Input(s) for key "${key}" not found.`);
-  }
-}
-
-
-
-
-
-
     
     // Restore section order if available
     if (report.data._sectionOrder) {
