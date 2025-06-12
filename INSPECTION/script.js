@@ -290,18 +290,24 @@ function loadReportFromData(report) {
 
       //newupdate
       
-        const state = JSON.parse(json);
+// Save checked checkboxes to JSON
+function saveCheckboxStates() {
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  const state = {};
 
-  for (const group in state) {
-    for (const id in state[group]) {
-      const checkbox = document.getElementById(id);
-      if (checkbox) {
-        checkbox.checked = state[group][id];
-      }
+  checkboxes.forEach(checkbox => {
+    const group = checkbox.name;
+    if (!state[group]) {
+      state[group] = {};
     }
-  }
-}
-     //newupdate
+    state[group][checkbox.id] = checkbox.checked;
+  });
+
+  // Convert to JSON string
+  const json = JSON.stringify(state);
+  console.log("Saved JSON:", json); // You can store it to localStorage or send it to a server
+  return json;
+}     //newupdate
           
       
       const input = form.elements[key];
@@ -1315,22 +1321,19 @@ function initSimpleSaveAndLoad() {
 
 //newupdate
 
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  const state = {};
+// Load checked checkboxes from JSON
+function loadCheckboxStates(json) {
+  const state = JSON.parse(json);
 
-  checkboxes.forEach(checkbox => {
-    const group = checkbox.name;
-    if (!state[group]) {
-      state[group] = {};
+  for (const group in state) {
+    for (const id in state[group]) {
+      const checkbox = document.getElementById(id);
+      if (checkbox) {
+        checkbox.checked = state[group][id];
+      }
     }
-    state[group][checkbox.id] = checkbox.checked;
-  });
-
-  // Convert to JSON string
-  const json = JSON.stringify(state);
-  console.log("Saved JSON:", json); // You can store it to localStorage or send it to a server
-  return json;
-    
+  }
+}    
     
     //newupdate    
 
