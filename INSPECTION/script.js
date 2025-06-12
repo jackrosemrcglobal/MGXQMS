@@ -287,7 +287,24 @@ function loadReportFromData(report) {
 
     } else {
         // Handle other inputs (including standard textareas)
-        const input = form.elements[key];
+
+      //newupdate
+      
+        const state = JSON.parse(json);
+
+  for (const group in state) {
+    for (const id in state[group]) {
+      const checkbox = document.getElementById(id);
+      if (checkbox) {
+        checkbox.checked = state[group][id];
+      }
+    }
+  }
+}
+     //newupdate
+          
+      
+      const input = form.elements[key];
 
         if (input) {
           // Handle single inputs
@@ -1294,6 +1311,31 @@ function initSimpleSaveAndLoad() {
       timestamp: Date.now(),
       data: data
     };
+
+
+//newupdate
+
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  const state = {};
+
+  checkboxes.forEach(checkbox => {
+    const group = checkbox.name;
+    if (!state[group]) {
+      state[group] = {};
+    }
+    state[group][checkbox.id] = checkbox.checked;
+  });
+
+  // Convert to JSON string
+  const json = JSON.stringify(state);
+  console.log("Saved JSON:", json); // You can store it to localStorage or send it to a server
+  return json;
+    
+    
+    //newupdate    
+
+
+
     
     // Save to localStorage
     const savedReports = getSavedReports();
