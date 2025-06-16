@@ -277,8 +277,8 @@ const QC_MODULES = {
         category: "qc",
         description: "Advanced inspection report builder for Test A procedures and documentation. Features include automated report generation, customizable templates, and compliance verification. Purpose: Generate comprehensive inspection reports for Test A procedures. Scope: Specialized testing procedures, regulatory compliance reporting, and detailed inspection documentation.",
         initialData: {
-            url: 'https://example.com/inspection-report-builder-test-a',
-            description: 'Advanced inspection report builder for Test A procedures and documentation'
+            url: 'https://jackrosemrcglobal.github.io/MGXQMS_INSA',
+            description: 'Inspection report builder Test A'
         }
     },
     inspectionReportBuilder2: {
@@ -286,10 +286,10 @@ const QC_MODULES = {
         component: 'ExternalLink',
         storageKey: "qms-external-inspection-report-2",
         category: "qc",
-        description: "Advanced inspection report builder for Test B procedures and documentation. Features include automated report generation, customizable templates, and compliance verification. Purpose: Generate comprehensive inspection reports for Test B procedures. Scope: Specialized testing procedures, regulatory compliance reporting, and detailed inspection documentation.",
+        description: "Inspection report builder Test B (Automated report generation, customizable templates, and compliance verification. Purpose: Generate comprehensive inspection reports for Test B procedures. Scope: Specialized testing procedures, regulatory compliance reporting, and detailed inspection documentation)",
         initialData: {
-            url: 'https://example.com/inspection-report-builder-test-b',
-            description: 'Advanced inspection report builder for Test B procedures and documentation'
+            url: 'https://jackrosemrcglobal.github.io/MGXQMS_INSA',
+            description: 'Inspection report builder Test A'
         }
     }
 };
