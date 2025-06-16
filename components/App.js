@@ -828,7 +828,7 @@ export const App = () => {
                 groups=${GROUPS}
             />
             <header className="app-header">
-                <img src="/logo-placeholder.png" alt="MRC Global Logo" className="company-logo" />
+                <img src="logo.png" alt="MRC Global Logo" className="company-logo" />
                 <h1>MRC Global QMS v0.1</h1>
                 <div className="header-controls">
                     <button
