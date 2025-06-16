@@ -829,7 +829,7 @@ export const App = () => {
             />
             <header className="app-header">
                 <img src="logo.png" alt="MRC Global Logo" className="company-logo" />
-                <h1>MRC Global QMS v0.1</h1>
+                <h1></h1>
                 <div className="header-controls">
                     <button
                         className="theme-toggle search-toggle"
